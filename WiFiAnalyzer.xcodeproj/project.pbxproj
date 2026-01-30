@@ -37,6 +37,7 @@
 		D19BD374E8548FD4A73D63DB /* HeatMapLegendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49227D08616670B63E27E637 /* HeatMapLegendView.swift */; };
 		C59177FD413F23161D20D642 /* LocationMappingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBAEBF3E8657CC0F79DD303 /* LocationMappingView.swift */; };
 		144132B8862C435E9CE1464F /* CoreWLAN.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F12E0E107EB4A4F898E9CC8 /* CoreWLAN.framework */; };
+		78C391841FF84B948245EABD /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 3E0FB6C6EED244DE8C14D2B0 /* AppIcon.icns */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,6 +75,7 @@
 		49227D08616670B63E27E637 /* HeatMapLegendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeatMapLegendView.swift; sourceTree = "<group>"; };
 		DFBAEBF3E8657CC0F79DD303 /* LocationMappingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMappingView.swift; sourceTree = "<group>"; };
 		9F12E0E107EB4A4F898E9CC8 /* CoreWLAN.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreWLAN.framework; path = System/Library/Frameworks/CoreWLAN.framework; sourceTree = SDKROOT; };
+		3E0FB6C6EED244DE8C14D2B0 /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AppIcon.icns; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 				204508956AA94C638AF18935 /* WiFiAnalyzer.entitlements */,
 				322B0F6771CD4BFB9F443C55 /* Info.plist */,
 				72F9C5BF7BF8454DB1E6E22B /* Assets.xcassets */,
+				3E0FB6C6EED244DE8C14D2B0 /* AppIcon.icns */,
 				A814AFAE22024F3EA945E0B3 /* Models */,
 				9D81F2C4772246459D040AA1 /* Services */,
 				A31DAD4943884EDCBE536D81 /* ViewModels */,
@@ -274,6 +277,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				78C391841FF84B948245EABD /* AppIcon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
