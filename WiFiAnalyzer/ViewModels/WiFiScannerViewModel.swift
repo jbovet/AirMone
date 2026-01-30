@@ -1,0 +1,85 @@
+import Foundation
+import Combine
+
+@MainActor
+class WiFiScannerViewModel: ObservableObject {
+    @Published var currentNetwork: WiFiNetwork?
+    @Published var errorMessage: String?
+    @Published var isScanning: Bool = false
+    @Published var signalHistory: [SignalDataPoint] = []
+
+    private let scannerService: WiFiScannerService
+    private let persistenceService: PersistenceService
+    private var scanTimer: Timer?
+    private let maxHistoryPoints = 30 // Last 60 seconds of data (at 2-second intervals)
+
+    init(scannerService: WiFiScannerService = WiFiScannerService(),
+         persistenceService: PersistenceService = PersistenceService()) {
+        self.scannerService = scannerService
+        self.persistenceService = persistenceService
+    }
+
+    func startLiveScanning() {
+        guard !isScanning else { return }
+        isScanning = true
+        errorMessage = nil
+
+        scanNow()
+
+        scanTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { [weak self] _ in
+            Task { @MainActor [weak self] in
+                self?.scanNow()
+            }
+        }
+    }
+
+    func stopLiveScanning() {
+        isScanning = false
+        scanTimer?.invalidate()
+        scanTimer = nil
+    }
+
+    func clearHistory() {
+        signalHistory.removeAll()
+    }
+
+    private func scanNow() {
+        Task {
+            do {
+                let network = try await Task.detached(priority: .userInitiated) { [scannerService] in
+                    try scannerService.getCurrentNetwork()
+                }.value
+
+                await MainActor.run {
+                    self.currentNetwork = network
+                    self.errorMessage = nil
+
+                    // Add to signal history
+                    let dataPoint = SignalDataPoint(timestamp: network.timestamp, rssi: network.rssi)
+                    self.signalHistory.append(dataPoint)
+
+                    // Trim history to keep only last maxHistoryPoints
+                    if self.signalHistory.count > self.maxHistoryPoints {
+                        self.signalHistory.removeFirst(self.signalHistory.count - self.maxHistoryPoints)
+                    }
+                }
+            } catch {
+                await MainActor.run {
+                    self.currentNetwork = nil
+                    self.errorMessage = error.localizedDescription
+                }
+            }
+        }
+    }
+
+    func dropPin(locationName: String) {
+        guard let network = currentNetwork else { return }
+
+        let measurement = MeasurementPoint(locationName: locationName, network: network)
+        persistenceService.append(measurement)
+    }
+
+    deinit {
+        scanTimer?.invalidate()
+    }
+}
