@@ -4,110 +4,126 @@ struct SignalStrengthGuideView: View {
     @State private var isExpanded: Bool = false
 
     var body: some View {
-        GroupBox {
-            VStack(alignment: .leading, spacing: 12) {
-                // Header with toggle
-                Button(action: {
-                    withAnimation(.easeInOut(duration: 0.3)) {
-                        isExpanded.toggle()
-                    }
-                }) {
+        VStack(alignment: .leading, spacing: 0) {
+            SectionHeader(title: "Reference Guide")
+
+            VStack(spacing: 16) {
+                // Signal Strength Reference - Two Columns
+                VStack(alignment: .leading, spacing: 8) {
                     HStack {
-                        Image(systemName: "info.circle.fill")
+                        Image(systemName: "chart.bar.fill")
                             .foregroundColor(.blue)
+                            .frame(width: 16)
 
-                        Text("Signal Strength Guide")
-                            .font(.headline)
+                        Text("Signal Strength Ranges")
+                            .font(.subheadline)
+                            .fontWeight(.semibold)
+                    }
 
-                        Spacer()
+                    // Two-column grid for signal ranges
+                    HStack(alignment: .top, spacing: 20) {
+                        // Left column - Excellent, Good, Fair
+                        VStack(alignment: .leading, spacing: 6) {
+                            SignalRangeCompactRow(strength: .excellent)
+                            SignalRangeCompactRow(strength: .good)
+                            SignalRangeCompactRow(strength: .fair)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
 
-                        Image(systemName: isExpanded ? "chevron.up" : "chevron.down")
-                            .foregroundColor(.secondary)
-                            .font(.caption)
+                        // Right column - Weak, Poor, Unusable
+                        VStack(alignment: .leading, spacing: 6) {
+                            SignalRangeCompactRow(strength: .weak)
+                            SignalRangeCompactRow(strength: .poor)
+                            SignalRangeCompactRow(strength: .unusable)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     }
                 }
-                .buttonStyle(.plain)
 
-                if isExpanded {
-                    Divider()
+                Divider()
 
-                    // Signal strength ranges
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("Understanding Your WiFi Signal")
+                // Frequency Bands
+                VStack(alignment: .leading, spacing: 8) {
+                    HStack {
+                        Image(systemName: "antenna.radiowaves.left.and.right")
+                            .foregroundColor(.blue)
+                            .frame(width: 16)
+
+                        Text("Frequency Bands")
                             .font(.subheadline)
                             .fontWeight(.semibold)
-                            .foregroundColor(.secondary)
-
-                        ForEach(SignalStrength.allCases, id: \.self) { strength in
-                            SignalRangeRow(strength: strength)
-                        }
                     }
 
-                    Divider()
+                    HStack(alignment: .top, spacing: 20) {
+                        VStack(alignment: .leading, spacing: 6) {
+                            BandInfoRow(band: "2.4 GHz", pros: "Long range", cons: "Slower, congested")
+                            BandInfoRow(band: "5 GHz", pros: "Fast, less congested", cons: "Shorter range")
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
 
-                    // Additional tips
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("Tips for Better Signal")
+                        VStack(alignment: .leading, spacing: 6) {
+                            BandInfoRow(band: "6 GHz", pros: "Fastest, no congestion", cons: "Very short range")
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                }
+
+                Divider()
+
+                // Router Placement Tips
+                VStack(alignment: .leading, spacing: 8) {
+                    HStack {
+                        Image(systemName: "lightbulb.fill")
+                            .foregroundColor(.blue)
+                            .frame(width: 16)
+
+                        Text("Optimization Tips")
                             .font(.subheadline)
                             .fontWeight(.semibold)
-                            .foregroundColor(.secondary)
+                    }
 
-                        TipRow(
-                            icon: "wifi.router",
-                            text: "Place router in a central location"
-                        )
+                    HStack(alignment: .top, spacing: 16) {
+                        VStack(alignment: .leading, spacing: 6) {
+                            TipCompactRow(icon: "wifi.router", text: "Central location")
+                            TipCompactRow(icon: "arrow.up.circle", text: "Elevate router")
+                            TipCompactRow(icon: "cube.transparent", text: "Avoid obstacles")
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
 
-                        TipRow(
-                            icon: "arrow.up.circle",
-                            text: "Elevate router off the ground"
-                        )
-
-                        TipRow(
-                            icon: "cube.transparent",
-                            text: "Avoid obstacles like walls and furniture"
-                        )
-
-                        TipRow(
-                            icon: "antenna.radiowaves.left.and.right",
-                            text: "Keep away from electronic interference"
-                        )
+                        VStack(alignment: .leading, spacing: 6) {
+                            TipCompactRow(icon: "antenna.radiowaves.left.and.right", text: "Reduce interference")
+                            TipCompactRow(icon: "arrow.triangle.2.circlepath", text: "Update firmware")
+                            TipCompactRow(icon: "gearshape", text: "Use 5 GHz for speed")
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     }
                 }
             }
             .padding()
         }
+        .background(Color(nsColor: .controlBackgroundColor))
+        .cornerRadius(8)
     }
 }
 
-struct SignalRangeRow: View {
+struct SignalRangeCompactRow: View {
     let strength: SignalStrength
 
     var body: some View {
-        HStack(spacing: 12) {
-            // Color indicator
-            RoundedRectangle(cornerRadius: 4)
+        HStack(spacing: 8) {
+            Circle()
                 .fill(strength.color)
-                .frame(width: 40, height: 24)
+                .frame(width: 10, height: 10)
 
-            // Strength name
             Text(strength.rawValue)
-                .font(.subheadline)
+                .font(.caption)
                 .fontWeight(.medium)
-                .frame(width: 80, alignment: .leading)
+                .frame(width: 70, alignment: .leading)
 
-            // dBm range
             Text(rssiRange(for: strength))
-                .font(.caption)
+                .font(.caption2)
                 .foregroundColor(.secondary)
-                .frame(width: 90, alignment: .leading)
-
-            // Description
-            Text(description(for: strength))
-                .font(.caption)
-                .foregroundColor(.secondary)
-                .lineLimit(2)
         }
-        .padding(.vertical, 2)
     }
 
     private func rssiRange(for strength: SignalStrength) -> String {
@@ -126,34 +142,51 @@ struct SignalRangeRow: View {
             return "< -90 dBm"
         }
     }
+}
 
-    private func description(for strength: SignalStrength) -> String {
-        switch strength {
-        case .excellent:
-            return "Perfect for all activities including 4K streaming and gaming"
-        case .good:
-            return "Great for HD streaming, video calls, and browsing"
-        case .fair:
-            return "Suitable for web browsing and standard video"
-        case .weak:
-            return "May experience slow speeds and buffering"
-        case .poor:
-            return "Difficult to maintain connections, frequent drops"
-        case .unusable:
-            return "Cannot establish or maintain reliable connection"
+struct BandInfoRow: View {
+    let band: String
+    let pros: String
+    let cons: String
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 2) {
+            Text(band)
+                .font(.caption)
+                .fontWeight(.semibold)
+
+            HStack(spacing: 4) {
+                Text("✓")
+                    .foregroundColor(.green)
+                    .font(.caption2)
+                Text(pros)
+                    .font(.caption2)
+                    .foregroundColor(.secondary)
+            }
+
+            HStack(spacing: 4) {
+                Text("✗")
+                    .foregroundColor(.red)
+                    .font(.caption2)
+                Text(cons)
+                    .font(.caption2)
+                    .foregroundColor(.secondary)
+            }
         }
+        .padding(.vertical, 2)
     }
 }
 
-struct TipRow: View {
+struct TipCompactRow: View {
     let icon: String
     let text: String
 
     var body: some View {
-        HStack(spacing: 8) {
+        HStack(spacing: 6) {
             Image(systemName: icon)
                 .foregroundColor(.blue)
-                .frame(width: 20)
+                .frame(width: 14)
+                .font(.caption2)
 
             Text(text)
                 .font(.caption)
@@ -169,4 +202,5 @@ struct TipRow: View {
 
         Spacer()
     }
+    .frame(width: 800)
 }
