@@ -53,8 +53,8 @@ class HeatMapViewModel: ObservableObject {
             return HeatMapDataPoint(from: measurement, coordinate: coordinate)
         }
 
-        // If no coordinates are set, auto-generate grid layout
-        if !hasCoordinates && !allMeasurements.isEmpty {
+        // Auto-generate grid layout for any locations missing coordinates
+        if !allMeasurements.isEmpty && !unmappedLocations.isEmpty {
             autoGenerateCoordinates()
             // Reload after generating coordinates
             loadMeasurements()

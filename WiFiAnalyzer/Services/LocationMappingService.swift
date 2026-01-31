@@ -29,7 +29,7 @@ class LocationMappingService {
     }
 
     func hasCoordinates(for locationNames: [String]) -> Bool {
-        !locationNames.filter { coordinate(for: $0) == nil }.isEmpty == false
+        locationNames.allSatisfy { coordinate(for: $0) != nil }
     }
 
     func hasAnyCoordinates() -> Bool {
@@ -69,7 +69,11 @@ class LocationMappingService {
     }
 
     func applyGridLayout(for locationNames: [String]) {
-        let gridMapping = generateGridLayout(for: locationNames)
+        // Only generate grid positions for locations that don't already have pinned coordinates
+        let unpinnedLocations = locationNames.filter { coordinate(for: $0) == nil }
+        guard !unpinnedLocations.isEmpty else { return }
+
+        let gridMapping = generateGridLayout(for: unpinnedLocations)
         for (locationName, coordinate) in gridMapping {
             coordinateMapping[locationName] = coordinate
         }

@@ -93,31 +93,4 @@ class MeasurementsViewModel: ObservableObject {
         }
     }
 
-    // MARK: - Import Methods
-
-    func importFromCSV(url: URL) -> Result<Int, Error> {
-        do {
-            let importedMeasurements = try exportService.importFromCSV(url)
-            for measurement in importedMeasurements {
-                persistenceService.append(measurement)
-            }
-            loadMeasurements()
-            return .success(importedMeasurements.count)
-        } catch {
-            return .failure(error)
-        }
-    }
-
-    func importFromJSON(url: URL) -> Result<Int, Error> {
-        do {
-            let importedMeasurements = try exportService.importFromJSON(url)
-            for measurement in importedMeasurements {
-                persistenceService.append(measurement)
-            }
-            loadMeasurements()
-            return .success(importedMeasurements.count)
-        } catch {
-            return .failure(error)
-        }
-    }
 }

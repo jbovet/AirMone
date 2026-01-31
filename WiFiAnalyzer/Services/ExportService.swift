@@ -62,7 +62,9 @@ class ExportService {
 
         let encoder = JSONEncoder()
         encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
-        encoder.dateEncodingStrategy = .iso8601
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        encoder.dateEncodingStrategy = .formatted(dateFormatter)
 
         guard let jsonData = try? encoder.encode(measurements) else {
             throw ExportError.encodingFailed
@@ -125,7 +127,9 @@ class ExportService {
         }
 
         let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .iso8601
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        decoder.dateDecodingStrategy = .formatted(dateFormatter)
 
         guard let measurements = try? decoder.decode([MeasurementPoint].self, from: jsonData) else {
             throw ExportError.encodingFailed

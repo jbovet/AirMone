@@ -1,16 +1,12 @@
 import SwiftUI
 import AppKit
-import UniformTypeIdentifiers
 
 struct MeasurementsListView: View {
     @StateObject private var viewModel = MeasurementsViewModel()
     @State private var showingDeleteConfirmation = false
     @State private var showingExportAlert = false
-    @State private var showingImportAlert = false
     @State private var exportMessage = ""
-    @State private var importMessage = ""
     @State private var isExportError = false
-    @State private var isImportError = false
 
     var body: some View {
         Group {
@@ -83,23 +79,6 @@ struct MeasurementsListView: View {
                         Label("Export", systemImage: "square.and.arrow.up")
                     }
 
-                    // Import Menu
-                    Menu {
-                        Button(action: {
-                            handleImport(format: .csv)
-                        }) {
-                            Label("Import from CSV", systemImage: "doc.text")
-                        }
-
-                        Button(action: {
-                            handleImport(format: .json)
-                        }) {
-                            Label("Import from JSON", systemImage: "doc.badge.gearshape")
-                        }
-                    } label: {
-                        Label("Import", systemImage: "square.and.arrow.down")
-                    }
-
                     Button(action: {
                         showingDeleteConfirmation = true
                     }) {
@@ -124,13 +103,8 @@ struct MeasurementsListView: View {
         } message: {
             Text(exportMessage)
         }
-        .alert(isImportError ? "Import Failed" : "Import Successful", isPresented: $showingImportAlert) {
-            Button("OK", role: .cancel) { }
-        } message: {
-            Text(importMessage)
-        }
-        .onChange(of: viewModel.sortOption) { _ in
-            viewModel.loadMeasurements()
+        .onChange(of: viewModel.sortOption) { newValue in
+            viewModel.changeSortOption(newValue)
         }
     }
 
@@ -156,45 +130,6 @@ struct MeasurementsListView: View {
         }
 
         showingExportAlert = true
-    }
-
-    private func handleImport(format: ExportFormat) {
-        let panel = NSOpenPanel()
-        panel.allowsMultipleSelection = false
-        panel.canChooseDirectories = false
-
-        switch format {
-        case .csv:
-            panel.allowedContentTypes = [.commaSeparatedText]
-            panel.message = "Select a CSV file to import"
-        case .json:
-            panel.allowedContentTypes = [.json]
-            panel.message = "Select a JSON file to import"
-        }
-
-        guard panel.runModal() == .OK, let url = panel.url else {
-            return
-        }
-
-        let result: Result<Int, Error>
-
-        switch format {
-        case .csv:
-            result = viewModel.importFromCSV(url: url)
-        case .json:
-            result = viewModel.importFromJSON(url: url)
-        }
-
-        switch result {
-        case .success(let count):
-            importMessage = "Successfully imported \(count) measurement\(count == 1 ? "" : "s")"
-            isImportError = false
-        case .failure(let error):
-            importMessage = error.localizedDescription
-            isImportError = true
-        }
-
-        showingImportAlert = true
     }
 
     private var measurementsList: some View {
