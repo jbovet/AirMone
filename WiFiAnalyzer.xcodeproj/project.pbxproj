@@ -3,54 +3,54 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AAFCF63A1ED448D6A8B0CAF5 /* WiFiAnalyzerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D800141739B441CA3DFA171 /* WiFiAnalyzerApp.swift */; };
-		EBCF001F670B4A7BBF04C7EC /* SignalStrength.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12481A064D9244789F6D6468 /* SignalStrength.swift */; };
-		1D113030C01847E48D06E836 /* WiFiNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC94E1621614C6594373E73 /* WiFiNetwork.swift */; };
-		C7FE12DFD69D402CB37AA773 /* MeasurementPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63596FFD12D341CAA6D24009 /* MeasurementPoint.swift */; };
-		69FB3DD565902D744824C926 /* SignalDataPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B244D8937A1A9D31D3ED6EA /* SignalDataPoint.swift */; };
-		C3378FFD3B5EF2F8020726A0 /* LocationCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5CDDA4DA5F03D625D7AD5A /* LocationCoordinate.swift */; };
-		5130510DFAA6617A0A4D5708 /* HeatMapDataPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420E89C8045D56BAAC635740 /* HeatMapDataPoint.swift */; };
-		DBDE819582034E228C9A3A92 /* WiFiScannerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010309BCDD9C4202AFBE3BA6 /* WiFiScannerService.swift */; };
-		E4326590FD6E4C30ACA315DE /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C4F66ED6EF4095A6B00DF4 /* PersistenceService.swift */; };
-		748CDA0E26294C28A368DA09 /* ExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D439BF1D09C4C52A84C817B8 /* ExportService.swift */; };
-		54D9AD89A52D7CB2D36737C7 /* LocationMappingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA85452D47ADD49AB2CF1B44 /* LocationMappingService.swift */; };
-		DC7255B1E8C82354597587D9 /* HeatMapInterpolator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AB68A756C39BD8AC346C30 /* HeatMapInterpolator.swift */; };
-		B10FB3D5315D4D7BBDA90CD1 /* WiFiScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43BCF85D7DD4B0C94AD2840 /* WiFiScannerViewModel.swift */; };
-		B72AF3CA4F364044931A7C67 /* MeasurementsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5A127F185F4D2F96C9AAB0 /* MeasurementsViewModel.swift */; };
-		908B285E221857B583FD745F /* StatisticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA876AC4ECB6CC3D11C8E58 /* StatisticsViewModel.swift */; };
-		CEEC5EB5D87E6B9034A01218 /* HeatMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F95ADF5794288257CF9154 /* HeatMapViewModel.swift */; };
 		068560E44CFD4EB7816EEE1B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37A5B9E3A874E918DD77CCC /* ContentView.swift */; };
-		E0AF44BDABF04D49AA0AD6FB /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB172CFF10940D8965ACBED /* DashboardView.swift */; };
-		CFD35F5ECA004E2A927B818B /* SignalGaugeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3E2822AF7E4900AC884F83 /* SignalGaugeView.swift */; };
-		2B6E1D7B3F094D97B3141BF7 /* NetworkInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF25285BF4084122A2DB26D6 /* NetworkInfoView.swift */; };
-		C69529A5D5B5441B9C2E72EE /* DropPinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D094E8D1A84A7FB5E1EF2C /* DropPinView.swift */; };
-		A24103A4640A46FDF16B883C /* SignalHistoryChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60FB5651BF37339CB406BA6 /* SignalHistoryChartView.swift */; };
-		B5FDC03C0392B46E41F46B17 /* SignalStrengthGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3B33102D72AABCC8DF4291 /* SignalStrengthGuideView.swift */; };
+		11966A822D3B76068267ADB4 /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FB1D346AB7E7ACDAF601A1 /* StatisticsView.swift */; };
+		144132B8862C435E9CE1464F /* CoreWLAN.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F12E0E107EB4A4F898E9CC8 /* CoreWLAN.framework */; };
+		1D113030C01847E48D06E836 /* WiFiNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC94E1621614C6594373E73 /* WiFiNetwork.swift */; };
 		1F0A10590F384D85825BDC62 /* MeasurementsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6807075060DF4FA2BDD672EE /* MeasurementsListView.swift */; };
 		2999077A86CF4783A2857E8B /* MeasurementRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B91A093A9254A15A14B0440 /* MeasurementRowView.swift */; };
-		11966A822D3B76068267ADB4 /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FB1D346AB7E7ACDAF601A1 /* StatisticsView.swift */; };
-		7DB8340635A9FF07635F47FA /* HeatMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314C03D430F95A20870A0107 /* HeatMapView.swift */; };
-		D19BD374E8548FD4A73D63DB /* HeatMapLegendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49227D08616670B63E27E637 /* HeatMapLegendView.swift */; };
-		C59177FD413F23161D20D642 /* LocationMappingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBAEBF3E8657CC0F79DD303 /* LocationMappingView.swift */; };
-		144132B8862C435E9CE1464F /* CoreWLAN.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F12E0E107EB4A4F898E9CC8 /* CoreWLAN.framework */; };
+		2B6E1D7B3F094D97B3141BF7 /* NetworkInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF25285BF4084122A2DB26D6 /* NetworkInfoView.swift */; };
+		5130510DFAA6617A0A4D5708 /* HeatMapDataPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420E89C8045D56BAAC635740 /* HeatMapDataPoint.swift */; };
+		54D9AD89A52D7CB2D36737C7 /* LocationMappingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA85452D47ADD49AB2CF1B44 /* LocationMappingService.swift */; };
+		69FB3DD565902D744824C926 /* SignalDataPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B244D8937A1A9D31D3ED6EA /* SignalDataPoint.swift */; };
+		748CDA0E26294C28A368DA09 /* ExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D439BF1D09C4C52A84C817B8 /* ExportService.swift */; };
 		78C391841FF84B948245EABD /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 3E0FB6C6EED244DE8C14D2B0 /* AppIcon.icns */; };
-		F1A2B3C4D5E6F708192A3B4C /* SSIDColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6A708192A3B4D /* SSIDColorPalette.swift */; };
-		AA1B2C3D4E5F60718293A4B5 /* SignalStrengthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2C3D4E5F60718293A4B5C6 /* SignalStrengthTests.swift */; };
-		CC3D4E5F60718293A4B5C6D7 /* LocationCoordinateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4E5F60718293A4B5C6D7E8 /* LocationCoordinateTests.swift */; };
-		EE5F60718293A4B5C6D7E8F9 /* HeatMapInterpolatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF60718293A4B5C6D7E8F90A /* HeatMapInterpolatorTests.swift */; };
+		7DB8340635A9FF07635F47FA /* HeatMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314C03D430F95A20870A0107 /* HeatMapView.swift */; };
+		908B285E221857B583FD745F /* StatisticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA876AC4ECB6CC3D11C8E58 /* StatisticsViewModel.swift */; };
 		A160718293A4B5C6D7E8F90B /* PersistenceServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B270718293A4B5C6D7E8F90C /* PersistenceServiceTests.swift */; };
-		C370718293A4B5C6D7E8F90D /* ExportServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D470718293A4B5C6D7E8F90E /* ExportServiceTests.swift */; };
-		E570718293A4B5C6D7E8F90F /* StatisticsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F670718293A4B5C6D7E8F910 /* StatisticsViewModelTests.swift */; };
+		A24103A4640A46FDF16B883C /* SignalHistoryChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60FB5651BF37339CB406BA6 /* SignalHistoryChartView.swift */; };
 		A770718293A4B5C6D7E8F911 /* LocationMappingServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B870718293A4B5C6D7E8F912 /* LocationMappingServiceTests.swift */; };
+		AA1B2C3D4E5F60718293A4B5 /* SignalStrengthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2C3D4E5F60718293A4B5C6 /* SignalStrengthTests.swift */; };
+		AAFCF63A1ED448D6A8B0CAF5 /* WiFiAnalyzerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D800141739B441CA3DFA171 /* WiFiAnalyzerApp.swift */; };
 		AB12345678901BCD12345601 /* NearbyNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12345678901BCD12345611 /* NearbyNetwork.swift */; };
 		AB12345678901BCD12345602 /* NearbyNetworksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12345678901BCD12345612 /* NearbyNetworksViewModel.swift */; };
 		AB12345678901BCD12345603 /* NearbyNetworksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12345678901BCD12345613 /* NearbyNetworksView.swift */; };
 		AB12345678901BCD12345604 /* NearbyNetworkRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12345678901BCD12345614 /* NearbyNetworkRowView.swift */; };
 		AB12345678901BCD12345690 /* NearbyNetworksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12345678901BCD12345691 /* NearbyNetworksTests.swift */; };
+		B10FB3D5315D4D7BBDA90CD1 /* WiFiScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43BCF85D7DD4B0C94AD2840 /* WiFiScannerViewModel.swift */; };
+		B5FDC03C0392B46E41F46B17 /* SignalStrengthGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3B33102D72AABCC8DF4291 /* SignalStrengthGuideView.swift */; };
+		B72AF3CA4F364044931A7C67 /* MeasurementsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5A127F185F4D2F96C9AAB0 /* MeasurementsViewModel.swift */; };
+		C3378FFD3B5EF2F8020726A0 /* LocationCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5CDDA4DA5F03D625D7AD5A /* LocationCoordinate.swift */; };
+		C370718293A4B5C6D7E8F90D /* ExportServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D470718293A4B5C6D7E8F90E /* ExportServiceTests.swift */; };
+		C59177FD413F23161D20D642 /* LocationMappingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBAEBF3E8657CC0F79DD303 /* LocationMappingView.swift */; };
+		C69529A5D5B5441B9C2E72EE /* DropPinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D094E8D1A84A7FB5E1EF2C /* DropPinView.swift */; };
+		C7FE12DFD69D402CB37AA773 /* MeasurementPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63596FFD12D341CAA6D24009 /* MeasurementPoint.swift */; };
+		CC3D4E5F60718293A4B5C6D7 /* LocationCoordinateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4E5F60718293A4B5C6D7E8 /* LocationCoordinateTests.swift */; };
+		CEEC5EB5D87E6B9034A01218 /* HeatMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F95ADF5794288257CF9154 /* HeatMapViewModel.swift */; };
+		CFD35F5ECA004E2A927B818B /* SignalGaugeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3E2822AF7E4900AC884F83 /* SignalGaugeView.swift */; };
+		D19BD374E8548FD4A73D63DB /* HeatMapLegendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49227D08616670B63E27E637 /* HeatMapLegendView.swift */; };
+		DBDE819582034E228C9A3A92 /* WiFiScannerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010309BCDD9C4202AFBE3BA6 /* WiFiScannerService.swift */; };
+		DC7255B1E8C82354597587D9 /* HeatMapInterpolator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AB68A756C39BD8AC346C30 /* HeatMapInterpolator.swift */; };
+		E0AF44BDABF04D49AA0AD6FB /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB172CFF10940D8965ACBED /* DashboardView.swift */; };
+		E4326590FD6E4C30ACA315DE /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C4F66ED6EF4095A6B00DF4 /* PersistenceService.swift */; };
+		E570718293A4B5C6D7E8F90F /* StatisticsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F670718293A4B5C6D7E8F910 /* StatisticsViewModelTests.swift */; };
+		EBCF001F670B4A7BBF04C7EC /* SignalStrength.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12481A064D9244789F6D6468 /* SignalStrength.swift */; };
+		EE5F60718293A4B5C6D7E8F9 /* HeatMapInterpolatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF60718293A4B5C6D7E8F90A /* HeatMapInterpolatorTests.swift */; };
+		F1A2B3C4D5E6F708192A3B4C /* SSIDColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6A708192A3B4D /* SSIDColorPalette.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,58 +64,65 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		39E46616356E422A965CEC2B /* WiFiAnalyzer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WiFiAnalyzer.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		6D800141739B441CA3DFA171 /* WiFiAnalyzerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WiFiAnalyzerApp.swift; sourceTree = "<group>"; };
-		204508956AA94C638AF18935 /* WiFiAnalyzer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WiFiAnalyzer.entitlements; sourceTree = "<group>"; };
-		322B0F6771CD4BFB9F443C55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		72F9C5BF7BF8454DB1E6E22B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		12481A064D9244789F6D6468 /* SignalStrength.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalStrength.swift; sourceTree = "<group>"; };
-		9AC94E1621614C6594373E73 /* WiFiNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WiFiNetwork.swift; sourceTree = "<group>"; };
-		63596FFD12D341CAA6D24009 /* MeasurementPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementPoint.swift; sourceTree = "<group>"; };
-		1B244D8937A1A9D31D3ED6EA /* SignalDataPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalDataPoint.swift; sourceTree = "<group>"; };
-		6D5CDDA4DA5F03D625D7AD5A /* LocationCoordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCoordinate.swift; sourceTree = "<group>"; };
-		420E89C8045D56BAAC635740 /* HeatMapDataPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeatMapDataPoint.swift; sourceTree = "<group>"; };
 		010309BCDD9C4202AFBE3BA6 /* WiFiScannerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WiFiScannerService.swift; sourceTree = "<group>"; };
-		D4C4F66ED6EF4095A6B00DF4 /* PersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceService.swift; sourceTree = "<group>"; };
-		D439BF1D09C4C52A84C817B8 /* ExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportService.swift; sourceTree = "<group>"; };
-		DA85452D47ADD49AB2CF1B44 /* LocationMappingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMappingService.swift; sourceTree = "<group>"; };
-		C1AB68A756C39BD8AC346C30 /* HeatMapInterpolator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeatMapInterpolator.swift; sourceTree = "<group>"; };
-		C43BCF85D7DD4B0C94AD2840 /* WiFiScannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WiFiScannerViewModel.swift; sourceTree = "<group>"; };
-		4E5A127F185F4D2F96C9AAB0 /* MeasurementsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementsViewModel.swift; sourceTree = "<group>"; };
-		1AA876AC4ECB6CC3D11C8E58 /* StatisticsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewModel.swift; sourceTree = "<group>"; };
-		98F95ADF5794288257CF9154 /* HeatMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeatMapViewModel.swift; sourceTree = "<group>"; };
-		D37A5B9E3A874E918DD77CCC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		BEB172CFF10940D8965ACBED /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
-		4D3E2822AF7E4900AC884F83 /* SignalGaugeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalGaugeView.swift; sourceTree = "<group>"; };
-		DF25285BF4084122A2DB26D6 /* NetworkInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkInfoView.swift; sourceTree = "<group>"; };
-		C3D094E8D1A84A7FB5E1EF2C /* DropPinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropPinView.swift; sourceTree = "<group>"; };
-		E60FB5651BF37339CB406BA6 /* SignalHistoryChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalHistoryChartView.swift; sourceTree = "<group>"; };
-		AE3B33102D72AABCC8DF4291 /* SignalStrengthGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalStrengthGuideView.swift; sourceTree = "<group>"; };
-		6807075060DF4FA2BDD672EE /* MeasurementsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementsListView.swift; sourceTree = "<group>"; };
 		0B91A093A9254A15A14B0440 /* MeasurementRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementRowView.swift; sourceTree = "<group>"; };
-		A4FB1D346AB7E7ACDAF601A1 /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
+		12481A064D9244789F6D6468 /* SignalStrength.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalStrength.swift; sourceTree = "<group>"; };
+		1AA876AC4ECB6CC3D11C8E58 /* StatisticsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewModel.swift; sourceTree = "<group>"; };
+		1B244D8937A1A9D31D3ED6EA /* SignalDataPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalDataPoint.swift; sourceTree = "<group>"; };
+		204508956AA94C638AF18935 /* WiFiAnalyzer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WiFiAnalyzer.entitlements; sourceTree = "<group>"; };
 		314C03D430F95A20870A0107 /* HeatMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeatMapView.swift; sourceTree = "<group>"; };
-		49227D08616670B63E27E637 /* HeatMapLegendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeatMapLegendView.swift; sourceTree = "<group>"; };
-		DFBAEBF3E8657CC0F79DD303 /* LocationMappingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMappingView.swift; sourceTree = "<group>"; };
-		9F12E0E107EB4A4F898E9CC8 /* CoreWLAN.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreWLAN.framework; path = System/Library/Frameworks/CoreWLAN.framework; sourceTree = SDKROOT; };
+		322B0F6771CD4BFB9F443C55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		39E46616356E422A965CEC2B /* WiFiAnalyzer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WiFiAnalyzer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E0FB6C6EED244DE8C14D2B0 /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AppIcon.icns; sourceTree = "<group>"; };
-		DA70718293A4B5C6D7E8F914 /* WiFiAnalyzerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WiFiAnalyzerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		BB2C3D4E5F60718293A4B5C6 /* SignalStrengthTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalStrengthTests.swift; sourceTree = "<group>"; };
-		DD4E5F60718293A4B5C6D7E8 /* LocationCoordinateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCoordinateTests.swift; sourceTree = "<group>"; };
-		FF60718293A4B5C6D7E8F90A /* HeatMapInterpolatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeatMapInterpolatorTests.swift; sourceTree = "<group>"; };
-		B270718293A4B5C6D7E8F90C /* PersistenceServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceServiceTests.swift; sourceTree = "<group>"; };
-		D470718293A4B5C6D7E8F90E /* ExportServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportServiceTests.swift; sourceTree = "<group>"; };
-		F670718293A4B5C6D7E8F910 /* StatisticsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewModelTests.swift; sourceTree = "<group>"; };
-		B870718293A4B5C6D7E8F912 /* LocationMappingServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMappingServiceTests.swift; sourceTree = "<group>"; };
+		420E89C8045D56BAAC635740 /* HeatMapDataPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeatMapDataPoint.swift; sourceTree = "<group>"; };
+		49227D08616670B63E27E637 /* HeatMapLegendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeatMapLegendView.swift; sourceTree = "<group>"; };
+		4D3E2822AF7E4900AC884F83 /* SignalGaugeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalGaugeView.swift; sourceTree = "<group>"; };
+		4E5A127F185F4D2F96C9AAB0 /* MeasurementsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementsViewModel.swift; sourceTree = "<group>"; };
+		63596FFD12D341CAA6D24009 /* MeasurementPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementPoint.swift; sourceTree = "<group>"; };
+		6807075060DF4FA2BDD672EE /* MeasurementsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementsListView.swift; sourceTree = "<group>"; };
+		6D5CDDA4DA5F03D625D7AD5A /* LocationCoordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCoordinate.swift; sourceTree = "<group>"; };
+		6D800141739B441CA3DFA171 /* WiFiAnalyzerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WiFiAnalyzerApp.swift; sourceTree = "<group>"; };
+		72F9C5BF7BF8454DB1E6E22B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		98F95ADF5794288257CF9154 /* HeatMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeatMapViewModel.swift; sourceTree = "<group>"; };
+		9AC94E1621614C6594373E73 /* WiFiNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WiFiNetwork.swift; sourceTree = "<group>"; };
+		9F12E0E107EB4A4F898E9CC8 /* CoreWLAN.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreWLAN.framework; path = System/Library/Frameworks/CoreWLAN.framework; sourceTree = SDKROOT; };
 		A1B2C3D4E5F6A708192A3B4D /* SSIDColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSIDColorPalette.swift; sourceTree = "<group>"; };
+		A4FB1D346AB7E7ACDAF601A1 /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
 		AB12345678901BCD12345611 /* NearbyNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyNetwork.swift; sourceTree = "<group>"; };
 		AB12345678901BCD12345612 /* NearbyNetworksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyNetworksViewModel.swift; sourceTree = "<group>"; };
 		AB12345678901BCD12345613 /* NearbyNetworksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyNetworksView.swift; sourceTree = "<group>"; };
 		AB12345678901BCD12345614 /* NearbyNetworkRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyNetworkRowView.swift; sourceTree = "<group>"; };
 		AB12345678901BCD12345691 /* NearbyNetworksTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyNetworksTests.swift; sourceTree = "<group>"; };
+		AE3B33102D72AABCC8DF4291 /* SignalStrengthGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalStrengthGuideView.swift; sourceTree = "<group>"; };
+		B270718293A4B5C6D7E8F90C /* PersistenceServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceServiceTests.swift; sourceTree = "<group>"; };
+		B870718293A4B5C6D7E8F912 /* LocationMappingServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMappingServiceTests.swift; sourceTree = "<group>"; };
+		BB2C3D4E5F60718293A4B5C6 /* SignalStrengthTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalStrengthTests.swift; sourceTree = "<group>"; };
+		BEB172CFF10940D8965ACBED /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		C1AB68A756C39BD8AC346C30 /* HeatMapInterpolator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeatMapInterpolator.swift; sourceTree = "<group>"; };
+		C3D094E8D1A84A7FB5E1EF2C /* DropPinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropPinView.swift; sourceTree = "<group>"; };
+		C43BCF85D7DD4B0C94AD2840 /* WiFiScannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WiFiScannerViewModel.swift; sourceTree = "<group>"; };
+		D37A5B9E3A874E918DD77CCC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D439BF1D09C4C52A84C817B8 /* ExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportService.swift; sourceTree = "<group>"; };
+		D470718293A4B5C6D7E8F90E /* ExportServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportServiceTests.swift; sourceTree = "<group>"; };
+		D4C4F66ED6EF4095A6B00DF4 /* PersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceService.swift; sourceTree = "<group>"; };
+		DA70718293A4B5C6D7E8F914 /* WiFiAnalyzerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WiFiAnalyzerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA85452D47ADD49AB2CF1B44 /* LocationMappingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMappingService.swift; sourceTree = "<group>"; };
+		DD4E5F60718293A4B5C6D7E8 /* LocationCoordinateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCoordinateTests.swift; sourceTree = "<group>"; };
+		DF25285BF4084122A2DB26D6 /* NetworkInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkInfoView.swift; sourceTree = "<group>"; };
+		DFBAEBF3E8657CC0F79DD303 /* LocationMappingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMappingView.swift; sourceTree = "<group>"; };
+		E60FB5651BF37339CB406BA6 /* SignalHistoryChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalHistoryChartView.swift; sourceTree = "<group>"; };
+		F670718293A4B5C6D7E8F910 /* StatisticsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewModelTests.swift; sourceTree = "<group>"; };
+		FF60718293A4B5C6D7E8F90A /* HeatMapInterpolatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeatMapInterpolatorTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		EB70718293A4B5C6D7E8F915 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F7925237946C415BAC86F1BC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -124,24 +131,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EB70718293A4B5C6D7E8F915 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		683969B4295A4495AFE52AB0 = {
+		14DD8779B0ED4527AFFFAA4A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				186E820E0D054900AB3B0A03 /* WiFiAnalyzer */,
-				FC70718293A4B5C6D7E8F916 /* WiFiAnalyzerTests */,
-				14DD8779B0ED4527AFFFAA4A /* Frameworks */,
-				B4ABE09E4719477B875C17E8 /* Products */,
+				9F12E0E107EB4A4F898E9CC8 /* CoreWLAN.framework */,
 			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		186E820E0D054900AB3B0A03 /* WiFiAnalyzer */ = {
@@ -161,43 +159,44 @@
 			path = WiFiAnalyzer;
 			sourceTree = "<group>";
 		};
-		C2D3E4F5A6B7C8D9E0F1A2B3 /* Helpers */ = {
+		1E0A1A17CA2ECFB99025A41E /* Statistics */ = {
 			isa = PBXGroup;
 			children = (
-				A1B2C3D4E5F6A708192A3B4D /* SSIDColorPalette.swift */,
+				A4FB1D346AB7E7ACDAF601A1 /* StatisticsView.swift */,
 			);
-			path = Helpers;
+			path = Statistics;
 			sourceTree = "<group>";
 		};
-		B4ABE09E4719477B875C17E8 /* Products */ = {
+		4BCCD5AF88CF4E38A5C2B952 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
-				39E46616356E422A965CEC2B /* WiFiAnalyzer.app */,
-				DA70718293A4B5C6D7E8F914 /* WiFiAnalyzerTests.xctest */,
+				BEB172CFF10940D8965ACBED /* DashboardView.swift */,
+				4D3E2822AF7E4900AC884F83 /* SignalGaugeView.swift */,
+				DF25285BF4084122A2DB26D6 /* NetworkInfoView.swift */,
+				C3D094E8D1A84A7FB5E1EF2C /* DropPinView.swift */,
+				E60FB5651BF37339CB406BA6 /* SignalHistoryChartView.swift */,
+				AE3B33102D72AABCC8DF4291 /* SignalStrengthGuideView.swift */,
 			);
-			name = Products;
+			path = Dashboard;
 			sourceTree = "<group>";
 		};
-		14DD8779B0ED4527AFFFAA4A /* Frameworks */ = {
+		683969B4295A4495AFE52AB0 = {
 			isa = PBXGroup;
 			children = (
-				9F12E0E107EB4A4F898E9CC8 /* CoreWLAN.framework */,
+				186E820E0D054900AB3B0A03 /* WiFiAnalyzer */,
+				FC70718293A4B5C6D7E8F916 /* WiFiAnalyzerTests */,
+				14DD8779B0ED4527AFFFAA4A /* Frameworks */,
+				B4ABE09E4719477B875C17E8 /* Products */,
 			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		A814AFAE22024F3EA945E0B3 /* Models */ = {
+		6DAAC45B968D4487A25084FD /* Measurements */ = {
 			isa = PBXGroup;
 			children = (
-				12481A064D9244789F6D6468 /* SignalStrength.swift */,
-				9AC94E1621614C6594373E73 /* WiFiNetwork.swift */,
-				63596FFD12D341CAA6D24009 /* MeasurementPoint.swift */,
-				1B244D8937A1A9D31D3ED6EA /* SignalDataPoint.swift */,
-				6D5CDDA4DA5F03D625D7AD5A /* LocationCoordinate.swift */,
-				420E89C8045D56BAAC635740 /* HeatMapDataPoint.swift */,
-				AB12345678901BCD12345611 /* NearbyNetwork.swift */,
+				6807075060DF4FA2BDD672EE /* MeasurementsListView.swift */,
+				0B91A093A9254A15A14B0440 /* MeasurementRowView.swift */,
 			);
-			path = Models;
+			path = Measurements;
 			sourceTree = "<group>";
 		};
 		9D81F2C4772246459D040AA1 /* Services */ = {
@@ -224,47 +223,36 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
-		E676A42F924E44098E5CA6A4 /* Views */ = {
+		A814AFAE22024F3EA945E0B3 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				D37A5B9E3A874E918DD77CCC /* ContentView.swift */,
-				4BCCD5AF88CF4E38A5C2B952 /* Dashboard */,
-				AB12345678901BCD12345620 /* NearbyNetworks */,
-				6DAAC45B968D4487A25084FD /* Measurements */,
-				1E0A1A17CA2ECFB99025A41E /* Statistics */,
-				BA7DE4F89A3C28D52408FB11 /* HeatMap */,
+				12481A064D9244789F6D6468 /* SignalStrength.swift */,
+				9AC94E1621614C6594373E73 /* WiFiNetwork.swift */,
+				63596FFD12D341CAA6D24009 /* MeasurementPoint.swift */,
+				1B244D8937A1A9D31D3ED6EA /* SignalDataPoint.swift */,
+				6D5CDDA4DA5F03D625D7AD5A /* LocationCoordinate.swift */,
+				420E89C8045D56BAAC635740 /* HeatMapDataPoint.swift */,
+				AB12345678901BCD12345611 /* NearbyNetwork.swift */,
 			);
-			path = Views;
+			path = Models;
 			sourceTree = "<group>";
 		};
-		4BCCD5AF88CF4E38A5C2B952 /* Dashboard */ = {
+		AB12345678901BCD12345620 /* NearbyNetworks */ = {
 			isa = PBXGroup;
 			children = (
-				BEB172CFF10940D8965ACBED /* DashboardView.swift */,
-				4D3E2822AF7E4900AC884F83 /* SignalGaugeView.swift */,
-				DF25285BF4084122A2DB26D6 /* NetworkInfoView.swift */,
-				C3D094E8D1A84A7FB5E1EF2C /* DropPinView.swift */,
-				E60FB5651BF37339CB406BA6 /* SignalHistoryChartView.swift */,
-				AE3B33102D72AABCC8DF4291 /* SignalStrengthGuideView.swift */,
+				AB12345678901BCD12345613 /* NearbyNetworksView.swift */,
+				AB12345678901BCD12345614 /* NearbyNetworkRowView.swift */,
 			);
-			path = Dashboard;
+			path = NearbyNetworks;
 			sourceTree = "<group>";
 		};
-		6DAAC45B968D4487A25084FD /* Measurements */ = {
+		B4ABE09E4719477B875C17E8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6807075060DF4FA2BDD672EE /* MeasurementsListView.swift */,
-				0B91A093A9254A15A14B0440 /* MeasurementRowView.swift */,
+				39E46616356E422A965CEC2B /* WiFiAnalyzer.app */,
+				DA70718293A4B5C6D7E8F914 /* WiFiAnalyzerTests.xctest */,
 			);
-			path = Measurements;
-			sourceTree = "<group>";
-		};
-		1E0A1A17CA2ECFB99025A41E /* Statistics */ = {
-			isa = PBXGroup;
-			children = (
-				A4FB1D346AB7E7ACDAF601A1 /* StatisticsView.swift */,
-			);
-			path = Statistics;
+			name = Products;
 			sourceTree = "<group>";
 		};
 		BA7DE4F89A3C28D52408FB11 /* HeatMap */ = {
@@ -277,13 +265,25 @@
 			path = HeatMap;
 			sourceTree = "<group>";
 		};
-		AB12345678901BCD12345620 /* NearbyNetworks */ = {
+		C2D3E4F5A6B7C8D9E0F1A2B3 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				AB12345678901BCD12345613 /* NearbyNetworksView.swift */,
-				AB12345678901BCD12345614 /* NearbyNetworkRowView.swift */,
+				A1B2C3D4E5F6A708192A3B4D /* SSIDColorPalette.swift */,
 			);
-			path = NearbyNetworks;
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		E676A42F924E44098E5CA6A4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D37A5B9E3A874E918DD77CCC /* ContentView.swift */,
+				4BCCD5AF88CF4E38A5C2B952 /* Dashboard */,
+				AB12345678901BCD12345620 /* NearbyNetworks */,
+				6DAAC45B968D4487A25084FD /* Measurements */,
+				1E0A1A17CA2ECFB99025A41E /* Statistics */,
+				BA7DE4F89A3C28D52408FB11 /* HeatMap */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		FC70718293A4B5C6D7E8F916 /* WiFiAnalyzerTests */ = {
@@ -346,7 +346,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 2620;
 				TargetAttributes = {
 					23B1B9E145034FE0A14DE533 = {
 						CreatedOnToolsVersion = 15.0;
@@ -358,7 +358,7 @@
 				};
 			};
 			buildConfigurationList = 712CA66267A94215BB0118E8 /* Build configuration list for PBXProject "WiFiAnalyzer" */;
-			compatibilityVersion = "Xcode 14.0";
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -455,69 +455,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		BA4EB57288784032A8A82AC7 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-			};
-			name = Debug;
-		};
 		4D00BFF0DB224E429A80399F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -552,6 +489,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -565,11 +503,48 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		59CF463CE0494955B6D3A0E3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = WiFiAnalyzer/WiFiAnalyzer.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_RESOURCE_ACCESS_LOCATION = YES;
+				ENABLE_USER_SELECTED_FILES = readwrite;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = WiFiAnalyzer/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "WiFi Analyzer";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.WiFiAnalyzer;
+				PRODUCT_NAME = WiFiAnalyzer;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -582,10 +557,15 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = "";
+				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_RESOURCE_ACCESS_LOCATION = YES;
+				ENABLE_USER_SELECTED_FILES = readwrite;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = WiFiAnalyzer/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "WiFi Analyzer";
@@ -604,36 +584,70 @@
 			};
 			name = Debug;
 		};
-		59CF463CE0494955B6D3A0E3 /* Release */ = {
+		BA4EB57288784032A8A82AC7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = WiFiAnalyzer/WiFiAnalyzer.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = "";
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = WiFiAnalyzer/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "WiFi Analyzer";
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
-				LD_RUNPATH_SEARCH_PATHS = (
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
 					"$$(inherited)",
-					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.WiFiAnalyzer;
-				PRODUCT_NAME = WiFiAnalyzer;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
-			name = Release;
+			name = Debug;
 		};
 		DB70718293A4B5C6D7E8F91B /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -641,9 +655,10 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.WiFiAnalyzerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -659,9 +674,10 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.WiFiAnalyzerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -674,20 +690,20 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		712CA66267A94215BB0118E8 /* Build configuration list for PBXProject "WiFiAnalyzer" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				BA4EB57288784032A8A82AC7 /* Debug */,
-				4D00BFF0DB224E429A80399F /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		14FF32B4E8FB4B048BEB7228 /* Build configuration list for PBXNativeTarget "WiFiAnalyzer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6C9F3C92BBE746188FC0A3FD /* Debug */,
 				59CF463CE0494955B6D3A0E3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		712CA66267A94215BB0118E8 /* Build configuration list for PBXProject "WiFiAnalyzer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BA4EB57288784032A8A82AC7 /* Debug */,
+				4D00BFF0DB224E429A80399F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
