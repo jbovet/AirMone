@@ -38,6 +38,7 @@
 		C59177FD413F23161D20D642 /* LocationMappingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBAEBF3E8657CC0F79DD303 /* LocationMappingView.swift */; };
 		144132B8862C435E9CE1464F /* CoreWLAN.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F12E0E107EB4A4F898E9CC8 /* CoreWLAN.framework */; };
 		78C391841FF84B948245EABD /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 3E0FB6C6EED244DE8C14D2B0 /* AppIcon.icns */; };
+		F1A2B3C4D5E6F708192A3B4C /* SSIDColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6A708192A3B4D /* SSIDColorPalette.swift */; };
 		AA1B2C3D4E5F60718293A4B5 /* SignalStrengthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2C3D4E5F60718293A4B5C6 /* SignalStrengthTests.swift */; };
 		CC3D4E5F60718293A4B5C6D7 /* LocationCoordinateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4E5F60718293A4B5C6D7E8 /* LocationCoordinateTests.swift */; };
 		EE5F60718293A4B5C6D7E8F9 /* HeatMapInterpolatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF60718293A4B5C6D7E8F90A /* HeatMapInterpolatorTests.swift */; };
@@ -101,6 +102,7 @@
 		D470718293A4B5C6D7E8F90E /* ExportServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportServiceTests.swift; sourceTree = "<group>"; };
 		F670718293A4B5C6D7E8F910 /* StatisticsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewModelTests.swift; sourceTree = "<group>"; };
 		B870718293A4B5C6D7E8F912 /* LocationMappingServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMappingServiceTests.swift; sourceTree = "<group>"; };
+		A1B2C3D4E5F6A708192A3B4D /* SSIDColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSIDColorPalette.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,8 +146,17 @@
 				9D81F2C4772246459D040AA1 /* Services */,
 				A31DAD4943884EDCBE536D81 /* ViewModels */,
 				E676A42F924E44098E5CA6A4 /* Views */,
+				C2D3E4F5A6B7C8D9E0F1A2B3 /* Helpers */,
 			);
 			path = WiFiAnalyzer;
+			sourceTree = "<group>";
+		};
+		C2D3E4F5A6B7C8D9E0F1A2B3 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				A1B2C3D4E5F6A708192A3B4D /* SSIDColorPalette.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		B4ABE09E4719477B875C17E8 /* Products */ = {
@@ -387,6 +398,7 @@
 				7DB8340635A9FF07635F47FA /* HeatMapView.swift in Sources */,
 				D19BD374E8548FD4A73D63DB /* HeatMapLegendView.swift in Sources */,
 				C59177FD413F23161D20D642 /* LocationMappingView.swift in Sources */,
+				F1A2B3C4D5E6F708192A3B4C /* SSIDColorPalette.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

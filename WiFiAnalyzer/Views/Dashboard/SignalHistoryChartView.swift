@@ -8,10 +8,6 @@ struct SignalHistoryChartView: View {
 
     // MARK: - SSID Color Palette
 
-    private static let ssidColors: [Color] = [
-        .blue, .purple, .teal, .orange, .pink, .indigo, .mint, .cyan
-    ]
-
     private var uniqueSSIDs: [String] {
         var seen: [String] = []
         for point in history {
@@ -23,8 +19,7 @@ struct SignalHistoryChartView: View {
     }
 
     private func colorForSSID(_ ssid: String) -> Color {
-        guard let index = uniqueSSIDs.firstIndex(of: ssid) else { return .gray }
-        return Self.ssidColors[index % Self.ssidColors.count]
+        SSIDColorPalette.color(for: ssid, in: uniqueSSIDs)
     }
 
     // MARK: - Chart Data

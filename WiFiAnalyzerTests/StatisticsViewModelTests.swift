@@ -167,4 +167,105 @@ final class StatisticsViewModelTests: XCTestCase {
         XCTAssertEqual(excellentCount, 1)
         XCTAssertEqual(goodCount, 2)
     }
+
+    // MARK: - SSID Filter Tests
+
+    func testFilteredMeasurementsAllNetworks() throws {
+        try loadWithMeasurements([
+            makeMeasurement(ssid: "BOVET", rssi: -40),
+            makeMeasurement(ssid: "TuxLabs", rssi: -65),
+            makeMeasurement(ssid: "BOVET", rssi: -45)
+        ])
+        sut.selectedSSID = nil
+        XCTAssertEqual(sut.filteredMeasurements.count, 3)
+    }
+
+    func testFilteredMeasurementsBySSID() throws {
+        try loadWithMeasurements([
+            makeMeasurement(ssid: "BOVET", rssi: -40),
+            makeMeasurement(ssid: "TuxLabs", rssi: -65),
+            makeMeasurement(ssid: "BOVET", rssi: -45)
+        ])
+        sut.selectedSSID = "BOVET"
+        XCTAssertEqual(sut.filteredMeasurements.count, 2)
+        XCTAssertTrue(sut.filteredMeasurements.allSatisfy { $0.ssid == "BOVET" })
+    }
+
+    func testStatsUpdateWhenSSIDFilterApplied() throws {
+        try loadWithMeasurements([
+            makeMeasurement(ssid: "BOVET", rssi: -40),
+            makeMeasurement(ssid: "TuxLabs", rssi: -70),
+            makeMeasurement(ssid: "BOVET", rssi: -50)
+        ])
+
+        // All networks
+        sut.selectedSSID = nil
+        XCTAssertEqual(sut.totalMeasurements, 3)
+
+        // Filter to BOVET only
+        sut.selectedSSID = "BOVET"
+        XCTAssertEqual(sut.totalMeasurements, 2)
+        XCTAssertEqual(sut.averageRSSI, -45)
+        XCTAssertEqual(sut.bestRSSI, -40)
+        XCTAssertEqual(sut.worstRSSI, -50)
+
+        // Filter to TuxLabs only
+        sut.selectedSSID = "TuxLabs"
+        XCTAssertEqual(sut.totalMeasurements, 1)
+        XCTAssertEqual(sut.averageRSSI, -70)
+    }
+
+    // MARK: - Unique SSIDs Tests
+
+    func testUniqueSSIDsSortedByFrequency() throws {
+        try loadWithMeasurements([
+            makeMeasurement(ssid: "TuxLabs", rssi: -60),
+            makeMeasurement(ssid: "BOVET", rssi: -40),
+            makeMeasurement(ssid: "BOVET", rssi: -45),
+            makeMeasurement(ssid: "BOVET", rssi: -42)
+        ])
+        let ssids = sut.uniqueSSIDs
+        XCTAssertEqual(ssids.count, 2)
+        XCTAssertEqual(ssids.first, "BOVET") // 3 measurements, most frequent
+    }
+
+    // MARK: - Per-SSID Stats Tests
+
+    func testPerSSIDStats() throws {
+        try loadWithMeasurements([
+            makeMeasurement(ssid: "BOVET", rssi: -40),
+            makeMeasurement(ssid: "BOVET", rssi: -50),
+            makeMeasurement(ssid: "TuxLabs", rssi: -65),
+            makeMeasurement(ssid: "TuxLabs", rssi: -75)
+        ])
+
+        let stats = sut.perSSIDStats
+        XCTAssertEqual(stats.count, 2)
+
+        let bovet = stats.first { $0.ssid == "BOVET" }
+        XCTAssertNotNil(bovet)
+        XCTAssertEqual(bovet?.measurementCount, 2)
+        XCTAssertEqual(bovet?.averageRSSI, -45)
+        XCTAssertEqual(bovet?.bestRSSI, -40)
+        XCTAssertEqual(bovet?.worstRSSI, -50)
+
+        let tuxlabs = stats.first { $0.ssid == "TuxLabs" }
+        XCTAssertNotNil(tuxlabs)
+        XCTAssertEqual(tuxlabs?.measurementCount, 2)
+        XCTAssertEqual(tuxlabs?.averageRSSI, -70)
+        XCTAssertEqual(tuxlabs?.bestRSSI, -65)
+        XCTAssertEqual(tuxlabs?.worstRSSI, -75)
+    }
+
+    func testPerSSIDStatsAlwaysUsesAllMeasurements() throws {
+        try loadWithMeasurements([
+            makeMeasurement(ssid: "BOVET", rssi: -40),
+            makeMeasurement(ssid: "TuxLabs", rssi: -65)
+        ])
+
+        // Even with filter applied, perSSIDStats uses ALL measurements
+        sut.selectedSSID = "BOVET"
+        let stats = sut.perSSIDStats
+        XCTAssertEqual(stats.count, 2)
+    }
 }

@@ -18,9 +18,24 @@ struct SignalQualityDistribution: Identifiable {
     let count: Int
 }
 
+struct SSIDStatistics: Identifiable {
+    let ssid: String
+    let measurementCount: Int
+    let averageRSSI: Int
+    let bestRSSI: Int
+    let worstRSSI: Int
+
+    var id: String { ssid }
+
+    var signalStrength: SignalStrength {
+        SignalStrength.from(rssi: averageRSSI)
+    }
+}
+
 @MainActor
 class StatisticsViewModel: ObservableObject {
     @Published var measurements: [MeasurementPoint] = []
+    @Published var selectedSSID: String? = nil
 
     private let persistenceService: PersistenceService
     private var cancellables = Set<AnyCancellable>()
@@ -44,16 +59,30 @@ class StatisticsViewModel: ObservableObject {
         measurements = persistenceService.load()
     }
 
-    // MARK: - Overall Statistics
+    // MARK: - Filtered Measurements
+
+    var filteredMeasurements: [MeasurementPoint] {
+        if let ssid = selectedSSID {
+            return measurements.filter { $0.ssid == ssid }
+        }
+        return measurements
+    }
+
+    var uniqueSSIDs: [String] {
+        let grouped = Dictionary(grouping: measurements, by: { $0.ssid })
+        return grouped.sorted { $0.value.count > $1.value.count }.map(\.key)
+    }
+
+    // MARK: - Overall Statistics (operate on filteredMeasurements)
 
     var totalMeasurements: Int {
-        measurements.count
+        filteredMeasurements.count
     }
 
     var averageRSSI: Int {
-        guard !measurements.isEmpty else { return -90 }
-        let sum = measurements.reduce(0) { $0 + $1.rssi }
-        return sum / measurements.count
+        guard !filteredMeasurements.isEmpty else { return -90 }
+        let sum = filteredMeasurements.reduce(0) { $0 + $1.rssi }
+        return sum / filteredMeasurements.count
     }
 
     var averageSignalStrength: SignalStrength {
@@ -61,21 +90,21 @@ class StatisticsViewModel: ObservableObject {
     }
 
     var bestRSSI: Int {
-        measurements.map(\.rssi).max() ?? -90
+        filteredMeasurements.map(\.rssi).max() ?? -90
     }
 
     var worstRSSI: Int {
-        measurements.map(\.rssi).min() ?? -90
+        filteredMeasurements.map(\.rssi).min() ?? -90
     }
 
     var rssiStandardDeviation: Double {
-        guard measurements.count > 1 else { return 0 }
+        guard filteredMeasurements.count > 1 else { return 0 }
 
         let mean = Double(averageRSSI)
-        let variance = measurements.reduce(0.0) { result, measurement in
+        let variance = filteredMeasurements.reduce(0.0) { result, measurement in
             let diff = Double(measurement.rssi) - mean
             return result + (diff * diff)
-        } / Double(measurements.count - 1)
+        } / Double(filteredMeasurements.count - 1)
 
         return sqrt(variance)
     }
@@ -99,7 +128,7 @@ class StatisticsViewModel: ObservableObject {
     }
 
     private func groupByLocation() -> [LocationStatistics] {
-        let grouped = Dictionary(grouping: measurements, by: { $0.locationName })
+        let grouped = Dictionary(grouping: filteredMeasurements, by: { $0.locationName })
 
         return grouped.map { locationName, locationMeasurements in
             let averageRSSI = locationMeasurements.reduce(0) { $0 + $1.rssi } / locationMeasurements.count
@@ -114,7 +143,7 @@ class StatisticsViewModel: ObservableObject {
     // MARK: - Signal Quality Distribution
 
     var signalQualityDistribution: [SignalQualityDistribution] {
-        let grouped = Dictionary(grouping: measurements, by: { $0.signalStrength })
+        let grouped = Dictionary(grouping: filteredMeasurements, by: { $0.signalStrength })
 
         return SignalStrength.allCases.map { quality in
             SignalQualityDistribution(
@@ -127,32 +156,50 @@ class StatisticsViewModel: ObservableObject {
     // MARK: - SSID Statistics
 
     var mostFrequentSSID: String? {
-        guard !measurements.isEmpty else { return nil }
+        guard !filteredMeasurements.isEmpty else { return nil }
 
-        let grouped = Dictionary(grouping: measurements, by: { $0.ssid })
+        let grouped = Dictionary(grouping: filteredMeasurements, by: { $0.ssid })
         let sorted = grouped.sorted { $0.value.count > $1.value.count }
 
         return sorted.first?.key
     }
 
     var uniqueSSIDCount: Int {
-        Set(measurements.map(\.ssid)).count
+        Set(filteredMeasurements.map(\.ssid)).count
     }
 
     var ssidCounts: [(ssid: String, count: Int)] {
-        let grouped = Dictionary(grouping: measurements, by: { $0.ssid })
+        let grouped = Dictionary(grouping: filteredMeasurements, by: { $0.ssid })
         return grouped.map { (ssid: $0.key, count: $0.value.count) }
             .sorted { $0.count > $1.count }
+    }
+
+    // MARK: - Per-SSID Comparison Statistics
+
+    var perSSIDStats: [SSIDStatistics] {
+        let grouped = Dictionary(grouping: measurements, by: { $0.ssid })
+
+        return grouped.map { ssid, ssidMeasurements in
+            let avg = ssidMeasurements.reduce(0) { $0 + $1.rssi } / ssidMeasurements.count
+            return SSIDStatistics(
+                ssid: ssid,
+                measurementCount: ssidMeasurements.count,
+                averageRSSI: avg,
+                bestRSSI: ssidMeasurements.map(\.rssi).max() ?? -90,
+                worstRSSI: ssidMeasurements.map(\.rssi).min() ?? -90
+            )
+        }
+        .sorted { $0.measurementCount > $1.measurementCount }
     }
 
     // MARK: - Time-based Statistics
 
     var oldestMeasurement: Date? {
-        measurements.map(\.timestamp).min()
+        filteredMeasurements.map(\.timestamp).min()
     }
 
     var newestMeasurement: Date? {
-        measurements.map(\.timestamp).max()
+        filteredMeasurements.map(\.timestamp).max()
     }
 
     var measurementDateRange: String {

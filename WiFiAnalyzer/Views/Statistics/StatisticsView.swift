@@ -40,6 +40,9 @@ struct StatisticsView: View {
 
     private var statisticsContent: some View {
         VStack(spacing: 24) {
+            // SSID Filter
+            ssidFilterSection
+
             // Overview Section
             overviewSection
 
@@ -49,10 +52,44 @@ struct StatisticsView: View {
             // Location Statistics
             locationStatisticsSection
 
-            // SSID Statistics
-            ssidStatisticsSection
+            // Network Comparison (only when "All Networks" and 2+ SSIDs)
+            if viewModel.selectedSSID == nil && viewModel.perSSIDStats.count > 1 {
+                networkComparisonSection
+            }
         }
         .padding()
+    }
+
+    // MARK: - SSID Filter
+
+    private var ssidFilterSection: some View {
+        GroupBox {
+            HStack {
+                Image(systemName: "wifi")
+                    .foregroundColor(.blue)
+                Text("Network Filter")
+                    .font(.headline)
+
+                Spacer()
+
+                Picker("Network", selection: $viewModel.selectedSSID) {
+                    Text("All Networks").tag(nil as String?)
+                    Divider()
+                    ForEach(viewModel.uniqueSSIDs, id: \.self) { ssid in
+                        HStack {
+                            Circle()
+                                .fill(SSIDColorPalette.color(for: ssid, in: viewModel.uniqueSSIDs))
+                                .frame(width: 8, height: 8)
+                            Text(ssid)
+                        }
+                        .tag(ssid as String?)
+                    }
+                }
+                .pickerStyle(.menu)
+                .frame(maxWidth: 200)
+            }
+            .padding(8)
+        }
     }
 
     // MARK: - Overview Section
@@ -64,6 +101,9 @@ struct StatisticsView: View {
                     Text("Overview")
                         .font(.headline)
                     Spacer()
+                    if let ssid = viewModel.selectedSSID {
+                        ssidBadge(ssid)
+                    }
                 }
 
                 LazyVGrid(columns: [
@@ -125,8 +165,14 @@ struct StatisticsView: View {
     private var signalQualitySection: some View {
         GroupBox {
             VStack(alignment: .leading, spacing: 16) {
-                Text("Signal Quality Distribution")
-                    .font(.headline)
+                HStack {
+                    Text("Signal Quality Distribution")
+                        .font(.headline)
+                    Spacer()
+                    if let ssid = viewModel.selectedSSID {
+                        ssidBadge(ssid)
+                    }
+                }
 
                 Chart(viewModel.signalQualityDistribution) { item in
                     BarMark(
@@ -166,6 +212,10 @@ struct StatisticsView: View {
                             .foregroundColor(.green)
                         Text("Best Locations")
                             .font(.headline)
+                        Spacer()
+                        if let ssid = viewModel.selectedSSID {
+                            ssidBadge(ssid)
+                        }
                     }
 
                     if viewModel.bestLocations.isEmpty {
@@ -191,6 +241,10 @@ struct StatisticsView: View {
                             .foregroundColor(.red)
                         Text("Worst Locations")
                             .font(.headline)
+                        Spacer()
+                        if let ssid = viewModel.selectedSSID {
+                            ssidBadge(ssid)
+                        }
                     }
 
                     if viewModel.worstLocations.isEmpty {
@@ -210,61 +264,124 @@ struct StatisticsView: View {
         }
     }
 
-    // MARK: - SSID Statistics Section
+    // MARK: - Network Comparison Section
 
-    private var ssidStatisticsSection: some View {
+    private var networkComparisonSection: some View {
         GroupBox {
             VStack(alignment: .leading, spacing: 16) {
-                Text("Network Statistics")
-                    .font(.headline)
-
-                HStack(spacing: 32) {
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("Unique Networks")
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                        Text("\(viewModel.uniqueSSIDCount)")
-                            .font(.title)
-                            .fontWeight(.bold)
-                    }
-
-                    Divider()
-
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("Most Frequent Network")
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                        Text(viewModel.mostFrequentSSID ?? "N/A")
-                            .font(.title3)
-                            .fontWeight(.semibold)
-                            .lineLimit(1)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                HStack {
+                    Image(systemName: "arrow.left.arrow.right")
+                        .foregroundColor(.blue)
+                    Text("Network Comparison")
+                        .font(.headline)
                 }
 
-                if viewModel.ssidCounts.count > 1 {
-                    Divider()
+                // Table header
+                HStack(spacing: 0) {
+                    Text("Network")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    Text("Count")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                        .frame(width: 60, alignment: .trailing)
+                    Text("Avg Signal")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                        .frame(width: 90, alignment: .trailing)
+                    Text("Best")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                        .frame(width: 70, alignment: .trailing)
+                    Text("Worst")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                        .frame(width: 70, alignment: .trailing)
+                    Text("Quality")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                        .frame(width: 80, alignment: .trailing)
+                }
+                .padding(.horizontal, 4)
 
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("Network Frequency")
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
+                Divider()
 
-                        ForEach(viewModel.ssidCounts.prefix(5), id: \.ssid) { item in
-                            HStack {
-                                Text(item.ssid)
-                                    .lineLimit(1)
-                                Spacer()
-                                Text("\(item.count) measurement\(item.count == 1 ? "" : "s")")
-                                    .foregroundColor(.secondary)
-                                    .font(.caption)
-                            }
-                        }
-                    }
+                ForEach(viewModel.perSSIDStats) { stat in
+                    networkComparisonRow(stat)
                 }
             }
             .padding()
         }
+    }
+
+    private func networkComparisonRow(_ stat: SSIDStatistics) -> some View {
+        HStack(spacing: 0) {
+            // SSID name with color dot
+            HStack(spacing: 6) {
+                Circle()
+                    .fill(SSIDColorPalette.color(for: stat.ssid, in: viewModel.uniqueSSIDs))
+                    .frame(width: 10, height: 10)
+                Text(stat.ssid)
+                    .font(.subheadline)
+                    .fontWeight(.medium)
+                    .lineLimit(1)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+
+            // Measurement count
+            Text("\(stat.measurementCount)")
+                .font(.subheadline)
+                .frame(width: 60, alignment: .trailing)
+
+            // Average RSSI
+            Text("\(stat.averageRSSI) dBm")
+                .font(.subheadline)
+                .fontWeight(.semibold)
+                .frame(width: 90, alignment: .trailing)
+
+            // Best RSSI
+            Text("\(stat.bestRSSI)")
+                .font(.subheadline)
+                .foregroundColor(.green)
+                .frame(width: 70, alignment: .trailing)
+
+            // Worst RSSI
+            Text("\(stat.worstRSSI)")
+                .font(.subheadline)
+                .foregroundColor(.red)
+                .frame(width: 70, alignment: .trailing)
+
+            // Signal quality badge
+            Text(stat.signalStrength.rawValue)
+                .font(.caption)
+                .fontWeight(.medium)
+                .foregroundColor(.white)
+                .padding(.horizontal, 8)
+                .padding(.vertical, 2)
+                .background(stat.signalStrength.color)
+                .cornerRadius(8)
+                .frame(width: 80, alignment: .trailing)
+        }
+        .padding(.horizontal, 4)
+        .padding(.vertical, 4)
+    }
+
+    // MARK: - Helpers
+
+    private func ssidBadge(_ ssid: String) -> some View {
+        HStack(spacing: 4) {
+            Circle()
+                .fill(SSIDColorPalette.color(for: ssid, in: viewModel.uniqueSSIDs))
+                .frame(width: 8, height: 8)
+            Text(ssid)
+                .font(.caption)
+                .fontWeight(.medium)
+        }
+        .padding(.horizontal, 8)
+        .padding(.vertical, 3)
+        .background(SSIDColorPalette.color(for: ssid, in: viewModel.uniqueSSIDs).opacity(0.12))
+        .cornerRadius(10)
     }
 }
 
