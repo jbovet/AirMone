@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		068560E44CFD4EB7816EEE1B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37A5B9E3A874E918DD77CCC /* ContentView.swift */; };
+		068560E44CFD4EB7816EEE2B /* SupportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37A5B9E3A874E918DD77DDD /* SupportView.swift */; };
+		068560E44CFD4EB7816EEE3C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 72F9C5BF7BF8454DB1E6E22B /* Assets.xcassets */; };
 		11966A822D3B76068267ADB4 /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FB1D346AB7E7ACDAF601A1 /* StatisticsView.swift */; };
 		144132B8862C435E9CE1464F /* CoreWLAN.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F12E0E107EB4A4F898E9CC8 /* CoreWLAN.framework */; };
 		1D113030C01847E48D06E836 /* WiFiNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC94E1621614C6594373E73 /* WiFiNetwork.swift */; };
@@ -102,6 +104,7 @@
 		C3D094E8D1A84A7FB5E1EF2C /* DropPinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropPinView.swift; sourceTree = "<group>"; };
 		C43BCF85D7DD4B0C94AD2840 /* WiFiScannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WiFiScannerViewModel.swift; sourceTree = "<group>"; };
 		D37A5B9E3A874E918DD77CCC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D37A5B9E3A874E918DD77DDD /* SupportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportView.swift; sourceTree = "<group>"; };
 		D439BF1D09C4C52A84C817B8 /* ExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportService.swift; sourceTree = "<group>"; };
 		D470718293A4B5C6D7E8F90E /* ExportServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportServiceTests.swift; sourceTree = "<group>"; };
 		D4C4F66ED6EF4095A6B00DF4 /* PersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceService.swift; sourceTree = "<group>"; };
@@ -277,6 +280,7 @@
 			isa = PBXGroup;
 			children = (
 				D37A5B9E3A874E918DD77CCC /* ContentView.swift */,
+				D37A5B9E3A874E918DD77DDD /* SupportView.swift */,
 				4BCCD5AF88CF4E38A5C2B952 /* Dashboard */,
 				AB12345678901BCD12345620 /* NearbyNetworks */,
 				6DAAC45B968D4487A25084FD /* Measurements */,
@@ -382,6 +386,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				78C391841FF84B948245EABD /* AppIcon.icns in Resources */,
+				068560E44CFD4EB7816EEE3C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,6 +414,7 @@
 				908B285E221857B583FD745F /* StatisticsViewModel.swift in Sources */,
 				CEEC5EB5D87E6B9034A01218 /* HeatMapViewModel.swift in Sources */,
 				068560E44CFD4EB7816EEE1B /* ContentView.swift in Sources */,
+				068560E44CFD4EB7816EEE2B /* SupportView.swift in Sources */,
 				E0AF44BDABF04D49AA0AD6FB /* DashboardView.swift in Sources */,
 				CFD35F5ECA004E2A927B818B /* SignalGaugeView.swift in Sources */,
 				2B6E1D7B3F094D97B3141BF7 /* NetworkInfoView.swift in Sources */,

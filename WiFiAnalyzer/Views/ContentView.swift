@@ -6,6 +6,7 @@ enum NavigationItem: String, CaseIterable {
     case markedLocations = "Marked Locations"
     case statistics = "Statistics"
     case heatMap = "Heat Map"
+    case support = "Support"
 
     var icon: String {
         switch self {
@@ -19,6 +20,8 @@ enum NavigationItem: String, CaseIterable {
             return "chart.bar.fill"
         case .heatMap:
             return "map.fill"
+        case .support:
+            return "heart.fill"
         }
     }
 }
@@ -48,6 +51,8 @@ struct ContentView: View {
                     StatisticsView()
                 case .heatMap:
                     HeatMapView()
+                case .support:
+                    SupportView()
                 }
             } else {
                 Text("Select an item")
