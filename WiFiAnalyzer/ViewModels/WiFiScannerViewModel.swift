@@ -55,7 +55,7 @@ class WiFiScannerViewModel: ObservableObject {
                     self.errorMessage = nil
 
                     // Add to signal history
-                    let dataPoint = SignalDataPoint(timestamp: network.timestamp, rssi: network.rssi)
+                    let dataPoint = SignalDataPoint(timestamp: network.timestamp, rssi: network.rssi, ssid: network.ssid)
                     self.signalHistory.append(dataPoint)
 
                     // Trim history to keep only last maxHistoryPoints

@@ -3,38 +3,53 @@ import Charts
 
 struct SignalHistoryChartView: View {
     let history: [SignalDataPoint]
+    var currentSSID: String? = nil
+    var currentBand: String? = nil
 
-    private var chartData: [(time: Date, rssi: Int)] {
-        history.map { (time: $0.timestamp, rssi: $0.rssi) }
+    // MARK: - SSID Color Palette
+
+    private static let ssidColors: [Color] = [
+        .blue, .purple, .teal, .orange, .pink, .indigo, .mint, .cyan
+    ]
+
+    private var uniqueSSIDs: [String] {
+        var seen: [String] = []
+        for point in history {
+            if !seen.contains(point.ssid) {
+                seen.append(point.ssid)
+            }
+        }
+        return seen
     }
 
-    private var timeRange: ClosedRange<Date> {
-        guard let earliest = history.first?.timestamp,
-              let latest = history.last?.timestamp else {
-            let now = Date()
-            return now...now
+    private func colorForSSID(_ ssid: String) -> Color {
+        guard let index = uniqueSSIDs.firstIndex(of: ssid) else { return .gray }
+        return Self.ssidColors[index % Self.ssidColors.count]
+    }
+
+    // MARK: - Chart Data
+
+    private struct SSIDGroup: Identifiable {
+        let ssid: String
+        let points: [(time: Date, rssi: Int)]
+        var id: String { ssid }
+    }
+
+    private var ssidGroups: [SSIDGroup] {
+        let grouped = Dictionary(grouping: history, by: { $0.ssid })
+        return uniqueSSIDs.compactMap { ssid in
+            guard let points = grouped[ssid] else { return nil }
+            return SSIDGroup(
+                ssid: ssid,
+                points: points.map { (time: $0.timestamp, rssi: $0.rssi) }
+            )
         }
-        return earliest...latest
     }
 
     var body: some View {
         GroupBox {
             VStack(alignment: .leading, spacing: 8) {
-                HStack {
-                    Image(systemName: "waveform.path.ecg")
-                        .foregroundColor(.blue)
-                    Text("Signal History")
-                        .font(.headline)
-
-                    Spacer()
-
-                    if !history.isEmpty {
-                        Text("\(history.count) readings")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                    }
-                }
-
+                headerView
                 if history.isEmpty {
                     emptyStateView
                 } else {
@@ -44,6 +59,47 @@ struct SignalHistoryChartView: View {
             .padding()
         }
     }
+
+    // MARK: - Header
+
+    private var headerView: some View {
+        HStack {
+            Image(systemName: "waveform.path.ecg")
+                .foregroundColor(.blue)
+            Text("Signal History")
+                .font(.headline)
+
+            Spacer()
+
+            if let ssid = currentSSID {
+                HStack(spacing: 4) {
+                    Circle()
+                        .fill(colorForSSID(ssid))
+                        .frame(width: 8, height: 8)
+                    Text(ssid)
+                        .font(.caption)
+                        .fontWeight(.medium)
+                    if let band = currentBand {
+                        Text("· \(band)")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
+                }
+                .padding(.horizontal, 8)
+                .padding(.vertical, 3)
+                .background(colorForSSID(ssid).opacity(0.12))
+                .cornerRadius(10)
+            }
+
+            if !history.isEmpty {
+                Text("\(history.count) readings")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
+        }
+    }
+
+    // MARK: - Empty State
 
     private var emptyStateView: some View {
         VStack(spacing: 8) {
@@ -64,40 +120,22 @@ struct SignalHistoryChartView: View {
         .frame(maxWidth: .infinity)
     }
 
+    // MARK: - Chart
+
     private var chartView: some View {
         VStack(alignment: .leading, spacing: 4) {
             Chart {
-                ForEach(chartData, id: \.time) { point in
-                    LineMark(
-                        x: .value("Time", point.time),
-                        y: .value("Signal", point.rssi)
-                    )
-                    .foregroundStyle(
-                        LinearGradient(
-                            colors: [
-                                SignalStrength.from(rssi: point.rssi).color,
-                                SignalStrength.from(rssi: point.rssi).color.opacity(0.7)
-                            ],
-                            startPoint: .top,
-                            endPoint: .bottom
+                ForEach(ssidGroups) { group in
+                    ForEach(group.points, id: \.time) { point in
+                        LineMark(
+                            x: .value("Time", point.time),
+                            y: .value("Signal", point.rssi),
+                            series: .value("Network", group.ssid)
                         )
-                    )
-                    .lineStyle(StrokeStyle(lineWidth: 2))
-
-                    AreaMark(
-                        x: .value("Time", point.time),
-                        y: .value("Signal", point.rssi)
-                    )
-                    .foregroundStyle(
-                        LinearGradient(
-                            colors: [
-                                SignalStrength.from(rssi: point.rssi).color.opacity(0.3),
-                                SignalStrength.from(rssi: point.rssi).color.opacity(0.05)
-                            ],
-                            startPoint: .top,
-                            endPoint: .bottom
-                        )
-                    )
+                        .foregroundStyle(colorForSSID(group.ssid))
+                        .lineStyle(StrokeStyle(lineWidth: 2))
+                        .interpolationMethod(.catmullRom)
+                    }
                 }
             }
             .chartXAxis {
@@ -123,27 +161,36 @@ struct SignalHistoryChartView: View {
                 }
             }
             .chartYScale(domain: -100...(-30))
+            .chartLegend(.hidden)
             .frame(height: 200)
 
-            // Signal quality zones legend
-            HStack(spacing: 16) {
-                ForEach([SignalStrength.excellent, .good, .fair, .weak, .poor, .unusable], id: \.self) { quality in
-                    HStack(spacing: 4) {
-                        Circle()
-                            .fill(quality.color)
-                            .frame(width: 8, height: 8)
-                        Text(quality.rawValue)
-                            .font(.caption2)
-                    }
-                }
-            }
-            .padding(.top, 4)
+            // SSID legend
+            ssidLegendView
         }
     }
 
+    // MARK: - SSID Legend
+
+    private var ssidLegendView: some View {
+        HStack(spacing: 16) {
+            ForEach(uniqueSSIDs, id: \.self) { ssid in
+                HStack(spacing: 4) {
+                    RoundedRectangle(cornerRadius: 2)
+                        .fill(colorForSSID(ssid))
+                        .frame(width: 12, height: 3)
+                    Text(ssid.isEmpty ? "Unknown" : ssid)
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
+                }
+            }
+        }
+        .padding(.top, 4)
+    }
+
+    // MARK: - Helpers
+
     private func formatRelativeTime(_ date: Date) -> String {
         let seconds = Int(Date().timeIntervalSince(date))
-
         if seconds < 60 {
             return "\(seconds)s"
         } else {
@@ -154,16 +201,30 @@ struct SignalHistoryChartView: View {
 }
 
 #Preview {
+    let now = Date()
     let sampleHistory = [
-        SignalDataPoint(timestamp: Date().addingTimeInterval(-60), rssi: -45),
-        SignalDataPoint(timestamp: Date().addingTimeInterval(-50), rssi: -50),
-        SignalDataPoint(timestamp: Date().addingTimeInterval(-40), rssi: -55),
-        SignalDataPoint(timestamp: Date().addingTimeInterval(-30), rssi: -60),
-        SignalDataPoint(timestamp: Date().addingTimeInterval(-20), rssi: -65),
-        SignalDataPoint(timestamp: Date().addingTimeInterval(-10), rssi: -70),
-        SignalDataPoint(timestamp: Date(), rssi: -75)
+        // BOVET (5 GHz) - stronger signal
+        SignalDataPoint(timestamp: now.addingTimeInterval(-60), rssi: -42, ssid: "BOVET"),
+        SignalDataPoint(timestamp: now.addingTimeInterval(-50), rssi: -45, ssid: "BOVET"),
+        SignalDataPoint(timestamp: now.addingTimeInterval(-40), rssi: -48, ssid: "BOVET"),
+        SignalDataPoint(timestamp: now.addingTimeInterval(-30), rssi: -44, ssid: "BOVET"),
+        SignalDataPoint(timestamp: now.addingTimeInterval(-20), rssi: -46, ssid: "BOVET"),
+        SignalDataPoint(timestamp: now.addingTimeInterval(-10), rssi: -43, ssid: "BOVET"),
+        SignalDataPoint(timestamp: now, rssi: -41, ssid: "BOVET"),
+        // TuxLabs (2.4 GHz) - weaker signal
+        SignalDataPoint(timestamp: now.addingTimeInterval(-60), rssi: -62, ssid: "TuxLabs"),
+        SignalDataPoint(timestamp: now.addingTimeInterval(-50), rssi: -65, ssid: "TuxLabs"),
+        SignalDataPoint(timestamp: now.addingTimeInterval(-40), rssi: -68, ssid: "TuxLabs"),
+        SignalDataPoint(timestamp: now.addingTimeInterval(-30), rssi: -64, ssid: "TuxLabs"),
+        SignalDataPoint(timestamp: now.addingTimeInterval(-20), rssi: -66, ssid: "TuxLabs"),
+        SignalDataPoint(timestamp: now.addingTimeInterval(-10), rssi: -70, ssid: "TuxLabs"),
+        SignalDataPoint(timestamp: now, rssi: -63, ssid: "TuxLabs"),
     ]
 
-    return SignalHistoryChartView(history: sampleHistory)
-        .padding()
+    return SignalHistoryChartView(
+        history: sampleHistory,
+        currentSSID: "BOVET",
+        currentBand: "5 GHz"
+    )
+    .padding()
 }

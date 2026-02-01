@@ -20,7 +20,11 @@ struct DashboardView: View {
                                 .frame(width: 220)
 
                             // Signal History Chart - Right Side
-                            SignalHistoryChartView(history: viewModel.signalHistory)
+                            SignalHistoryChartView(
+                                history: viewModel.signalHistory,
+                                currentSSID: network.ssid,
+                                currentBand: network.band
+                            )
                                 .frame(maxWidth: .infinity)
                         }
                         .padding()
