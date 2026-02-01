@@ -16,9 +16,11 @@ class MeasurementsViewModel: ObservableObject {
     @Published var sortOption: SortOption = .chronological
     @Published var searchText: String = ""
     @Published var filterQuality: SignalStrength?
+    @Published var errorMessage: String?
 
     private let persistenceService: PersistenceService
     private let exportService = ExportService()
+    private var cancellables = Set<AnyCancellable>()
 
     var filteredMeasurements: [MeasurementPoint] {
         var filtered = measurements
@@ -39,9 +41,19 @@ class MeasurementsViewModel: ObservableObject {
         return filtered
     }
 
-    init(persistenceService: PersistenceService = PersistenceService()) {
+    init(persistenceService: PersistenceService = .shared) {
         self.persistenceService = persistenceService
         loadMeasurements()
+        subscribeToDataChanges()
+    }
+
+    private func subscribeToDataChanges() {
+        persistenceService.dataChanged
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                self?.loadMeasurements()
+            }
+            .store(in: &cancellables)
     }
 
     func loadMeasurements() {
@@ -50,13 +62,19 @@ class MeasurementsViewModel: ObservableObject {
     }
 
     func deleteMeasurement(id: UUID) {
-        persistenceService.delete(id: id)
-        loadMeasurements()
+        do {
+            try persistenceService.delete(id: id)
+        } catch {
+            errorMessage = error.localizedDescription
+        }
     }
 
     func deleteAllMeasurements() {
-        persistenceService.deleteAll()
-        loadMeasurements()
+        do {
+            try persistenceService.deleteAll()
+        } catch {
+            errorMessage = error.localizedDescription
+        }
     }
 
     func changeSortOption(_ option: SortOption) {

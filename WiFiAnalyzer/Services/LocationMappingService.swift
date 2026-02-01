@@ -48,6 +48,7 @@ class LocationMappingService {
     // MARK: - Automatic Grid Layout Generation
 
     func generateGridLayout(for locationNames: [String], gridSpacing: Double = 5.0) -> [String: LocationCoordinate] {
+        guard !locationNames.isEmpty else { return [:] }
         let count = locationNames.count
         let cols = Int(ceil(sqrt(Double(count))))
         let rows = Int(ceil(Double(count) / Double(cols)))

@@ -97,7 +97,8 @@ struct DashboardView: View {
                     network: network,
                     onSave: {
                         viewModel.dropPin(locationName: locationName)
-                    }
+                    },
+                    existingCount: viewModel.existingMeasurementCount(for: locationName)
                 )
             }
         }

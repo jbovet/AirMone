@@ -14,7 +14,7 @@ class WiFiScannerViewModel: ObservableObject {
     private let maxHistoryPoints = 30 // Last 60 seconds of data (at 2-second intervals)
 
     init(scannerService: WiFiScannerService = WiFiScannerService(),
-         persistenceService: PersistenceService = PersistenceService()) {
+         persistenceService: PersistenceService = .shared) {
         self.scannerService = scannerService
         self.persistenceService = persistenceService
     }
@@ -75,8 +75,21 @@ class WiFiScannerViewModel: ObservableObject {
     func dropPin(locationName: String) {
         guard let network = currentNetwork else { return }
 
-        let measurement = MeasurementPoint(locationName: locationName, network: network)
-        persistenceService.append(measurement)
+        let trimmedName = locationName.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmedName.isEmpty else { return }
+
+        let measurement = MeasurementPoint(locationName: trimmedName, network: network)
+        do {
+            try persistenceService.append(measurement)
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+    }
+
+    func existingMeasurementCount(for locationName: String) -> Int {
+        let trimmedName = locationName.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmedName.isEmpty else { return 0 }
+        return persistenceService.load().filter { $0.locationName == trimmedName }.count
     }
 
     deinit {

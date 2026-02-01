@@ -23,10 +23,21 @@ class StatisticsViewModel: ObservableObject {
     @Published var measurements: [MeasurementPoint] = []
 
     private let persistenceService: PersistenceService
+    private var cancellables = Set<AnyCancellable>()
 
-    init(persistenceService: PersistenceService = PersistenceService()) {
+    init(persistenceService: PersistenceService = .shared) {
         self.persistenceService = persistenceService
         loadMeasurements()
+        subscribeToDataChanges()
+    }
+
+    private func subscribeToDataChanges() {
+        persistenceService.dataChanged
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                self?.loadMeasurements()
+            }
+            .store(in: &cancellables)
     }
 
     func loadMeasurements() {

@@ -15,6 +15,7 @@ class HeatMapViewModel: ObservableObject {
     private let persistenceService: PersistenceService
     private let interpolator = HeatMapInterpolator()
     private let locationMappingService = LocationMappingService.shared
+    private var cancellables = Set<AnyCancellable>()
 
     var uniqueSSIDs: [String] {
         let allMeasurements = persistenceService.load()
@@ -31,8 +32,18 @@ class HeatMapViewModel: ObservableObject {
         return locationNames.filter { locationMappingService.coordinate(for: $0) == nil }
     }
 
-    init(persistenceService: PersistenceService = PersistenceService()) {
+    init(persistenceService: PersistenceService = .shared) {
         self.persistenceService = persistenceService
+        subscribeToDataChanges()
+    }
+
+    private func subscribeToDataChanges() {
+        persistenceService.dataChanged
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                self?.loadMeasurements()
+            }
+            .store(in: &cancellables)
     }
 
     // MARK: - Data Loading

@@ -5,6 +5,7 @@ struct DropPinView: View {
     @Binding var locationName: String
     let network: WiFiNetwork
     let onSave: () -> Void
+    var existingCount: Int = 0
 
     @FocusState private var isTextFieldFocused: Bool
 
@@ -27,6 +28,16 @@ struct DropPinView: View {
                             saveAndDismiss()
                         }
                     }
+
+                if existingCount > 0 {
+                    HStack(spacing: 4) {
+                        Image(systemName: "info.circle.fill")
+                            .foregroundColor(.blue)
+                        Text("\(existingCount) existing measurement\(existingCount == 1 ? "" : "s") at this location")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
+                }
             }
 
             VStack(alignment: .leading, spacing: 8) {

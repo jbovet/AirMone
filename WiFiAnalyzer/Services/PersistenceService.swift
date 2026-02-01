@@ -1,22 +1,43 @@
 import Foundation
+import Combine
+
+enum PersistenceError: LocalizedError {
+    case encodingFailed
+    case decodingFailed
+
+    var errorDescription: String? {
+        switch self {
+        case .encodingFailed:
+            return "Failed to save measurement data. Please try again."
+        case .decodingFailed:
+            return "Failed to read saved measurements. Data may be corrupted."
+        }
+    }
+}
 
 class PersistenceService {
-    private let userDefaults = UserDefaults.standard
+    static let shared = PersistenceService()
+
+    private let userDefaults: UserDefaults
     private let measurementsKey = "savedMeasurements"
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
 
-    init() {
+    /// Publishes whenever measurements data changes (save, delete, append)
+    let dataChanged = PassthroughSubject<Void, Never>()
+
+    init(userDefaults: UserDefaults = .standard) {
+        self.userDefaults = userDefaults
         encoder.dateEncodingStrategy = .iso8601
         decoder.dateDecodingStrategy = .iso8601
     }
 
-    func save(_ measurements: [MeasurementPoint]) {
+    func save(_ measurements: [MeasurementPoint]) throws {
         guard let data = try? encoder.encode(measurements) else {
-            print("Failed to encode measurements")
-            return
+            throw PersistenceError.encodingFailed
         }
         userDefaults.set(data, forKey: measurementsKey)
+        dataChanged.send()
     }
 
     func load() -> [MeasurementPoint] {
@@ -27,19 +48,19 @@ class PersistenceService {
         return measurements
     }
 
-    func append(_ measurement: MeasurementPoint) {
+    func append(_ measurement: MeasurementPoint) throws {
         var measurements = load()
         measurements.append(measurement)
-        save(measurements)
+        try save(measurements)
     }
 
-    func delete(id: UUID) {
+    func delete(id: UUID) throws {
         var measurements = load()
         measurements.removeAll { $0.id == id }
-        save(measurements)
+        try save(measurements)
     }
 
-    func deleteAll() {
-        save([])
+    func deleteAll() throws {
+        try save([])
     }
 }

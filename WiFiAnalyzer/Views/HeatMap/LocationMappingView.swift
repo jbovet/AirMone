@@ -6,6 +6,7 @@ struct LocationMappingView: View {
 
     @State private var draggedLocation: String?
     @State private var canvasSize: CGSize = .zero
+    @State private var showingResetConfirmation = false
 
     var body: some View {
         VStack(spacing: 0) {
@@ -76,7 +77,7 @@ struct LocationMappingView: View {
                 }
 
                 Button("Reset All") {
-                    viewModel.resetCoordinates()
+                    showingResetConfirmation = true
                 }
 
                 Button("Cancel") {
@@ -88,10 +89,18 @@ struct LocationMappingView: View {
             .background(Color(nsColor: .controlBackgroundColor))
         }
         .frame(width: 800, height: 600)
+        .alert("Reset All Coordinates", isPresented: $showingResetConfirmation) {
+            Button("Cancel", role: .cancel) { }
+            Button("Reset All", role: .destructive) {
+                viewModel.resetCoordinates()
+            }
+        } message: {
+            Text("Are you sure you want to reset all location coordinates? You will need to reposition all pins.")
+        }
     }
 
     private func allLocationNames() -> [String] {
-        let allMeasurements = PersistenceService().load()
+        let allMeasurements = PersistenceService.shared.load()
         return Array(Set(allMeasurements.map(\.locationName))).sorted()
     }
 

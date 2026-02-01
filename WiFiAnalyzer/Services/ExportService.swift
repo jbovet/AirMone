@@ -25,9 +25,9 @@ enum ExportError: LocalizedError {
 
 class ExportService {
 
-    // MARK: - Export Methods
+    // MARK: - Content Generation (testable, no UI dependencies)
 
-    func exportToCSV(_ measurements: [MeasurementPoint]) throws -> URL {
+    func generateCSVContent(_ measurements: [MeasurementPoint]) throws -> String {
         guard !measurements.isEmpty else {
             throw ExportError.invalidData
         }
@@ -52,10 +52,10 @@ class ExportService {
             csvString += "\(location),\(ssid),\(measurement.bssid),\(measurement.rssi),\(signalQuality),\(date),\(time)\n"
         }
 
-        return try saveToFile(csvString, filename: "WiFiMeasurements.csv")
+        return csvString
     }
 
-    func exportToJSON(_ measurements: [MeasurementPoint]) throws -> URL {
+    func generateJSONContent(_ measurements: [MeasurementPoint]) throws -> String {
         guard !measurements.isEmpty else {
             throw ExportError.invalidData
         }
@@ -74,114 +74,29 @@ class ExportService {
             throw ExportError.encodingFailed
         }
 
-        return try saveToFile(jsonString, filename: "WiFiMeasurements.json")
+        return jsonString
     }
 
-    // MARK: - Import Methods
+    // MARK: - Export Methods (content generation + file saving)
 
-    func importFromCSV(_ url: URL) throws -> [MeasurementPoint] {
-        guard let csvString = try? String(contentsOf: url, encoding: .utf8) else {
-            throw ExportError.invalidData
-        }
-
-        let lines = csvString.components(separatedBy: .newlines).filter { !$0.isEmpty }
-
-        guard lines.count > 1 else {
-            throw ExportError.invalidData
-        }
-
-        var measurements: [MeasurementPoint] = []
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-
-        // Skip header row
-        for line in lines.dropFirst() {
-            let fields = parseCSVLine(line)
-
-            guard fields.count >= 7 else { continue }
-
-            let location = fields[0]
-            let ssid = fields[1]
-            let bssid = fields[2]
-            let rssi = Int(fields[3]) ?? -90
-            let dateTimeString = "\(fields[5]) \(fields[6])"
-            let timestamp = dateFormatter.date(from: dateTimeString) ?? Date()
-
-            let measurement = MeasurementPoint(
-                locationName: location,
-                ssid: ssid,
-                bssid: bssid,
-                rssi: rssi,
-                timestamp: timestamp
-            )
-
-            measurements.append(measurement)
-        }
-
-        return measurements
+    func exportToCSV(_ measurements: [MeasurementPoint]) throws -> URL {
+        let content = try generateCSVContent(measurements)
+        return try saveToFile(content, filename: "WiFiMeasurements.csv")
     }
 
-    func importFromJSON(_ url: URL) throws -> [MeasurementPoint] {
-        guard let jsonData = try? Data(contentsOf: url) else {
-            throw ExportError.invalidData
-        }
-
-        let decoder = JSONDecoder()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        decoder.dateDecodingStrategy = .formatted(dateFormatter)
-
-        guard let measurements = try? decoder.decode([MeasurementPoint].self, from: jsonData) else {
-            throw ExportError.encodingFailed
-        }
-
-        return measurements
+    func exportToJSON(_ measurements: [MeasurementPoint]) throws -> URL {
+        let content = try generateJSONContent(measurements)
+        return try saveToFile(content, filename: "WiFiMeasurements.json")
     }
 
     // MARK: - Helper Methods
 
-    private func escapeCSVField(_ field: String) -> String {
+    func escapeCSVField(_ field: String) -> String {
         if field.contains(",") || field.contains("\"") || field.contains("\n") {
             let escaped = field.replacingOccurrences(of: "\"", with: "\"\"")
             return "\"\(escaped)\""
         }
         return field
-    }
-
-    private func parseCSVLine(_ line: String) -> [String] {
-        var fields: [String] = []
-        var currentField = ""
-        var insideQuotes = false
-        var i = 0
-        let characters = Array(line)
-
-        while i < characters.count {
-            let char = characters[i]
-
-            if char == "\"" {
-                if insideQuotes && i + 1 < characters.count && characters[i + 1] == "\"" {
-                    // Escaped quote
-                    currentField.append("\"")
-                    i += 1
-                } else {
-                    // Toggle quote state
-                    insideQuotes.toggle()
-                }
-            } else if char == "," && !insideQuotes {
-                // Field separator
-                fields.append(currentField)
-                currentField = ""
-            } else {
-                currentField.append(char)
-            }
-
-            i += 1
-        }
-
-        // Add last field
-        fields.append(currentField)
-
-        return fields
     }
 
     private func saveToFile(_ content: String, filename: String) throws -> URL {

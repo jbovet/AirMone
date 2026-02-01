@@ -103,6 +103,14 @@ struct MeasurementsListView: View {
         } message: {
             Text(exportMessage)
         }
+        .alert("Error", isPresented: Binding(
+            get: { viewModel.errorMessage != nil },
+            set: { if !$0 { viewModel.errorMessage = nil } }
+        )) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text(viewModel.errorMessage ?? "")
+        }
         .onChange(of: viewModel.sortOption) { newValue in
             viewModel.changeSortOption(newValue)
         }

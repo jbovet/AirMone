@@ -38,7 +38,24 @@
 		C59177FD413F23161D20D642 /* LocationMappingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBAEBF3E8657CC0F79DD303 /* LocationMappingView.swift */; };
 		144132B8862C435E9CE1464F /* CoreWLAN.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F12E0E107EB4A4F898E9CC8 /* CoreWLAN.framework */; };
 		78C391841FF84B948245EABD /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 3E0FB6C6EED244DE8C14D2B0 /* AppIcon.icns */; };
+		AA1B2C3D4E5F60718293A4B5 /* SignalStrengthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2C3D4E5F60718293A4B5C6 /* SignalStrengthTests.swift */; };
+		CC3D4E5F60718293A4B5C6D7 /* LocationCoordinateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4E5F60718293A4B5C6D7E8 /* LocationCoordinateTests.swift */; };
+		EE5F60718293A4B5C6D7E8F9 /* HeatMapInterpolatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF60718293A4B5C6D7E8F90A /* HeatMapInterpolatorTests.swift */; };
+		A160718293A4B5C6D7E8F90B /* PersistenceServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B270718293A4B5C6D7E8F90C /* PersistenceServiceTests.swift */; };
+		C370718293A4B5C6D7E8F90D /* ExportServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D470718293A4B5C6D7E8F90E /* ExportServiceTests.swift */; };
+		E570718293A4B5C6D7E8F90F /* StatisticsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F670718293A4B5C6D7E8F910 /* StatisticsViewModelTests.swift */; };
+		A770718293A4B5C6D7E8F911 /* LocationMappingServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B870718293A4B5C6D7E8F912 /* LocationMappingServiceTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C970718293A4B5C6D7E8F913 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1C843865A5414980BADD635A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 23B1B9E145034FE0A14DE533;
+			remoteInfo = WiFiAnalyzer;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		39E46616356E422A965CEC2B /* WiFiAnalyzer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WiFiAnalyzer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -76,6 +93,14 @@
 		DFBAEBF3E8657CC0F79DD303 /* LocationMappingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMappingView.swift; sourceTree = "<group>"; };
 		9F12E0E107EB4A4F898E9CC8 /* CoreWLAN.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreWLAN.framework; path = System/Library/Frameworks/CoreWLAN.framework; sourceTree = SDKROOT; };
 		3E0FB6C6EED244DE8C14D2B0 /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AppIcon.icns; sourceTree = "<group>"; };
+		DA70718293A4B5C6D7E8F914 /* WiFiAnalyzerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WiFiAnalyzerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB2C3D4E5F60718293A4B5C6 /* SignalStrengthTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalStrengthTests.swift; sourceTree = "<group>"; };
+		DD4E5F60718293A4B5C6D7E8 /* LocationCoordinateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCoordinateTests.swift; sourceTree = "<group>"; };
+		FF60718293A4B5C6D7E8F90A /* HeatMapInterpolatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeatMapInterpolatorTests.swift; sourceTree = "<group>"; };
+		B270718293A4B5C6D7E8F90C /* PersistenceServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceServiceTests.swift; sourceTree = "<group>"; };
+		D470718293A4B5C6D7E8F90E /* ExportServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportServiceTests.swift; sourceTree = "<group>"; };
+		F670718293A4B5C6D7E8F910 /* StatisticsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewModelTests.swift; sourceTree = "<group>"; };
+		B870718293A4B5C6D7E8F912 /* LocationMappingServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMappingServiceTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +112,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EB70718293A4B5C6D7E8F915 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -94,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				186E820E0D054900AB3B0A03 /* WiFiAnalyzer */,
+				FC70718293A4B5C6D7E8F916 /* WiFiAnalyzerTests */,
 				14DD8779B0ED4527AFFFAA4A /* Frameworks */,
 				B4ABE09E4719477B875C17E8 /* Products */,
 			);
@@ -119,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				39E46616356E422A965CEC2B /* WiFiAnalyzer.app */,
+				DA70718293A4B5C6D7E8F914 /* WiFiAnalyzerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -219,6 +253,20 @@
 			path = HeatMap;
 			sourceTree = "<group>";
 		};
+		FC70718293A4B5C6D7E8F916 /* WiFiAnalyzerTests */ = {
+			isa = PBXGroup;
+			children = (
+				BB2C3D4E5F60718293A4B5C6 /* SignalStrengthTests.swift */,
+				DD4E5F60718293A4B5C6D7E8 /* LocationCoordinateTests.swift */,
+				FF60718293A4B5C6D7E8F90A /* HeatMapInterpolatorTests.swift */,
+				B270718293A4B5C6D7E8F90C /* PersistenceServiceTests.swift */,
+				D470718293A4B5C6D7E8F90E /* ExportServiceTests.swift */,
+				F670718293A4B5C6D7E8F910 /* StatisticsViewModelTests.swift */,
+				B870718293A4B5C6D7E8F912 /* LocationMappingServiceTests.swift */,
+			);
+			path = WiFiAnalyzerTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -239,6 +287,23 @@
 			productReference = 39E46616356E422A965CEC2B /* WiFiAnalyzer.app */;
 			productType = "com.apple.product-type.application";
 		};
+		FD70718293A4B5C6D7E8F917 /* WiFiAnalyzerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AE70718293A4B5C6D7E8F918 /* Build configuration list for PBXNativeTarget "WiFiAnalyzerTests" */;
+			buildPhases = (
+				BF70718293A4B5C6D7E8F919 /* Sources */,
+				EB70718293A4B5C6D7E8F915 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CA70718293A4B5C6D7E8F91A /* PBXTargetDependency */,
+			);
+			name = WiFiAnalyzerTests;
+			productName = WiFiAnalyzerTests;
+			productReference = DA70718293A4B5C6D7E8F914 /* WiFiAnalyzerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -251,6 +316,10 @@
 				TargetAttributes = {
 					23B1B9E145034FE0A14DE533 = {
 						CreatedOnToolsVersion = 15.0;
+					};
+					FD70718293A4B5C6D7E8F917 = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = 23B1B9E145034FE0A14DE533;
 					};
 				};
 			};
@@ -268,6 +337,7 @@
 			projectRoot = "";
 			targets = (
 				23B1B9E145034FE0A14DE533 /* WiFiAnalyzer */,
+				FD70718293A4B5C6D7E8F917 /* WiFiAnalyzerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -317,11 +387,32 @@
 				7DB8340635A9FF07635F47FA /* HeatMapView.swift in Sources */,
 				D19BD374E8548FD4A73D63DB /* HeatMapLegendView.swift in Sources */,
 				C59177FD413F23161D20D642 /* LocationMappingView.swift in Sources */,
-				11966A822D3B76068267ADB4 /* StatisticsView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BF70718293A4B5C6D7E8F919 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA1B2C3D4E5F60718293A4B5 /* SignalStrengthTests.swift in Sources */,
+				CC3D4E5F60718293A4B5C6D7 /* LocationCoordinateTests.swift in Sources */,
+				EE5F60718293A4B5C6D7E8F9 /* HeatMapInterpolatorTests.swift in Sources */,
+				A160718293A4B5C6D7E8F90B /* PersistenceServiceTests.swift in Sources */,
+				C370718293A4B5C6D7E8F90D /* ExportServiceTests.swift in Sources */,
+				E570718293A4B5C6D7E8F90F /* StatisticsViewModelTests.swift in Sources */,
+				A770718293A4B5C6D7E8F911 /* LocationMappingServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CA70718293A4B5C6D7E8F91A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 23B1B9E145034FE0A14DE533 /* WiFiAnalyzer */;
+			targetProxy = C970718293A4B5C6D7E8F913 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		BA4EB57288784032A8A82AC7 /* Debug */ = {
@@ -504,6 +595,42 @@
 			};
 			name = Release;
 		};
+		DB70718293A4B5C6D7E8F91B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.WiFiAnalyzerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WiFiAnalyzer.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/WiFiAnalyzer";
+			};
+			name = Debug;
+		};
+		EC70718293A4B5C6D7E8F91C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.WiFiAnalyzerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WiFiAnalyzer.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/WiFiAnalyzer";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -521,6 +648,15 @@
 			buildConfigurations = (
 				6C9F3C92BBE746188FC0A3FD /* Debug */,
 				59CF463CE0494955B6D3A0E3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AE70718293A4B5C6D7E8F918 /* Build configuration list for PBXNativeTarget "WiFiAnalyzerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB70718293A4B5C6D7E8F91B /* Debug */,
+				EC70718293A4B5C6D7E8F91C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
