@@ -3,6 +3,7 @@ import SwiftUI
 struct DropPinView: View {
     @Environment(\.dismiss) var dismiss
     @Binding var locationName: String
+    var recentLocations: [String] = []
     let network: WiFiNetwork
     let onSave: () -> Void
     var existingCount: Int = 0
@@ -11,7 +12,7 @@ struct DropPinView: View {
 
     var body: some View {
         VStack(spacing: 20) {
-            Text("Drop Pin")
+            Text("Mark Location")
                 .font(.title2)
                 .fontWeight(.bold)
 
@@ -28,6 +29,21 @@ struct DropPinView: View {
                             saveAndDismiss()
                         }
                     }
+
+                if !recentLocations.isEmpty {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 8) {
+                            ForEach(recentLocations, id: \.self) { location in
+                                Button(location) {
+                                    locationName = location
+                                    saveAndDismiss()
+                                }
+                                .buttonStyle(.bordered)
+                                .controlSize(.small)
+                            }
+                        }
+                    }
+                }
 
                 if existingCount > 0 {
                     HStack(spacing: 4) {
