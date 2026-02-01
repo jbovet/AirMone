@@ -8,7 +8,6 @@ struct NearbyNetworksView: View {
             VStack(spacing: 16) {
                 toolbarSection
                 chartSection
-                channelAnalysisSection
                 networkListSection
             }
             .padding()
@@ -77,15 +76,6 @@ struct NearbyNetworksView: View {
             currentSSID: nil,
             currentBand: nil,
             ssidOrder: viewModel.topSSIDsBySignal
-        )
-    }
-
-    // MARK: - Channel Analysis
-
-    private var channelAnalysisSection: some View {
-        ChannelCongestionView(
-            congestion: viewModel.channelCongestion,
-            recommendations: viewModel.channelRecommendations
         )
     }
 

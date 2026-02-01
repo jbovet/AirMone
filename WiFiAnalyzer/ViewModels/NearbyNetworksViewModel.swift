@@ -85,16 +85,6 @@ class NearbyNetworksViewModel: ObservableObject {
         networkGroups.map { $0.ssid }
     }
 
-    // MARK: - Channel Analysis
-
-    var channelCongestion: [ChannelCongestion] {
-        ChannelAnalyzer.analyze(networks: nearbyNetworks)
-    }
-
-    var channelRecommendations: [ChannelRecommendation] {
-        ChannelAnalyzer.recommend(networks: nearbyNetworks)
-    }
-
     // MARK: - Expand/Collapse
 
     func toggleExpanded(_ ssid: String) {
