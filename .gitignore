@@ -1,0 +1,82 @@
+# Xcode / Swift / macOS - Recommended .gitignore
+# https://github.com/github/gitignore/blob/main/Swift.gitignore
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must not be committed
+Icon?
+
+# Xcode
+build/
+DerivedData/
+
+# User settings (should not be shared)
+xcuserdata/
+*.xcuserstate
+*.xcscmblueprint
+
+# Xcode project user files
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+
+# Workspaces
+*.xcworkspace/xcuserdata/
+
+# Swift Package Manager
+.build/
+Packages/
+.swiftpm/
+
+# If you want to commit Package.resolved (recommended for apps), keep it tracked.
+# Uncomment the next line to ignore it instead:
+# Package.resolved
+
+# CocoaPods
+Pods/
+
+# Carthage
+Carthage/Build/
+Carthage/Checkouts/
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+
+# Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+# JetBrains IDEs
+.idea/
+
+# VS Code
+.vscode/
+
+# Misc
+*.swp
+*.swo
+*~
+*.moved-aside
+profile
+
+# Archive and packaging
+*.xcarchive
+*.docc
+
+# Certificate and provisioning files (often kept out of repo)
+*.cer
+*.mobileprovision
+*.p12
+
+# End of .gitignore
