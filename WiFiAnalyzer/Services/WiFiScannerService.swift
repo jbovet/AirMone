@@ -99,13 +99,63 @@ class WiFiScannerService: NSObject, CLLocationManagerDelegate {
         )
     }
 
+    func scanForNearbyNetworks() throws -> [NearbyNetwork] {
+        guard let interface = wifiClient.interface() else {
+            throw WiFiError.noInterface
+        }
+
+        let networks = try interface.scanForNetworks(withSSID: nil)
+
+        let allNetworks = networks.compactMap { cwNetwork -> NearbyNetwork? in
+            // Skip hidden networks (no SSID)
+            guard let ssid = cwNetwork.ssid, !ssid.isEmpty else { return nil }
+            let bssid = cwNetwork.bssid ?? "unknown"
+            let channel = cwNetwork.wlanChannel?.channelNumber ?? 0
+            let band = getBand(for: channel)
+            let channelWidth: Int? = cwNetwork.wlanChannel.map { getChannelWidthValue($0.channelWidth) }
+
+            return NearbyNetwork(
+                id: "\(ssid)_\(bssid)",
+                ssid: ssid,
+                bssid: bssid,
+                rssi: cwNetwork.rssiValue,
+                noise: cwNetwork.noiseMeasurement,
+                channel: channel,
+                band: band,
+                channelWidth: channelWidth,
+                security: getSecurityFromCWNetwork(cwNetwork),
+                countryCode: cwNetwork.countryCode,
+                isIBSS: cwNetwork.ibss,
+                beaconInterval: cwNetwork.beaconInterval,
+                timestamp: Date()
+            )
+        }
+
+        // Deduplicate by id, keeping the entry with the strongest signal
+        var bestByID: [String: NearbyNetwork] = [:]
+        for network in allNetworks {
+            if let existing = bestByID[network.id] {
+                if network.rssi > existing.rssi {
+                    bestByID[network.id] = network
+                }
+            } else {
+                bestByID[network.id] = network
+            }
+        }
+
+        return bestByID.values.sorted { $0.rssi > $1.rssi }
+    }
+
     private func getBand(for channel: Int) -> String {
         // 2.4 GHz: Channels 1-14
         // 5 GHz: Channels 36-165
+        // 6 GHz: Channels > 165
         if channel >= 1 && channel <= 14 {
             return "2.4 GHz"
         } else if channel >= 36 && channel <= 165 {
             return "5 GHz"
+        } else if channel > 165 {
+            return "6 GHz"
         }
         return "Unknown"
     }
@@ -255,6 +305,35 @@ class WiFiScannerService: NSObject, CLLocationManagerDelegate {
         }
 
         return router
+    }
+
+    private func getSecurityFromCWNetwork(_ network: CWNetwork) -> String {
+        // Check security types from strongest to weakest
+        if network.supportsSecurity(.wpa3Personal) || network.supportsSecurity(.wpa3Enterprise) {
+            if network.supportsSecurity(.wpa3Enterprise) {
+                return "WPA3 Enterprise"
+            }
+            return "WPA3 Personal"
+        }
+        if network.supportsSecurity(.wpa2Personal) || network.supportsSecurity(.wpa2Enterprise) {
+            if network.supportsSecurity(.wpa2Enterprise) {
+                return "WPA2 Enterprise"
+            }
+            return "WPA2 Personal"
+        }
+        if network.supportsSecurity(.wpaPersonal) || network.supportsSecurity(.wpaEnterprise) {
+            if network.supportsSecurity(.wpaEnterprise) {
+                return "WPA Enterprise"
+            }
+            return "WPA Personal"
+        }
+        if network.supportsSecurity(.WEP) {
+            return "WEP"
+        }
+        if network.supportsSecurity(.none) {
+            return "Open"
+        }
+        return "Unknown"
     }
 
     func isWiFiAvailable() -> Bool {

@@ -1,0 +1,181 @@
+import Foundation
+import Combine
+
+@MainActor
+class NearbyNetworksViewModel: ObservableObject {
+    @Published var nearbyNetworks: [NearbyNetwork] = []
+    @Published var signalHistory: [String: [SignalDataPoint]] = [:]  // Keyed by SSID
+    @Published var errorMessage: String?
+    @Published var isScanning: Bool = false
+    @Published var selectedBandFilter: BandFilter = .all
+    @Published var sortOrder: SortOrder = .signalStrength
+    @Published var expandedSSIDs: Set<String> = []
+
+    private let scannerService: WiFiScannerService
+    private var scanTimer: Timer?
+    private let maxHistoryPoints = 30
+    private let scanInterval: TimeInterval = 4.0
+    private var isScanInProgress = false
+
+    enum BandFilter: String, CaseIterable {
+        case all = "All Bands"
+        case band2_4 = "2.4 GHz"
+        case band5 = "5 GHz"
+        case band6 = "6 GHz"
+    }
+
+    enum SortOrder: String, CaseIterable {
+        case signalStrength = "Signal"
+        case ssid = "Name"
+        case channel = "Channel"
+    }
+
+    init(scannerService: WiFiScannerService = WiFiScannerService()) {
+        self.scannerService = scannerService
+    }
+
+    // MARK: - Grouped Networks
+
+    var networkGroups: [NetworkGroup] {
+        let filtered: [NearbyNetwork]
+        if selectedBandFilter == .all {
+            filtered = nearbyNetworks
+        } else {
+            filtered = nearbyNetworks.filter { $0.band == selectedBandFilter.rawValue }
+        }
+
+        let grouped = Dictionary(grouping: filtered, by: { $0.ssid })
+        var groups = grouped.map { NetworkGroup(ssid: $0.key, accessPoints: $0.value) }
+
+        switch sortOrder {
+        case .signalStrength:
+            groups.sort { $0.bestRSSI > $1.bestRSSI }
+        case .ssid:
+            groups.sort { $0.ssid.localizedCaseInsensitiveCompare($1.ssid) == .orderedAscending }
+        case .channel:
+            groups.sort { $0.channels.first ?? 0 < $1.channels.first ?? 0 }
+        }
+
+        return groups
+    }
+
+    var totalNetworkCount: Int {
+        networkGroups.reduce(0) { $0 + $1.apCount }
+    }
+
+    /// SSIDs ordered by best signal strength (strongest first), capped to top 10
+    var topSSIDsBySignal: [String] {
+        let allGroups = Dictionary(grouping: nearbyNetworks, by: { $0.ssid })
+        return allGroups
+            .map { (ssid: $0.key, bestRSSI: $0.value.max(by: { $0.rssi < $1.rssi })?.rssi ?? -100) }
+            .sorted { $0.bestRSSI > $1.bestRSSI }
+            .prefix(10)
+            .map { $0.ssid }
+    }
+
+    /// Flattened signal history for chart display, capped to top 10 SSIDs by best RSSI
+    var chartSignalHistory: [SignalDataPoint] {
+        let topSSIDs = Set(topSSIDsBySignal)
+        return signalHistory
+            .filter { topSSIDs.contains($0.key) }
+            .flatMap { $0.value }
+    }
+
+    var uniqueNetworkNames: [String] {
+        networkGroups.map { $0.ssid }
+    }
+
+    // MARK: - Channel Analysis
+
+    var channelCongestion: [ChannelCongestion] {
+        ChannelAnalyzer.analyze(networks: nearbyNetworks)
+    }
+
+    var channelRecommendations: [ChannelRecommendation] {
+        ChannelAnalyzer.recommend(networks: nearbyNetworks)
+    }
+
+    // MARK: - Expand/Collapse
+
+    func toggleExpanded(_ ssid: String) {
+        if expandedSSIDs.contains(ssid) {
+            expandedSSIDs.remove(ssid)
+        } else {
+            expandedSSIDs.insert(ssid)
+        }
+    }
+
+    func isExpanded(_ ssid: String) -> Bool {
+        expandedSSIDs.contains(ssid)
+    }
+
+    // MARK: - Scanning
+
+    func startScanning() {
+        guard !isScanning else { return }
+        isScanning = true
+        errorMessage = nil
+        scanNow()
+        scanTimer = Timer.scheduledTimer(withTimeInterval: scanInterval, repeats: true) { [weak self] _ in
+            Task { @MainActor [weak self] in
+                self?.scanNow()
+            }
+        }
+    }
+
+    func stopScanning() {
+        isScanning = false
+        scanTimer?.invalidate()
+        scanTimer = nil
+    }
+
+    func clearHistory() {
+        signalHistory.removeAll()
+    }
+
+    private func scanNow() {
+        guard !isScanInProgress else { return }
+        isScanInProgress = true
+
+        Task {
+            do {
+                let networks = try await Task.detached(priority: .userInitiated) { [scannerService] in
+                    try scannerService.scanForNearbyNetworks()
+                }.value
+
+                await MainActor.run {
+                    self.nearbyNetworks = networks
+                    self.errorMessage = nil
+
+                    // Track signal history per SSID using the best RSSI from all APs
+                    let grouped = Dictionary(grouping: networks, by: { $0.ssid })
+                    for (ssid, aps) in grouped {
+                        guard let bestRSSI = aps.max(by: { $0.rssi < $1.rssi })?.rssi else { continue }
+                        let dataPoint = SignalDataPoint(
+                            timestamp: Date(),
+                            rssi: bestRSSI,
+                            ssid: ssid
+                        )
+                        var history = self.signalHistory[ssid, default: []]
+                        history.append(dataPoint)
+                        if history.count > self.maxHistoryPoints {
+                            history.removeFirst(history.count - self.maxHistoryPoints)
+                        }
+                        self.signalHistory[ssid] = history
+                    }
+
+                    self.isScanInProgress = false
+                }
+            } catch {
+                await MainActor.run {
+                    self.errorMessage = error.localizedDescription
+                    self.isScanInProgress = false
+                }
+            }
+        }
+    }
+
+    deinit {
+        scanTimer?.invalidate()
+    }
+}

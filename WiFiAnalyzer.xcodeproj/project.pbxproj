@@ -46,6 +46,12 @@
 		C370718293A4B5C6D7E8F90D /* ExportServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D470718293A4B5C6D7E8F90E /* ExportServiceTests.swift */; };
 		E570718293A4B5C6D7E8F90F /* StatisticsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F670718293A4B5C6D7E8F910 /* StatisticsViewModelTests.swift */; };
 		A770718293A4B5C6D7E8F911 /* LocationMappingServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B870718293A4B5C6D7E8F912 /* LocationMappingServiceTests.swift */; };
+		AB12345678901BCD12345601 /* NearbyNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12345678901BCD12345611 /* NearbyNetwork.swift */; };
+		AB12345678901BCD12345602 /* NearbyNetworksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12345678901BCD12345612 /* NearbyNetworksViewModel.swift */; };
+		AB12345678901BCD12345603 /* NearbyNetworksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12345678901BCD12345613 /* NearbyNetworksView.swift */; };
+		AB12345678901BCD12345604 /* NearbyNetworkRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12345678901BCD12345614 /* NearbyNetworkRowView.swift */; };
+		CD12345678901BCD12345605 /* ChannelCongestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD12345678901BCD12345615 /* ChannelCongestion.swift */; };
+		CD12345678901BCD12345606 /* ChannelCongestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD12345678901BCD12345616 /* ChannelCongestionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +109,12 @@
 		F670718293A4B5C6D7E8F910 /* StatisticsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewModelTests.swift; sourceTree = "<group>"; };
 		B870718293A4B5C6D7E8F912 /* LocationMappingServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMappingServiceTests.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F6A708192A3B4D /* SSIDColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSIDColorPalette.swift; sourceTree = "<group>"; };
+		AB12345678901BCD12345611 /* NearbyNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyNetwork.swift; sourceTree = "<group>"; };
+		AB12345678901BCD12345612 /* NearbyNetworksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyNetworksViewModel.swift; sourceTree = "<group>"; };
+		AB12345678901BCD12345613 /* NearbyNetworksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyNetworksView.swift; sourceTree = "<group>"; };
+		AB12345678901BCD12345614 /* NearbyNetworkRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyNetworkRowView.swift; sourceTree = "<group>"; };
+		CD12345678901BCD12345615 /* ChannelCongestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelCongestion.swift; sourceTree = "<group>"; };
+		CD12345678901BCD12345616 /* ChannelCongestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelCongestionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +197,8 @@
 				1B244D8937A1A9D31D3ED6EA /* SignalDataPoint.swift */,
 				6D5CDDA4DA5F03D625D7AD5A /* LocationCoordinate.swift */,
 				420E89C8045D56BAAC635740 /* HeatMapDataPoint.swift */,
+				AB12345678901BCD12345611 /* NearbyNetwork.swift */,
+				CD12345678901BCD12345615 /* ChannelCongestion.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -208,6 +222,7 @@
 				4E5A127F185F4D2F96C9AAB0 /* MeasurementsViewModel.swift */,
 				1AA876AC4ECB6CC3D11C8E58 /* StatisticsViewModel.swift */,
 				98F95ADF5794288257CF9154 /* HeatMapViewModel.swift */,
+				AB12345678901BCD12345612 /* NearbyNetworksViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -217,6 +232,7 @@
 			children = (
 				D37A5B9E3A874E918DD77CCC /* ContentView.swift */,
 				4BCCD5AF88CF4E38A5C2B952 /* Dashboard */,
+				AB12345678901BCD12345620 /* NearbyNetworks */,
 				6DAAC45B968D4487A25084FD /* Measurements */,
 				1E0A1A17CA2ECFB99025A41E /* Statistics */,
 				BA7DE4F89A3C28D52408FB11 /* HeatMap */,
@@ -262,6 +278,16 @@
 				DFBAEBF3E8657CC0F79DD303 /* LocationMappingView.swift */,
 			);
 			path = HeatMap;
+			sourceTree = "<group>";
+		};
+		AB12345678901BCD12345620 /* NearbyNetworks */ = {
+			isa = PBXGroup;
+			children = (
+				AB12345678901BCD12345613 /* NearbyNetworksView.swift */,
+				AB12345678901BCD12345614 /* NearbyNetworkRowView.swift */,
+				CD12345678901BCD12345616 /* ChannelCongestionView.swift */,
+			);
+			path = NearbyNetworks;
 			sourceTree = "<group>";
 		};
 		FC70718293A4B5C6D7E8F916 /* WiFiAnalyzerTests */ = {
@@ -399,6 +425,12 @@
 				D19BD374E8548FD4A73D63DB /* HeatMapLegendView.swift in Sources */,
 				C59177FD413F23161D20D642 /* LocationMappingView.swift in Sources */,
 				F1A2B3C4D5E6F708192A3B4C /* SSIDColorPalette.swift in Sources */,
+				AB12345678901BCD12345601 /* NearbyNetwork.swift in Sources */,
+				AB12345678901BCD12345602 /* NearbyNetworksViewModel.swift in Sources */,
+				AB12345678901BCD12345603 /* NearbyNetworksView.swift in Sources */,
+				AB12345678901BCD12345604 /* NearbyNetworkRowView.swift in Sources */,
+				CD12345678901BCD12345605 /* ChannelCongestion.swift in Sources */,
+				CD12345678901BCD12345606 /* ChannelCongestionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -5,10 +5,15 @@ struct SignalHistoryChartView: View {
     let history: [SignalDataPoint]
     var currentSSID: String? = nil
     var currentBand: String? = nil
+    /// Optional pre-sorted SSID order (e.g. strongest signal first). If nil, uses insertion order.
+    var ssidOrder: [String]? = nil
 
     // MARK: - SSID Color Palette
 
     private var uniqueSSIDs: [String] {
+        if let order = ssidOrder {
+            return order
+        }
         var seen: [String] = []
         for point in history {
             if !seen.contains(point.ssid) {

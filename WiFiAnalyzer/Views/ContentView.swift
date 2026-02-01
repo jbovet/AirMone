@@ -2,6 +2,7 @@ import SwiftUI
 
 enum NavigationItem: String, CaseIterable {
     case dashboard = "Dashboard"
+    case nearbyNetworks = "Nearby Networks"
     case measurements = "Measurements"
     case statistics = "Statistics"
     case heatMap = "Heat Map"
@@ -10,6 +11,8 @@ enum NavigationItem: String, CaseIterable {
         switch self {
         case .dashboard:
             return "wifi"
+        case .nearbyNetworks:
+            return "antenna.radiowaves.left.and.right"
         case .measurements:
             return "mappin.and.ellipse"
         case .statistics:
@@ -37,6 +40,8 @@ struct ContentView: View {
                 switch selectedItem {
                 case .dashboard:
                     DashboardView()
+                case .nearbyNetworks:
+                    NearbyNetworksView()
                 case .measurements:
                     MeasurementsListView()
                 case .statistics:
