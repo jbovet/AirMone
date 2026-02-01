@@ -1,19 +1,19 @@
 import SwiftUI
 
 enum NavigationItem: String, CaseIterable {
-    case dashboard = "Dashboard"
+    case signalMonitor = "Signal Monitor"
     case nearbyNetworks = "Nearby Networks"
-    case measurements = "Measurements"
+    case markedLocations = "Marked Locations"
     case statistics = "Statistics"
     case heatMap = "Heat Map"
 
     var icon: String {
         switch self {
-        case .dashboard:
+        case .signalMonitor:
             return "wifi"
         case .nearbyNetworks:
             return "antenna.radiowaves.left.and.right"
-        case .measurements:
+        case .markedLocations:
             return "mappin.and.ellipse"
         case .statistics:
             return "chart.bar.fill"
@@ -24,7 +24,7 @@ enum NavigationItem: String, CaseIterable {
 }
 
 struct ContentView: View {
-    @State private var selectedItem: NavigationItem? = .dashboard
+    @State private var selectedItem: NavigationItem? = .signalMonitor
 
     var body: some View {
         NavigationSplitView {
@@ -38,11 +38,11 @@ struct ContentView: View {
         } detail: {
             if let selectedItem = selectedItem {
                 switch selectedItem {
-                case .dashboard:
+                case .signalMonitor:
                     DashboardView()
                 case .nearbyNetworks:
                     NearbyNetworksView()
-                case .measurements:
+                case .markedLocations:
                     MeasurementsListView()
                 case .statistics:
                     StatisticsView()

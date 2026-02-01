@@ -16,7 +16,7 @@ struct MeasurementsListView: View {
                 measurementsList
             }
         }
-        .navigationTitle("Measurements")
+        .navigationTitle("Marked Locations")
         .searchable(text: $viewModel.searchText, prompt: "Search by location or SSID")
         .toolbar {
             ToolbarItemGroup(placement: .primaryAction) {
@@ -167,7 +167,7 @@ struct MeasurementsListView: View {
                 .font(.title2)
                 .fontWeight(.semibold)
 
-            Text("Use the Drop Pin button on the Dashboard to save WiFi signal measurements at different locations.")
+            Text("Use the Mark button on the Signal Monitor to save WiFi signal measurements at different locations.")
                 .font(.body)
                 .foregroundColor(.secondary)
                 .multilineTextAlignment(.center)

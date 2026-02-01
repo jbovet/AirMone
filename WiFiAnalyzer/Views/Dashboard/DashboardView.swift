@@ -12,7 +12,23 @@ struct DashboardView: View {
                 if let network = viewModel.currentNetwork {
                     // Signal Monitor Panel - Combines Gauge and History
                     VStack(alignment: .leading, spacing: 0) {
-                        SectionHeader(title: "Signal Monitor")
+                        HStack {
+                            SectionHeader(title: "Signal Monitor")
+                            
+                            Spacer()
+                            
+                            Button(action: {
+                                showingDropPin = true
+                            }) {
+                                Label("Mark", systemImage: "mappin.and.ellipse")
+                                    .fontWeight(.medium)
+                            }
+                            .buttonStyle(.borderedProminent)
+                            .controlSize(.small)
+                            .help("Save current signal measurement")
+                            .disabled(viewModel.currentNetwork == nil)
+                            .padding(.trailing, 12)
+                        }
 
                         HStack(alignment: .center, spacing: 20) {
                             // Signal Gauge - Left Side
@@ -74,17 +90,9 @@ struct DashboardView: View {
             }
             .padding(.vertical)
         }
-        .navigationTitle("WiFi Signal")
+        .navigationTitle("Signal Monitor")
         .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                Button(action: {
-                    showingDropPin = true
-                }) {
-                    Label("Drop Pin", systemImage: "mappin.circle.fill")
-                }
-                .help("Save current signal measurement")
-                .disabled(viewModel.currentNetwork == nil)
-            }
+            // Empty toolbar or other items
         }
         .onAppear {
             viewModel.startLiveScanning()
@@ -98,9 +106,10 @@ struct DashboardView: View {
             if let network = viewModel.currentNetwork {
                 DropPinView(
                     locationName: $locationName,
+                    recentLocations: viewModel.recentLocations,
                     network: network,
                     onSave: {
-                        viewModel.dropPin(locationName: locationName)
+                        viewModel.markLocation(at: locationName)
                     },
                     existingCount: viewModel.existingMeasurementCount(for: locationName)
                 )
