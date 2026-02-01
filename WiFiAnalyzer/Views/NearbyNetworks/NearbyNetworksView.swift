@@ -36,11 +36,12 @@ struct NearbyNetworksView: View {
                 }
                 .controlSize(.regular)
 
-                Picker("Band ", selection: $viewModel.selectedBandFilter) {
+                Picker("Band", selection: $viewModel.selectedBandFilter) {
                     ForEach(NearbyNetworksViewModel.BandFilter.allCases, id: \.self) { filter in
                         Text(filter.rawValue).tag(filter)
                     }
                 }
+                .labelsHidden()
                 .pickerStyle(.segmented)
                 .frame(maxWidth: 300)
 

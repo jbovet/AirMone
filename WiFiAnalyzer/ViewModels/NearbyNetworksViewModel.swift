@@ -63,21 +63,19 @@ class NearbyNetworksViewModel: ObservableObject {
         networkGroups.reduce(0) { $0 + $1.apCount }
     }
 
-    /// SSIDs ordered by best signal strength (strongest first), capped to top 10
+    /// SSIDs from the current filtered groups, ordered by best signal (strongest first), capped to top 10
     var topSSIDsBySignal: [String] {
-        let allGroups = Dictionary(grouping: nearbyNetworks, by: { $0.ssid })
-        return allGroups
-            .map { (ssid: $0.key, bestRSSI: $0.value.max(by: { $0.rssi < $1.rssi })?.rssi ?? -100) }
+        networkGroups
             .sorted { $0.bestRSSI > $1.bestRSSI }
             .prefix(10)
             .map { $0.ssid }
     }
 
-    /// Flattened signal history for chart display, capped to top 10 SSIDs by best RSSI
+    /// Flattened signal history for chart display, filtered by current band selection
     var chartSignalHistory: [SignalDataPoint] {
-        let topSSIDs = Set(topSSIDsBySignal)
+        let allowedSSIDs = Set(topSSIDsBySignal)
         return signalHistory
-            .filter { topSSIDs.contains($0.key) }
+            .filter { allowedSSIDs.contains($0.key) }
             .flatMap { $0.value }
     }
 
