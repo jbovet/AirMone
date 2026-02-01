@@ -50,6 +50,7 @@
 		AB12345678901BCD12345602 /* NearbyNetworksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12345678901BCD12345612 /* NearbyNetworksViewModel.swift */; };
 		AB12345678901BCD12345603 /* NearbyNetworksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12345678901BCD12345613 /* NearbyNetworksView.swift */; };
 		AB12345678901BCD12345604 /* NearbyNetworkRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12345678901BCD12345614 /* NearbyNetworkRowView.swift */; };
+		AB12345678901BCD12345690 /* NearbyNetworksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12345678901BCD12345691 /* NearbyNetworksTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,6 +112,7 @@
 		AB12345678901BCD12345612 /* NearbyNetworksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyNetworksViewModel.swift; sourceTree = "<group>"; };
 		AB12345678901BCD12345613 /* NearbyNetworksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyNetworksView.swift; sourceTree = "<group>"; };
 		AB12345678901BCD12345614 /* NearbyNetworkRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyNetworkRowView.swift; sourceTree = "<group>"; };
+		AB12345678901BCD12345691 /* NearbyNetworksTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyNetworksTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -294,6 +296,7 @@
 				D470718293A4B5C6D7E8F90E /* ExportServiceTests.swift */,
 				F670718293A4B5C6D7E8F910 /* StatisticsViewModelTests.swift */,
 				B870718293A4B5C6D7E8F912 /* LocationMappingServiceTests.swift */,
+				AB12345678901BCD12345691 /* NearbyNetworksTests.swift */,
 			);
 			path = WiFiAnalyzerTests;
 			sourceTree = "<group>";
@@ -437,6 +440,7 @@
 				C370718293A4B5C6D7E8F90D /* ExportServiceTests.swift in Sources */,
 				E570718293A4B5C6D7E8F90F /* StatisticsViewModelTests.swift in Sources */,
 				A770718293A4B5C6D7E8F911 /* LocationMappingServiceTests.swift in Sources */,
+				AB12345678901BCD12345690 /* NearbyNetworksTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
