@@ -18,5 +18,14 @@ struct WiFiAnalyzerApp: App {
         }
         .windowStyle(.hiddenTitleBar)
         .windowResizability(.contentSize)
+        .commands {
+            CommandGroup(replacing: .help) {
+                Button("AirMone Help") {
+                    if let url = URL(string: "https://github.com/jbovet/AirMone/") {
+                        NSWorkspace.shared.open(url)
+                    }
+                }
+            }
+        }
     }
 }
