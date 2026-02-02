@@ -39,17 +39,18 @@ jobs:
             -project WiFiAnalyzer.xcodeproj \
             -scheme WiFiAnalyzer \
             -configuration Release \
-            -derivedDataPath Build/ \
+            -derivedDataPath build/ \
             -destination 'platform=macOS' \
             CODE_SIGNING_ALLOWED=NO \
-            CODE_SIGNING_REQUIRED=NO
+            CODE_SIGNING_REQUIRED=NO \
+            PRODUCT_NAME=AirMone
 
       - name: Create DMG
         uses: Lencof/create-macos-dmg@v1.1
         with:
-          app_name: "WiFiAnalyzer"
+          app_name: "AirMone"
           dmg_name: "AirMone-${{ steps.version.outputs.VERSION }}"
-          app_path: "Build/Build/Products/Release/WiFiAnalyzer.app"
+          app_path: "build/Build/Products/Release/AirMone.app"
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
