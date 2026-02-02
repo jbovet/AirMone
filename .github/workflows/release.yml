@@ -46,11 +46,10 @@ jobs:
             PRODUCT_NAME=AirMone
 
       - name: Create DMG
-        uses: Lencof/create-macos-dmg@v1.1
+        uses: L-Super/create-dmg-actions@v1
         with:
-          app_name: "AirMone"
           dmg_name: "AirMone-${{ steps.version.outputs.VERSION }}"
-          app_path: "build/Build/Products/Release/AirMone.app"
+          src_dir: "build/Build/Products/Release/AirMone.app"
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
