@@ -78,21 +78,15 @@ AirMone is a native macOS utility built entirely with SwiftUI. It gives you real
 
 ## Installation
 
-### Download
+1. **Download**: Get the latest `.dmg` from the [Releases](https://github.com/jbovet/AirMone/releases) page.
+2. **Install**: Open the `.dmg` and drag **AirMone** to your **Applications** folder.
+3. **First Launch (Required)**:
+   - Go to your **Applications** folder.
+   - **Right-click** (or Control-click) **AirMone** and select **Open**.
+   - Click **Open** in the confirmation dialog.
 
-Download the latest `.dmg` from the [Releases](https://github.com/jbovet/AirMone/releases) page, open it, and drag **AirMone** into your Applications folder.
-
-### macOS Security Note
-
-Because the app is not signed by an Apple Developer account, you may see a warning:  
-> **"Apple could not verify 'AirMone' is free of malware..."**
-
-To open the app:
-1.  **Right-click** (or Control-click) the **AirMone** app in your Applications folder.
-2.  Select **Open** from the shortcut menu.
-3.  Click **Open** in the dialog box that appears.
-
-For more information, see [Apple's support guide](https://support.apple.com/guide/mac-help/apple-cant-check-app-for-malicious-software-mchleab3a043/mac).
+> [!TIP]
+> This is required for the first launch because the app is currently unsigned. Subsequent launches can be done normally via Spotlight or Launchpad. For more details, see [Apple's guide](https://support.apple.com/guide/mac-help/apple-cant-check-app-for-malicious-software-mchleab3a043/mac).
 
 ### Requirements
 
