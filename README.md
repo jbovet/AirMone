@@ -85,8 +85,17 @@ AirMone is a native macOS utility built entirely with SwiftUI. It gives you real
    - **Right-click** (or Control-click) **AirMone** and select **Open**.
    - Click **Open** in the confirmation dialog.
 
+#### Alternative Method (via System Settings)
+If the right-click method doesn't work:
+1. Try to open **AirMone** normally (it will fail and show a warning).
+2. Open the **Apple menu**  > **System Settings**.
+3. Click **Privacy & Security** in the sidebar.
+4. Scroll down to the **Security** section.
+5. You should see a message about "AirMone" being blocked. Click **Open Anyway**.
+6. Enter your login password and click **OK**.
+
 > [!TIP]
-> This is required for the first launch because the app is currently unsigned. Subsequent launches can be done normally via Spotlight or Launchpad. For more details, see [Apple's guide](https://support.apple.com/guide/mac-help/apple-cant-check-app-for-malicious-software-mchleab3a043/mac).
+> These steps are only necessary for the first launch. Subsequent launches can be done normally via Spotlight or Launchpad.
 
 ### Requirements
 
