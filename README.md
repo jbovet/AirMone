@@ -85,7 +85,9 @@ AirMone is a native macOS utility built entirely with SwiftUI. It gives you real
    - **Right-click** (or Control-click) **AirMone** and select **Open**.
    - Click **Open** in the confirmation dialog.
 
-#### Alternative Method (via System Settings)
+> **Note on Security Warnings**: macOS displays the message "Using an app that can’t be checked for malicious software might harm your Mac..." for any application that is not signed with an Apple Developer certificate. Since AirMone is a community-driven open-source project, it is currently distributed without this signature. You are encouraged to review the source code here on GitHub to verify the app's safety.
+
+#### Fix Security Permissions
 If the right-click method doesn't work:
 1. Try to open **AirMone** normally (it will fail and show a warning).
 2. Open the **Apple menu**  > **System Settings**.
@@ -96,6 +98,7 @@ If the right-click method doesn't work:
 
 > [!TIP]
 > These steps are only necessary for the first launch. Subsequent launches can be done normally via Spotlight or Launchpad.
+
 
 ### Requirements
 
