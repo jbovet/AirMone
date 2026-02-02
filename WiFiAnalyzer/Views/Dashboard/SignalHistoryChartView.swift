@@ -200,31 +200,3 @@ struct SignalHistoryChartView: View {
     }
 }
 
-#Preview {
-    let now = Date()
-    let sampleHistory = [
-        // BOVET (5 GHz) - stronger signal
-        SignalDataPoint(timestamp: now.addingTimeInterval(-60), rssi: -42, ssid: "BOVET"),
-        SignalDataPoint(timestamp: now.addingTimeInterval(-50), rssi: -45, ssid: "BOVET"),
-        SignalDataPoint(timestamp: now.addingTimeInterval(-40), rssi: -48, ssid: "BOVET"),
-        SignalDataPoint(timestamp: now.addingTimeInterval(-30), rssi: -44, ssid: "BOVET"),
-        SignalDataPoint(timestamp: now.addingTimeInterval(-20), rssi: -46, ssid: "BOVET"),
-        SignalDataPoint(timestamp: now.addingTimeInterval(-10), rssi: -43, ssid: "BOVET"),
-        SignalDataPoint(timestamp: now, rssi: -41, ssid: "BOVET"),
-        // TuxLabs (2.4 GHz) - weaker signal
-        SignalDataPoint(timestamp: now.addingTimeInterval(-60), rssi: -62, ssid: "TuxLabs"),
-        SignalDataPoint(timestamp: now.addingTimeInterval(-50), rssi: -65, ssid: "TuxLabs"),
-        SignalDataPoint(timestamp: now.addingTimeInterval(-40), rssi: -68, ssid: "TuxLabs"),
-        SignalDataPoint(timestamp: now.addingTimeInterval(-30), rssi: -64, ssid: "TuxLabs"),
-        SignalDataPoint(timestamp: now.addingTimeInterval(-20), rssi: -66, ssid: "TuxLabs"),
-        SignalDataPoint(timestamp: now.addingTimeInterval(-10), rssi: -70, ssid: "TuxLabs"),
-        SignalDataPoint(timestamp: now, rssi: -63, ssid: "TuxLabs"),
-    ]
-
-    return SignalHistoryChartView(
-        history: sampleHistory,
-        currentSSID: "BOVET",
-        currentBand: "5 GHz"
-    )
-    .padding()
-}
