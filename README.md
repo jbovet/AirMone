@@ -34,6 +34,10 @@ AirMone is a native macOS utility built entirely with SwiftUI. It gives you real
 
 ### Signal Monitor
 
+<p align="center">
+  <img src="media/monitor.png" width="100%" alt="Signal Monitor">
+</p>
+
 - **Signal Gauge** — Semi-circle gauge with color-coded range segments (Unusable → Excellent), needle indicator, and dBm tick labels for instant signal assessment.
 - **History Chart** — Tracks RSSI over time so you can observe fluctuations and correlate them with environmental changes.
 - **Network Info** — Displays SSID, BSSID, IP address, gateway, band, channel, protocol, security, TX rate, noise, SNR, and signal quality at a glance.
@@ -41,12 +45,20 @@ AirMone is a native macOS utility built entirely with SwiftUI. It gives you real
 
 ### Nearby Networks
 
+<p align="center">
+  <img src="media/scanner.png" width="100%" alt="Nearby Networks">
+</p>
+
 - **Band Filtering** — Filter discovered networks by 2.4 GHz, 5 GHz, or 6 GHz.
 - **SSID Grouping** — Access points sharing the same SSID are automatically grouped; expand any group to inspect individual BSSIDs.
 - **Multiple Sort Orders** — Sort by signal strength, channel, or name.
 - **Signal History** — Per-SSID signal tracking with color-coded chart lines (top 10 strongest networks).
 
 ### Location Mapping & Measurements
+
+<p align="center">
+  <img src="media/mark-location.png" width="100%" alt="Location Mapping">
+</p>
 
 - **Drop Pin** — Record signal strength at named locations within your space.
 - **Persistent Storage** — Measurements are stored locally and survive app restarts.
