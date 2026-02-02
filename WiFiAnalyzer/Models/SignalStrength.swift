@@ -52,4 +52,21 @@ enum SignalStrength: String, CaseIterable {
         case .unusable: return 0.16
         }
     }
+
+    var rangeDescription: String {
+        switch self {
+        case .excellent:
+            return "-50 to -30"
+        case .good:
+            return "-60 to -50"
+        case .fair:
+            return "-70 to -60"
+        case .weak:
+            return "-80 to -70"
+        case .poor:
+            return "-90 to -80"
+        case .unusable:
+            return "< -90"
+        }
+    }
 }
