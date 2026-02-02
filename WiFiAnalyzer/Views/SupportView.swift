@@ -1,5 +1,15 @@
+//
+//  SupportView.swift
+//  WiFiAnalyzer
+//
+//  Created by Jose Bovet Derpich on 2025.
+//  jose.bovet@gmail.com
+//  MIT License
+//
+
 import SwiftUI
 
+/// Donation and support page with a "Buy Me a Coffee" link.
 struct SupportView: View {
     let donationURL = URL(string: "https://www.buymeacoffee.com/jpbd")!
     

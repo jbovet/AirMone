@@ -1,5 +1,18 @@
+//
+//  HeatMapView.swift
+//  WiFiAnalyzer
+//
+//  Created by Jose Bovet Derpich on 2025.
+//  jose.bovet@gmail.com
+//  MIT License
+//
+
 import SwiftUI
 
+/// Interactive heat map visualization of WiFi signal strength across mapped locations.
+///
+/// Renders an interpolated RSSI grid using Metal-accelerated Canvas,
+/// overlays measurement point markers, and supports zoom/pan gestures and PNG export.
 struct HeatMapView: View {
     @StateObject private var viewModel = HeatMapViewModel()
     @State private var zoomScale: CGFloat = 1.0

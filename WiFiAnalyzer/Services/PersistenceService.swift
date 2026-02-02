@@ -1,6 +1,16 @@
+//
+//  PersistenceService.swift
+//  WiFiAnalyzer
+//
+//  Created by Jose Bovet Derpich on 2025.
+//  jose.bovet@gmail.com
+//  MIT License
+//
+
 import Foundation
 import Combine
 
+/// Errors that can occur during measurement data persistence.
 enum PersistenceError: LocalizedError {
     case encodingFailed
     case decodingFailed
@@ -15,6 +25,10 @@ enum PersistenceError: LocalizedError {
     }
 }
 
+/// Manages CRUD operations for ``MeasurementPoint`` data using `UserDefaults`.
+///
+/// Uses JSON encoding/decoding with ISO 8601 date formatting.
+/// Publishes a ``dataChanged`` event via Combine so ViewModels can react to data mutations.
 class PersistenceService {
     static let shared = PersistenceService()
 

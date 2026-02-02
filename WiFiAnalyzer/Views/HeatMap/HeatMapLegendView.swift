@@ -1,5 +1,15 @@
+//
+//  HeatMapLegendView.swift
+//  WiFiAnalyzer
+//
+//  Created by Jose Bovet Derpich on 2025.
+//  jose.bovet@gmail.com
+//  MIT License
+//
+
 import SwiftUI
 
+/// Bottom legend bar showing signal strength color swatches and gesture hints.
 struct HeatMapLegendView: View {
     var body: some View {
         HStack(spacing: 20) {

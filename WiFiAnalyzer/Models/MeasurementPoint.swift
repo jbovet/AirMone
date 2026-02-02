@@ -1,5 +1,18 @@
+//
+//  MeasurementPoint.swift
+//  WiFiAnalyzer
+//
+//  Created by Jose Bovet Derpich on 2025.
+//  jose.bovet@gmail.com
+//  MIT License
+//
+
 import Foundation
 
+/// A saved WiFi signal measurement at a named location.
+///
+/// Created when the user marks a location via the "Drop Pin" action.
+/// Persisted through ``PersistenceService`` and used in statistics, exports, and heat maps.
 struct MeasurementPoint: Identifiable, Codable {
     let id: UUID
     let locationName: String

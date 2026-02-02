@@ -1,5 +1,18 @@
+//
+//  WiFiNetwork.swift
+//  WiFiAnalyzer
+//
+//  Created by Jose Bovet Derpich on 2025.
+//  jose.bovet@gmail.com
+//  MIT License
+//
+
 import Foundation
 
+/// Represents a connected WiFi network with detailed connection metadata.
+///
+/// Contains identification (SSID, BSSID), signal metrics (RSSI, noise, SNR),
+/// connection details (channel, band, PHY mode, security), and network addresses.
 struct WiFiNetwork: Identifiable, Codable {
     let id: UUID
     let ssid: String

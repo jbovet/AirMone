@@ -1,6 +1,16 @@
+//
+//  StatisticsViewModel.swift
+//  WiFiAnalyzer
+//
+//  Created by Jose Bovet Derpich on 2025.
+//  jose.bovet@gmail.com
+//  MIT License
+//
+
 import Foundation
 import Combine
 
+/// Aggregated signal statistics for a single named location.
 struct LocationStatistics: Identifiable {
     let id = UUID()
     let locationName: String
@@ -12,12 +22,14 @@ struct LocationStatistics: Identifiable {
     }
 }
 
+/// Count of measurements for a specific ``SignalStrength`` category (used in bar charts).
 struct SignalQualityDistribution: Identifiable {
     let id = UUID()
     let quality: SignalStrength
     let count: Int
 }
 
+/// Per-SSID aggregated statistics for the network comparison table.
 struct SSIDStatistics: Identifiable {
     let ssid: String
     let measurementCount: Int
@@ -32,6 +44,11 @@ struct SSIDStatistics: Identifiable {
     }
 }
 
+/// ViewModel for the Statistics tab.
+///
+/// Computes aggregate metrics (average, best, worst RSSI, standard deviation),
+/// per-location rankings, signal quality distribution, and per-SSID comparisons.
+/// Supports filtering by a selected SSID.
 @MainActor
 class StatisticsViewModel: ObservableObject {
     @Published var measurements: [MeasurementPoint] = []

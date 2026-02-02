@@ -1,5 +1,15 @@
+//
+//  LocationMappingView.swift
+//  WiFiAnalyzer
+//
+//  Created by Jose Bovet Derpich on 2025.
+//  jose.bovet@gmail.com
+//  MIT License
+//
+
 import SwiftUI
 
+/// Sheet view for drag-and-drop positioning of measurement location pins on a grid canvas.
 struct LocationMappingView: View {
     @ObservedObject var viewModel: HeatMapViewModel
     @Environment(\.dismiss) var dismiss
@@ -122,6 +132,7 @@ struct LocationMappingView: View {
     }
 }
 
+/// A draggable map pin representing a named measurement location on the canvas.
 struct DraggablePinView: View {
     let locationName: String
     @Binding var coordinate: LocationCoordinate
@@ -168,6 +179,7 @@ struct DraggablePinView: View {
     }
 }
 
+/// A subtle background grid pattern drawn as vertical and horizontal lines.
 struct GridPattern: View {
     var body: some View {
         GeometryReader { geometry in

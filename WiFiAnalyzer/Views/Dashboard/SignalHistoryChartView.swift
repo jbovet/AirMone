@@ -1,6 +1,19 @@
+//
+//  SignalHistoryChartView.swift
+//  WiFiAnalyzer
+//
+//  Created by Jose Bovet Derpich on 2025.
+//  jose.bovet@gmail.com
+//  MIT License
+//
+
 import SwiftUI
 import Charts
 
+/// A live-updating line chart showing RSSI signal history over time, grouped by SSID.
+///
+/// Supports both single-network mode (dashboard) and multi-network mode (nearby networks).
+/// Each SSID is rendered as a separate colored line using ``SSIDColorPalette``.
 struct SignalHistoryChartView: View {
     let history: [SignalDataPoint]
     var currentSSID: String? = nil

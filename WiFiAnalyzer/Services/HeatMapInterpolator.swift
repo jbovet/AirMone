@@ -1,5 +1,19 @@
+//
+//  HeatMapInterpolator.swift
+//  WiFiAnalyzer
+//
+//  Created by Jose Bovet Derpich on 2025.
+//  jose.bovet@gmail.com
+//  MIT License
+//
+
 import Foundation
 
+/// Performs spatial interpolation of RSSI values using Inverse Distance Weighting (IDW).
+///
+/// Used by ``HeatMapViewModel`` to generate a continuous signal-strength grid
+/// from discrete ``HeatMapDataPoint`` measurements. Also provides optional
+/// Gaussian smoothing for visual refinement of the heat map.
 class HeatMapInterpolator {
 
     // MARK: - Inverse Distance Weighting (IDW) Interpolation

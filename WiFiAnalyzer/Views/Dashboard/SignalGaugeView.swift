@@ -1,5 +1,19 @@
+//
+//  SignalGaugeView.swift
+//  WiFiAnalyzer
+//
+//  Created by Jose Bovet Derpich on 2025.
+//  jose.bovet@gmail.com
+//  MIT License
+//
+
 import SwiftUI
 
+/// A semi-circle gauge that visualizes WiFi signal strength with colored range segments.
+///
+/// Displays six color-coded arc segments (Unusable through Excellent), a needle indicator
+/// pointing to the current RSSI position, dBm tick labels along the arc,
+/// and a center readout showing the numeric RSSI value and strength category.
 struct SignalGaugeView: View {
     let rssi: Int
     var size: CGFloat = 200

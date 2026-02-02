@@ -1,6 +1,16 @@
+//
+//  MeasurementsListView.swift
+//  WiFiAnalyzer
+//
+//  Created by Jose Bovet Derpich on 2025.
+//  jose.bovet@gmail.com
+//  MIT License
+//
+
 import SwiftUI
 import AppKit
 
+/// List view for browsing, searching, filtering, and exporting saved measurement points.
 struct MeasurementsListView: View {
     @StateObject private var viewModel = MeasurementsViewModel()
     @State private var showingDeleteConfirmation = false

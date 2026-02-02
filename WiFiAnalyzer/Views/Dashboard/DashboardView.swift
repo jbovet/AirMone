@@ -1,5 +1,16 @@
+//
+//  DashboardView.swift
+//  WiFiAnalyzer
+//
+//  Created by Jose Bovet Derpich on 2025.
+//  jose.bovet@gmail.com
+//  MIT License
+//
+
 import SwiftUI
 
+/// Main Signal Monitor dashboard combining the signal gauge, history chart,
+/// network info, and reference guide into a single scrollable view.
 struct DashboardView: View {
     @StateObject private var viewModel = WiFiScannerViewModel()
     @State private var showingDropPin = false

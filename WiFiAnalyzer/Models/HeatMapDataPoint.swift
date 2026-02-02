@@ -1,5 +1,18 @@
+//
+//  HeatMapDataPoint.swift
+//  WiFiAnalyzer
+//
+//  Created by Jose Bovet Derpich on 2025.
+//  jose.bovet@gmail.com
+//  MIT License
+//
+
 import Foundation
 
+/// A measurement data point enriched with spatial coordinates for heat map rendering.
+///
+/// Combines RSSI data from a ``MeasurementPoint`` with a ``LocationCoordinate``
+/// to enable spatial interpolation via ``HeatMapInterpolator``.
 struct HeatMapDataPoint: Identifiable, Equatable {
     let id: UUID
     let locationName: String

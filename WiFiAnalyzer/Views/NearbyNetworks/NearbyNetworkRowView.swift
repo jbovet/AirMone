@@ -1,7 +1,17 @@
+//
+//  NearbyNetworkRowView.swift
+//  WiFiAnalyzer
+//
+//  Created by Jose Bovet Derpich on 2025.
+//  jose.bovet@gmail.com
+//  MIT License
+//
+
 import SwiftUI
 
 // MARK: - Group Row (expandable)
 
+/// An expandable row representing a group of access points sharing the same SSID.
 struct NetworkGroupRowView: View {
     let group: NetworkGroup
     let color: Color
@@ -99,6 +109,7 @@ struct NetworkGroupRowView: View {
 
 // MARK: - Individual AP Row (shown when expanded)
 
+/// A detail row for an individual access point, shown when a ``NetworkGroupRowView`` is expanded.
 struct AccessPointRowView: View {
     let network: NearbyNetwork
     let color: Color

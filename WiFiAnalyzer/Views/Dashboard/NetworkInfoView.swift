@@ -1,5 +1,15 @@
+//
+//  NetworkInfoView.swift
+//  WiFiAnalyzer
+//
+//  Created by Jose Bovet Derpich on 2025.
+//  jose.bovet@gmail.com
+//  MIT License
+//
+
 import SwiftUI
 
+/// Displays detailed connection and signal information for the currently connected WiFi network.
 struct NetworkInfoView: View {
     let network: WiFiNetwork
 
@@ -136,6 +146,7 @@ struct NetworkInfoView: View {
     }
 }
 
+/// Reusable uppercase section header label used across dashboard cards.
 struct SectionHeader: View {
     let title: String
 
@@ -151,6 +162,7 @@ struct SectionHeader: View {
     }
 }
 
+/// A label-value row with an optional SF Symbol icon, used inside info cards.
 struct InfoRow: View {
     let label: String
     let value: String

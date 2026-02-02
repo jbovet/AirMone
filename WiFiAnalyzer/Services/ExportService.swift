@@ -1,11 +1,22 @@
+//
+//  ExportService.swift
+//  WiFiAnalyzer
+//
+//  Created by Jose Bovet Derpich on 2025.
+//  jose.bovet@gmail.com
+//  MIT License
+//
+
 import Foundation
 import AppKit
 
+/// Supported file formats for exporting measurement data.
 enum ExportFormat {
     case csv
     case json
 }
 
+/// Errors that can occur during the export process.
 enum ExportError: LocalizedError {
     case encodingFailed
     case fileCreationFailed
@@ -23,6 +34,10 @@ enum ExportError: LocalizedError {
     }
 }
 
+/// Handles exporting ``MeasurementPoint`` data to CSV and JSON file formats.
+///
+/// Content generation methods are separated from file-saving logic
+/// to enable unit testing without UI dependencies.
 class ExportService {
 
     // MARK: - Content Generation (testable, no UI dependencies)

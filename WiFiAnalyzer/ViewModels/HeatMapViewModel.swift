@@ -1,7 +1,21 @@
+//
+//  HeatMapViewModel.swift
+//  WiFiAnalyzer
+//
+//  Created by Jose Bovet Derpich on 2025.
+//  jose.bovet@gmail.com
+//  MIT License
+//
+
 import Foundation
 import Combine
 import AppKit
 
+/// ViewModel for the Heat Map tab.
+///
+/// Converts persisted ``MeasurementPoint`` data into ``HeatMapDataPoint`` entries
+/// with spatial coordinates, then generates a 2D RSSI grid via ``HeatMapInterpolator``.
+/// Supports SSID filtering, resolution control, and coordinate management.
 @MainActor
 class HeatMapViewModel: ObservableObject {
     @Published var measurements: [HeatMapDataPoint] = []

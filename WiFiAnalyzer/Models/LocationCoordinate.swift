@@ -1,6 +1,19 @@
+//
+//  LocationCoordinate.swift
+//  WiFiAnalyzer
+//
+//  Created by Jose Bovet Derpich on 2025.
+//  jose.bovet@gmail.com
+//  MIT License
+//
+
 import Foundation
 import CoreGraphics
 
+/// A 2D (or optional 3D) coordinate used to position measurement points on the heat map.
+///
+/// Coordinates are normalized to the 0.0–1.0 range for resolution-independent layout.
+/// Provides distance calculations and conversion to/from `CGPoint`.
 struct LocationCoordinate: Codable, Equatable, Hashable {
     let x: Double  // Normalized 0.0 to 1.0 or meters
     let y: Double  // Normalized 0.0 to 1.0 or meters

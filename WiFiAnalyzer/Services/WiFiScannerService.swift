@@ -1,8 +1,18 @@
+//
+//  WiFiScannerService.swift
+//  WiFiAnalyzer
+//
+//  Created by Jose Bovet Derpich on 2025.
+//  jose.bovet@gmail.com
+//  MIT License
+//
+
 import Foundation
 import CoreWLAN
 import CoreLocation
 import SystemConfiguration
 
+/// Errors that can occur when accessing the WiFi interface.
 enum WiFiError: LocalizedError {
     case noInterface
     case permissionDenied
@@ -20,6 +30,11 @@ enum WiFiError: LocalizedError {
     }
 }
 
+/// Service responsible for scanning WiFi networks using CoreWLAN.
+///
+/// Provides methods to retrieve the currently connected network (``getCurrentNetwork()``)
+/// and to scan for nearby access points (``scanForNearbyNetworks()``).
+/// Requires Location Services authorization on macOS for WiFi scanning capabilities.
 class WiFiScannerService: NSObject, CLLocationManagerDelegate {
     private let wifiClient: CWWiFiClient
     private let locationManager: CLLocationManager

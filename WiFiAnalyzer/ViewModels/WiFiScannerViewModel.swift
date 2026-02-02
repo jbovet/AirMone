@@ -1,6 +1,20 @@
+//
+//  WiFiScannerViewModel.swift
+//  WiFiAnalyzer
+//
+//  Created by Jose Bovet Derpich on 2025.
+//  jose.bovet@gmail.com
+//  MIT License
+//
+
 import Foundation
 import Combine
 
+/// ViewModel that drives the Signal Monitor (Dashboard) tab.
+///
+/// Manages a 2-second polling timer to continuously fetch the current WiFi network
+/// via ``WiFiScannerService``, maintains a rolling signal history for charting,
+/// and supports marking locations as ``MeasurementPoint`` via ``PersistenceService``.
 @MainActor
 class WiFiScannerViewModel: ObservableObject {
     @Published var currentNetwork: WiFiNetwork?

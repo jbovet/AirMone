@@ -1,5 +1,15 @@
+//
+//  ContentView.swift
+//  WiFiAnalyzer
+//
+//  Created by Jose Bovet Derpich on 2025.
+//  jose.bovet@gmail.com
+//  MIT License
+//
+
 import SwiftUI
 
+/// Sidebar navigation items available in the app.
 enum NavigationItem: String, CaseIterable {
     case signalMonitor = "Signal Monitor"
     case nearbyNetworks = "Nearby Networks"
@@ -26,6 +36,7 @@ enum NavigationItem: String, CaseIterable {
     }
 }
 
+/// Root view with a ``NavigationSplitView`` sidebar for switching between app sections.
 struct ContentView: View {
     @State private var selectedItem: NavigationItem? = .signalMonitor
 

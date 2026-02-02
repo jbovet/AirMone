@@ -1,5 +1,18 @@
+//
+//  SSIDColorPalette.swift
+//  WiFiAnalyzer
+//
+//  Created by Jose Bovet Derpich on 2025.
+//  jose.bovet@gmail.com
+//  MIT License
+//
+
 import SwiftUI
 
+/// Provides a consistent color assignment for SSIDs across charts and legends.
+///
+/// Each SSID is mapped to a color by its index in the ordered SSID list,
+/// cycling through the palette when there are more SSIDs than colors.
 enum SSIDColorPalette {
     static let colors: [Color] = [
         .blue, .purple, .teal, .orange, .pink, .indigo, .mint, .cyan

@@ -1,6 +1,17 @@
+//
+//  StatisticsView.swift
+//  WiFiAnalyzer
+//
+//  Created by Jose Bovet Derpich on 2025.
+//  jose.bovet@gmail.com
+//  MIT License
+//
+
 import SwiftUI
 import Charts
 
+/// Statistics dashboard with overview cards, signal quality distribution chart,
+/// location rankings, and per-SSID network comparison table.
 struct StatisticsView: View {
     @StateObject private var viewModel = StatisticsViewModel()
 
@@ -387,6 +398,7 @@ struct StatisticsView: View {
 
 // MARK: - Supporting Views
 
+/// A compact card displaying a single statistic with an icon, title, value, and optional subtitle.
 struct StatisticCard: View {
     let title: String
     let value: String
@@ -425,6 +437,7 @@ struct StatisticCard: View {
     }
 }
 
+/// A row showing a location name with its measurement count and average signal strength.
 struct LocationStatRow: View {
     let location: LocationStatistics
 

@@ -1,5 +1,19 @@
+//
+//  LocationMappingService.swift
+//  WiFiAnalyzer
+//
+//  Created by Jose Bovet Derpich on 2025.
+//  jose.bovet@gmail.com
+//  MIT License
+//
+
 import Foundation
 
+/// Singleton service that manages the mapping between location names and spatial coordinates.
+///
+/// Persists coordinate assignments to `UserDefaults` so that heat map pin positions
+/// survive app restarts. Supports automatic grid layout generation for unmapped locations
+/// and import/export of coordinate mappings.
 class LocationMappingService {
     static let shared = LocationMappingService()
 

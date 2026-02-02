@@ -1,5 +1,15 @@
+//
+//  SignalStrengthGuideView.swift
+//  WiFiAnalyzer
+//
+//  Created by Jose Bovet Derpich on 2025.
+//  jose.bovet@gmail.com
+//  MIT License
+//
+
 import SwiftUI
 
+/// Reference guide card showing signal strength ranges, frequency band info, and optimization tips.
 struct SignalStrengthGuideView: View {
     @State private var isExpanded: Bool = false
 
@@ -106,6 +116,7 @@ struct SignalStrengthGuideView: View {
     }
 }
 
+/// A compact row displaying a signal strength category with its color indicator and dBm range.
 struct SignalRangeCompactRow: View {
     let strength: SignalStrength
 
@@ -144,6 +155,7 @@ struct SignalRangeCompactRow: View {
     }
 }
 
+/// A row showing a frequency band with its pros and cons.
 struct BandInfoRow: View {
     let band: String
     let pros: String
@@ -177,6 +189,7 @@ struct BandInfoRow: View {
     }
 }
 
+/// A compact row with an icon and text for router optimization tips.
 struct TipCompactRow: View {
     let icon: String
     let text: String

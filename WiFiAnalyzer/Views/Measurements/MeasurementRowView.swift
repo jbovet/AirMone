@@ -1,5 +1,15 @@
+//
+//  MeasurementRowView.swift
+//  WiFiAnalyzer
+//
+//  Created by Jose Bovet Derpich on 2025.
+//  jose.bovet@gmail.com
+//  MIT License
+//
+
 import SwiftUI
 
+/// A single row in the measurements list showing location, SSID, timestamp, and signal strength.
 struct MeasurementRowView: View {
     let measurement: MeasurementPoint
 

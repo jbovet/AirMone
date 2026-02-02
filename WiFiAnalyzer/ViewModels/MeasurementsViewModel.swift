@@ -1,6 +1,16 @@
+//
+//  MeasurementsViewModel.swift
+//  WiFiAnalyzer
+//
+//  Created by Jose Bovet Derpich on 2025.
+//  jose.bovet@gmail.com
+//  MIT License
+//
+
 import Foundation
 import Combine
 
+/// Available sorting options for the measurements list.
 enum SortOption: String, CaseIterable {
     case chronological = "Chronological"
     case signalStrength = "Signal Strength"
@@ -10,6 +20,11 @@ enum SortOption: String, CaseIterable {
     }
 }
 
+/// ViewModel for the Marked Locations tab.
+///
+/// Manages loading, filtering, sorting, deleting, and exporting of
+/// ``MeasurementPoint`` data. Subscribes to ``PersistenceService/dataChanged``
+/// for automatic refresh when data is modified elsewhere.
 @MainActor
 class MeasurementsViewModel: ObservableObject {
     @Published var measurements: [MeasurementPoint] = []

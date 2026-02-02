@@ -1,6 +1,20 @@
+//
+//  NearbyNetworksViewModel.swift
+//  WiFiAnalyzer
+//
+//  Created by Jose Bovet Derpich on 2025.
+//  jose.bovet@gmail.com
+//  MIT License
+//
+
 import Foundation
 import Combine
 
+/// ViewModel for the Nearby Networks tab.
+///
+/// Performs periodic WiFi scans via ``WiFiScannerService/scanForNearbyNetworks()``,
+/// groups results by SSID into ``NetworkGroup`` entries, tracks per-SSID signal history,
+/// and supports band filtering and multiple sort orders.
 @MainActor
 class NearbyNetworksViewModel: ObservableObject {
     @Published var nearbyNetworks: [NearbyNetwork] = []

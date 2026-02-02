@@ -1,5 +1,15 @@
+//
+//  NearbyNetworksView.swift
+//  WiFiAnalyzer
+//
+//  Created by Jose Bovet Derpich on 2025.
+//  jose.bovet@gmail.com
+//  MIT License
+//
+
 import SwiftUI
 
+/// Displays discovered WiFi networks with signal history chart, band filtering, and expandable AP details.
 struct NearbyNetworksView: View {
     @StateObject private var viewModel = NearbyNetworksViewModel()
 

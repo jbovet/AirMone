@@ -1,5 +1,15 @@
+//
+//  DropPinView.swift
+//  WiFiAnalyzer
+//
+//  Created by Jose Bovet Derpich on 2025.
+//  jose.bovet@gmail.com
+//  MIT License
+//
+
 import SwiftUI
 
+/// Modal sheet for saving a WiFi measurement at a named location.
 struct DropPinView: View {
     @Environment(\.dismiss) var dismiss
     @Binding var locationName: String

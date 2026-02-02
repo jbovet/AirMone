@@ -1,5 +1,18 @@
+//
+//  NearbyNetwork.swift
+//  WiFiAnalyzer
+//
+//  Created by Jose Bovet Derpich on 2025.
+//  jose.bovet@gmail.com
+//  MIT License
+//
+
 import Foundation
 
+/// Represents a discovered WiFi access point from a nearby network scan.
+///
+/// Identified by a composite key of SSID + BSSID. Contains radio metrics (RSSI, noise, SNR),
+/// channel information, and security details.
 struct NearbyNetwork: Identifiable, Hashable {
     let id: String               // Composite key: "\(ssid)_\(bssid)"
     let ssid: String
@@ -34,6 +47,10 @@ struct NearbyNetwork: Identifiable, Hashable {
     }
 }
 
+/// Groups multiple ``NearbyNetwork`` access points that share the same SSID.
+///
+/// Provides aggregated metrics (best signal, bands, channels) and is used
+/// to display expandable rows in ``NearbyNetworksView``.
 struct NetworkGroup: Identifiable {
     let ssid: String
     let accessPoints: [NearbyNetwork]
