@@ -27,6 +27,9 @@ struct SignalHistoryChartView: View {
     /// Currently selected data point for tooltip display.
     @State private var selectedPoint: SignalDataPoint?
 
+    /// Current mouse hover location relative to the chart overlay, used to position tooltip.
+    @State private var hoverLocation: CGPoint = .zero
+
     // MARK: - SSID Color Palette
 
     private var uniqueSSIDs: [String] {
@@ -216,6 +219,7 @@ struct SignalHistoryChartView: View {
                         .onContinuousHover { phase in
                             switch phase {
                             case .active(let location):
+                                hoverLocation = location
                                 selectedPoint = findNearestPoint(at: location, proxy: proxy, geometry: geometry)
                             case .ended:
                                 selectedPoint = nil
@@ -223,10 +227,17 @@ struct SignalHistoryChartView: View {
                         }
                 }
             }
-            .overlay(alignment: .topLeading) {
-                if let point = selectedPoint {
-                    tooltipView(for: point)
-                        .transition(.opacity)
+            .overlay {
+                GeometryReader { chartGeo in
+                    if let point = selectedPoint {
+                        tooltipView(for: point)
+                            .fixedSize()
+                            .position(
+                                x: clampedTooltipX(hoverX: hoverLocation.x, chartWidth: chartGeo.size.width),
+                                y: max(40, hoverLocation.y - 60)
+                            )
+                            .transition(.opacity)
+                    }
                 }
             }
             .frame(height: 200)
@@ -285,6 +296,14 @@ struct SignalHistoryChartView: View {
     }
 
     // MARK: - Tooltip
+
+    /// Clamp tooltip X so it doesn't overflow the chart edges.
+    private func clampedTooltipX(hoverX: CGFloat, chartWidth: CGFloat) -> CGFloat {
+        let tooltipHalfWidth: CGFloat = 70
+        let minX = tooltipHalfWidth
+        let maxX = chartWidth - tooltipHalfWidth
+        return min(max(hoverX, minX), maxX)
+    }
 
     private func findNearestPoint(at location: CGPoint, proxy: ChartProxy, geometry: GeometryProxy) -> SignalDataPoint? {
         guard let plotFrame = proxy.plotFrame else { return nil }
