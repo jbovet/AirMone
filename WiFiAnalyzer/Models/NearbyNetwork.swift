@@ -102,6 +102,14 @@ struct NearbyNetwork: Identifiable, Hashable {
 struct NetworkGroup: Identifiable {
     let ssid: String
     let accessPoints: [NearbyNetwork]
+    /// Number of distinct physical devices, computed once at init from BSSID clustering.
+    let physicalAPCount: Int
+
+    init(ssid: String, accessPoints: [NearbyNetwork]) {
+        self.ssid = ssid
+        self.accessPoints = accessPoints
+        self.physicalAPCount = Self.computePhysicalAPCount(from: accessPoints)
+    }
 
     var id: String { ssid }
 
@@ -148,7 +156,7 @@ struct NetworkGroup: Identifiable {
     }
 
     /// Detects groups of APs that share the same physical device (sequential BSSIDs).
-    var physicalAPCount: Int {
+    private static func computePhysicalAPCount(from accessPoints: [NearbyNetwork]) -> Int {
         let bssids = accessPoints.compactMap { ap -> UInt64? in
             let hex = ap.bssid.replacingOccurrences(of: ":", with: "")
             return UInt64(hex, radix: 16)
