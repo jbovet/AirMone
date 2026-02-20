@@ -101,6 +101,12 @@ struct NearbyNetworksView: View {
                         .foregroundColor(.blue)
                     Text("Discovered Networks")
                         .font(.headline)
+
+                    Image(systemName: "info.circle")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                        .help("Signal values from beacon scans may differ slightly from active connection readings")
+
                     Spacer()
                 }
                 .padding(.bottom, 8)

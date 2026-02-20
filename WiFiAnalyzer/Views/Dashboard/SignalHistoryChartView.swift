@@ -21,6 +21,9 @@ struct SignalHistoryChartView: View {
     /// Optional pre-sorted SSID order (e.g. strongest signal first). If nil, uses insertion order.
     var ssidOrder: [String]? = nil
 
+    /// SSIDs hidden by the user via the interactive legend.
+    @State private var hiddenSSIDs: Set<String> = []
+
     // MARK: - SSID Color Palette
 
     private var uniqueSSIDs: [String] {
@@ -57,6 +60,11 @@ struct SignalHistoryChartView: View {
                 points: points.map { (time: $0.timestamp, rssi: $0.rssi) }
             )
         }
+    }
+
+    /// Groups filtered to only include SSIDs the user hasn't hidden.
+    private var visibleSSIDGroups: [SSIDGroup] {
+        ssidGroups.filter { !hiddenSSIDs.contains($0.ssid) }
     }
 
     var body: some View {
@@ -139,7 +147,7 @@ struct SignalHistoryChartView: View {
     private var chartView: some View {
         VStack(alignment: .leading, spacing: 4) {
             Chart {
-                ForEach(ssidGroups) { group in
+                ForEach(visibleSSIDGroups) { group in
                     ForEach(group.points, id: \.time) { point in
                         LineMark(
                             x: .value("Time", point.time),
@@ -174,7 +182,7 @@ struct SignalHistoryChartView: View {
                     }
                 }
             }
-            .chartYScale(domain: -100...(-30))
+            .chartYScale(domain: -100...(-20))
             .chartLegend(.hidden)
             .chartPlotStyle { plotArea in
                 plotArea.clipped()
@@ -189,16 +197,34 @@ struct SignalHistoryChartView: View {
     // MARK: - SSID Legend
 
     private var ssidLegendView: some View {
-        HStack(spacing: 16) {
+        HStack(spacing: 12) {
             ForEach(uniqueSSIDs, id: \.self) { ssid in
-                HStack(spacing: 4) {
-                    RoundedRectangle(cornerRadius: 2)
-                        .fill(colorForSSID(ssid))
-                        .frame(width: 12, height: 3)
-                    Text(ssid.isEmpty ? "Unknown" : ssid)
-                        .font(.caption2)
-                        .foregroundColor(.secondary)
+                let isHidden = hiddenSSIDs.contains(ssid)
+                Button {
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        if isHidden {
+                            hiddenSSIDs.remove(ssid)
+                        } else {
+                            hiddenSSIDs.insert(ssid)
+                        }
+                    }
+                } label: {
+                    HStack(spacing: 4) {
+                        RoundedRectangle(cornerRadius: 2)
+                            .fill(isHidden ? Color.gray.opacity(0.3) : colorForSSID(ssid))
+                            .frame(width: 12, height: 3)
+                        Text(ssid.isEmpty ? "Unknown" : ssid)
+                            .font(.caption2)
+                            .foregroundColor(isHidden ? .secondary.opacity(0.4) : .secondary)
+                            .strikethrough(isHidden, color: .secondary.opacity(0.4))
+                    }
+                    .padding(.horizontal, 6)
+                    .padding(.vertical, 3)
+                    .background(isHidden ? Color.clear : colorForSSID(ssid).opacity(0.08))
+                    .cornerRadius(4)
                 }
+                .buttonStyle(.plain)
+                .help(isHidden ? "Click to show \(ssid) on chart" : "Click to hide \(ssid) from chart")
             }
         }
         .padding(.top, 4)

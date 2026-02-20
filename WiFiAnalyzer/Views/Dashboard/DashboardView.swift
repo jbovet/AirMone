@@ -35,7 +35,12 @@ struct DashboardView: View {
                     VStack(alignment: .leading, spacing: 0) {
                         HStack {
                             SectionHeader(title: "Signal Monitor")
-                            
+
+                            Image(systemName: "info.circle")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                                .help("Real-time signal strength from your active WiFi connection")
+
                             Spacer()
                             
                             Button(action: {
