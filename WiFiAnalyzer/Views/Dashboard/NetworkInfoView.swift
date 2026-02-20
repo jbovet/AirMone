@@ -27,6 +27,18 @@ struct NetworkInfoView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
 
+                    HStack(spacing: 20) {
+                        if let vendor = network.vendor {
+                            InfoRow(label: "Vendor", value: vendor, icon: "building.2", valueColor: .blue)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        } else {
+                            Spacer()
+                                .frame(maxWidth: .infinity)
+                        }
+                        Spacer()
+                            .frame(maxWidth: .infinity)
+                    }
+
                     if network.ipAddress != nil || network.routerAddress != nil {
                         HStack(spacing: 20) {
                             if let ipAddress = network.ipAddress {

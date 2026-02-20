@@ -45,6 +45,15 @@ struct NetworkGroupRowView: View {
                                     .font(.caption2)
                                     .foregroundColor(.secondary)
 
+                                if group.physicalAPCount < group.apCount {
+                                    Text("·")
+                                        .font(.caption2)
+                                        .foregroundColor(.secondary)
+                                    Text("\(group.physicalAPCount) device\(group.physicalAPCount == 1 ? "" : "s")")
+                                        .font(.caption2)
+                                        .foregroundColor(.secondary)
+                                }
+
                                 Text("·")
                                     .font(.caption2)
                                     .foregroundColor(.secondary)
@@ -52,16 +61,33 @@ struct NetworkGroupRowView: View {
                                 Text(group.bands)
                                     .font(.caption2)
                                     .foregroundColor(.secondary)
+
+                                if !group.vendors.isEmpty {
+                                    Text("·")
+                                        .font(.caption2)
+                                        .foregroundColor(.secondary)
+                                    Text(group.vendors.joined(separator: ", "))
+                                        .font(.caption2)
+                                        .foregroundColor(.blue)
+                                        .lineLimit(1)
+                                }
                             }
                         }
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
 
-                    // Channels
-                    Text(group.channels.map(String.init).joined(separator: ", "))
-                        .font(.caption)
-                        .lineLimit(1)
-                        .frame(width: 70, alignment: .center)
+                    // Channels with width
+                    VStack(spacing: 1) {
+                        Text(group.channels.map(String.init).joined(separator: ", "))
+                            .font(.caption)
+                            .lineLimit(1)
+                        if !group.channelWidths.isEmpty {
+                            Text(group.channelWidths)
+                                .font(.system(size: 9))
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                    .frame(width: 100, alignment: .center)
 
                     // Band
                     Text(group.bands)
@@ -69,12 +95,20 @@ struct NetworkGroupRowView: View {
                         .lineLimit(1)
                         .frame(width: 80, alignment: .center)
 
-                    // Best signal
-                    Text("\(group.bestRSSI) dBm")
-                        .font(.subheadline)
-                        .fontWeight(.semibold)
-                        .foregroundColor(group.signalStrength.color)
-                        .frame(width: 80, alignment: .trailing)
+                    // Best signal with quality bar
+                    HStack(spacing: 4) {
+                        SignalQualityBar(
+                            percent: group.bestSignal.signalQualityPercent,
+                            color: group.signalStrength.color
+                        )
+                        .frame(width: 30)
+
+                        Text("\(group.bestRSSI) dBm")
+                            .font(.subheadline)
+                            .fontWeight(.semibold)
+                            .foregroundColor(group.signalStrength.color)
+                    }
+                    .frame(width: 100, alignment: .trailing)
 
                     // SNR
                     Text("\(group.bestSNR) dB")
@@ -115,53 +149,137 @@ struct AccessPointRowView: View {
     let color: Color
 
     var body: some View {
-        HStack(spacing: 0) {
-            // Indented BSSID
-            HStack(spacing: 6) {
-                Color.clear.frame(width: 12)  // Align with chevron space
+        VStack(spacing: 0) {
+            // Main row with core metrics
+            HStack(spacing: 0) {
+                // Indented BSSID + Vendor
+                HStack(spacing: 6) {
+                    Color.clear.frame(width: 12)  // Align with chevron space
 
-                Circle()
-                    .strokeBorder(color.opacity(0.5), lineWidth: 1.5)
-                    .frame(width: 10, height: 10)
+                    Circle()
+                        .strokeBorder(color.opacity(0.5), lineWidth: 1.5)
+                        .frame(width: 10, height: 10)
 
-                Text(network.bssid)
+                    VStack(alignment: .leading, spacing: 1) {
+                        Text(network.bssid)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                            .lineLimit(1)
+
+                        if let vendor = network.vendor {
+                            Text(vendor)
+                                .font(.caption2)
+                                .foregroundColor(.blue)
+                                .lineLimit(1)
+                        }
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+
+                // Channel with width
+                Text(network.channelDisplayString)
                     .font(.caption)
+                    .frame(width: 100, alignment: .center)
+
+                // Band
+                Text(network.band)
+                    .font(.caption)
+                    .frame(width: 80, alignment: .center)
+
+                // Signal with quality bar
+                HStack(spacing: 4) {
+                    SignalQualityBar(percent: network.signalQualityPercent, color: network.signalStrength.color)
+                        .frame(width: 30)
+
+                    Text("\(network.rssi) dBm")
+                        .font(.caption)
+                        .fontWeight(.medium)
+                        .foregroundColor(network.signalStrength.color)
+                }
+                .frame(width: 100, alignment: .trailing)
+
+                // SNR
+                Text("\(network.snr) dB")
+                    .font(.caption2)
+                    .frame(width: 60, alignment: .trailing)
+
+                // Security
+                Text(network.security)
+                    .font(.caption2)
                     .foregroundColor(.secondary)
                     .lineLimit(1)
+                    .frame(width: 120, alignment: .trailing)
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
 
-            // Channel
-            Text("\(network.channel)")
-                .font(.caption)
-                .frame(width: 70, alignment: .center)
+            // Detail chips row
+            HStack(spacing: 6) {
+                Color.clear.frame(width: 28)  // Align with BSSID indent
 
-            // Band
-            Text(network.band)
-                .font(.caption)
-                .frame(width: 80, alignment: .center)
+                if let distance = network.estimatedDistanceFormatted {
+                    APDetailChip(icon: "location.fill", text: distance)
+                }
 
-            // Signal
-            Text("\(network.rssi) dBm")
-                .font(.caption)
-                .fontWeight(.medium)
-                .foregroundColor(network.signalStrength.color)
-                .frame(width: 80, alignment: .trailing)
+                if let countryCode = network.countryCode, !countryCode.isEmpty {
+                    APDetailChip(icon: "globe", text: countryCode)
+                }
 
-            // SNR
-            Text("\(network.snr) dB")
-                .font(.caption2)
-                .frame(width: 60, alignment: .trailing)
+                APDetailChip(icon: "chart.bar.fill", text: "\(network.signalQualityPercent)%")
 
-            // Security
-            Text(network.security)
-                .font(.caption2)
-                .foregroundColor(.secondary)
-                .lineLimit(1)
-                .frame(width: 120, alignment: .trailing)
+                if network.beaconInterval > 0 {
+                    APDetailChip(icon: "timer", text: "\(network.beaconInterval) ms")
+                }
+
+                if network.isIBSS {
+                    APDetailChip(icon: "point.3.connected.trianglepath.dotted", text: "Ad-Hoc")
+                }
+
+                Spacer()
+            }
+            .padding(.top, 2)
         }
         .padding(.vertical, 4)
         .padding(.horizontal, 4)
         .background(Color.primary.opacity(0.02))
+    }
+}
+
+/// A small pill-shaped chip for displaying AP detail metadata.
+struct APDetailChip: View {
+    let icon: String
+    let text: String
+
+    var body: some View {
+        HStack(spacing: 3) {
+            Image(systemName: icon)
+                .font(.system(size: 8))
+            Text(text)
+                .font(.system(size: 10))
+        }
+        .foregroundColor(.secondary)
+        .padding(.horizontal, 6)
+        .padding(.vertical, 2)
+        .background(Color.primary.opacity(0.05))
+        .cornerRadius(4)
+    }
+}
+
+/// A mini horizontal bar indicating signal quality percentage.
+struct SignalQualityBar: View {
+    let percent: Int
+    let color: Color
+
+    var body: some View {
+        GeometryReader { geometry in
+            ZStack(alignment: .leading) {
+                RoundedRectangle(cornerRadius: 2)
+                    .fill(Color.primary.opacity(0.08))
+                    .frame(height: 4)
+
+                RoundedRectangle(cornerRadius: 2)
+                    .fill(color)
+                    .frame(width: geometry.size.width * CGFloat(percent) / 100.0, height: 4)
+            }
+        }
+        .frame(height: 4)
     }
 }

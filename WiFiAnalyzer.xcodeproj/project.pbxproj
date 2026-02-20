@@ -53,6 +53,8 @@
 		EBCF001F670B4A7BBF04C7EC /* SignalStrength.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12481A064D9244789F6D6468 /* SignalStrength.swift */; };
 		EE5F60718293A4B5C6D7E8F9 /* HeatMapInterpolatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF60718293A4B5C6D7E8F90A /* HeatMapInterpolatorTests.swift */; };
 		F1A2B3C4D5E6F708192A3B4C /* SSIDColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6A708192A3B4D /* SSIDColorPalette.swift */; };
+		F2A3B4C5D6E7F809102B3C4D /* OUILookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C3D4E5F6A7B809102B3C4E /* OUILookup.swift */; };
+		A3B4C5D6E7F8A910213C4D5E /* oui_compact.csv in Resources */ = {isa = PBXBuildFile; fileRef = C4D5E6F7A8B9C021324E5F6A /* oui_compact.csv */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +91,8 @@
 		9AC94E1621614C6594373E73 /* WiFiNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WiFiNetwork.swift; sourceTree = "<group>"; };
 		9F12E0E107EB4A4F898E9CC8 /* CoreWLAN.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreWLAN.framework; path = System/Library/Frameworks/CoreWLAN.framework; sourceTree = SDKROOT; };
 		A1B2C3D4E5F6A708192A3B4D /* SSIDColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSIDColorPalette.swift; sourceTree = "<group>"; };
+		B2C3D4E5F6A7B809102B3C4E /* OUILookup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OUILookup.swift; sourceTree = "<group>"; };
+		C4D5E6F7A8B9C021324E5F6A /* oui_compact.csv */ = {isa = PBXFileReference; lastKnownFileType = text; name = oui_compact.csv; path = Resources/oui_compact.csv; sourceTree = "<group>"; };
 		A4FB1D346AB7E7ACDAF601A1 /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
 		AB12345678901BCD12345611 /* NearbyNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyNetwork.swift; sourceTree = "<group>"; };
 		AB12345678901BCD12345612 /* NearbyNetworksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyNetworksViewModel.swift; sourceTree = "<group>"; };
@@ -153,6 +157,7 @@
 				322B0F6771CD4BFB9F443C55 /* Info.plist */,
 				72F9C5BF7BF8454DB1E6E22B /* Assets.xcassets */,
 				3E0FB6C6EED244DE8C14D2B0 /* AppIcon.icns */,
+				C4D5E6F7A8B9C021324E5F6A /* oui_compact.csv */,
 				A814AFAE22024F3EA945E0B3 /* Models */,
 				9D81F2C4772246459D040AA1 /* Services */,
 				A31DAD4943884EDCBE536D81 /* ViewModels */,
@@ -272,6 +277,7 @@
 			isa = PBXGroup;
 			children = (
 				A1B2C3D4E5F6A708192A3B4D /* SSIDColorPalette.swift */,
+				B2C3D4E5F6A7B809102B3C4E /* OUILookup.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -387,6 +393,7 @@
 			files = (
 				78C391841FF84B948245EABD /* AppIcon.icns in Resources */,
 				068560E44CFD4EB7816EEE3C /* Assets.xcassets in Resources */,
+				A3B4C5D6E7F8A910213C4D5E /* oui_compact.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -428,6 +435,7 @@
 				D19BD374E8548FD4A73D63DB /* HeatMapLegendView.swift in Sources */,
 				C59177FD413F23161D20D642 /* LocationMappingView.swift in Sources */,
 				F1A2B3C4D5E6F708192A3B4C /* SSIDColorPalette.swift in Sources */,
+				F2A3B4C5D6E7F809102B3C4D /* OUILookup.swift in Sources */,
 				AB12345678901BCD12345601 /* NearbyNetwork.swift in Sources */,
 				AB12345678901BCD12345602 /* NearbyNetworksViewModel.swift in Sources */,
 				AB12345678901BCD12345603 /* NearbyNetworksView.swift in Sources */,
