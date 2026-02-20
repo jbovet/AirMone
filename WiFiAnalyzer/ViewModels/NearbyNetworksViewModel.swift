@@ -9,6 +9,7 @@
 
 import Foundation
 import Combine
+import os
 
 /// ViewModel for the Nearby Networks tab.
 ///
@@ -196,6 +197,7 @@ class NearbyNetworksViewModel: ObservableObject {
                 }
             } catch {
                 await MainActor.run {
+                    AppLogger.network.error("Nearby network scan failed: \(error.localizedDescription, privacy: .public)")
                     self.errorMessage = error.localizedDescription
                     self.isScanInProgress = false
                 }

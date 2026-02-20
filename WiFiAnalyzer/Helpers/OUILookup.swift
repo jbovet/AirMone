@@ -8,6 +8,7 @@
 //
 
 import Foundation
+import os
 
 /// Resolves MAC address OUI (Organizationally Unique Identifier) prefixes to vendor names.
 ///
@@ -43,7 +44,7 @@ enum OUILookup {
     private static let database: [String: String] = {
         guard let url = Bundle.main.url(forResource: "oui_compact", withExtension: "csv"),
               let contents = try? String(contentsOf: url, encoding: .utf8) else {
-            print("OUILookup: Failed to load oui_compact.csv from bundle")
+            AppLogger.general.error("Failed to load oui_compact.csv from bundle")
             return [:]
         }
 

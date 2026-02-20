@@ -8,6 +8,7 @@
 //
 
 import Foundation
+import os
 
 /// Singleton service that manages the mapping between location names and spatial coordinates.
 ///
@@ -106,7 +107,7 @@ class LocationMappingService {
             let decoder = JSONDecoder()
             coordinateMapping = try decoder.decode([String: LocationCoordinate].self, from: data)
         } catch {
-            print("Failed to load coordinate mapping: \(error)")
+            AppLogger.persistence.error("Failed to load coordinate mapping: \(error.localizedDescription, privacy: .public)")
             coordinateMapping = [:]
         }
     }
@@ -118,7 +119,7 @@ class LocationMappingService {
             let data = try encoder.encode(coordinateMapping)
             userDefaults.set(data, forKey: coordinateMappingKey)
         } catch {
-            print("Failed to save coordinate mapping: \(error)")
+            AppLogger.persistence.error("Failed to save coordinate mapping: \(error.localizedDescription, privacy: .public)")
         }
     }
 

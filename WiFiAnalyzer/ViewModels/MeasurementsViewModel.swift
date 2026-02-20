@@ -9,6 +9,7 @@
 
 import Foundation
 import Combine
+import os
 
 /// Available sorting options for the measurements list.
 enum SortOption: String, CaseIterable {
@@ -80,6 +81,7 @@ class MeasurementsViewModel: ObservableObject {
         do {
             try persistenceService.delete(id: id)
         } catch {
+            AppLogger.persistence.error("Failed to delete measurement: \(error.localizedDescription, privacy: .public)")
             errorMessage = error.localizedDescription
         }
     }
@@ -88,6 +90,7 @@ class MeasurementsViewModel: ObservableObject {
         do {
             try persistenceService.deleteAll()
         } catch {
+            AppLogger.persistence.error("Failed to delete all measurements: \(error.localizedDescription, privacy: .public)")
             errorMessage = error.localizedDescription
         }
     }
@@ -113,6 +116,7 @@ class MeasurementsViewModel: ObservableObject {
             let url = try exportService.exportToCSV(measurements)
             return .success(url)
         } catch {
+            AppLogger.persistence.error("Failed to export CSV: \(error.localizedDescription, privacy: .public)")
             return .failure(error)
         }
     }
@@ -122,6 +126,7 @@ class MeasurementsViewModel: ObservableObject {
             let url = try exportService.exportToJSON(measurements)
             return .success(url)
         } catch {
+            AppLogger.persistence.error("Failed to export JSON: \(error.localizedDescription, privacy: .public)")
             return .failure(error)
         }
     }
