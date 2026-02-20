@@ -65,6 +65,11 @@ struct WiFiNetwork: Identifiable, Codable {
         SignalStrength.from(rssi: rssi)
     }
 
+    /// Vendor/manufacturer name resolved from the BSSID OUI prefix.
+    var vendor: String? {
+        OUILookup.vendor(for: bssid)
+    }
+
     var signalQuality: String {
         if let noise = noise, rssi != 0 {
             let snr = rssi - noise

@@ -21,11 +21,16 @@ class WiFiScannerViewModel: ObservableObject {
     @Published var errorMessage: String?
     @Published var isScanning: Bool = false
     @Published var signalHistory: [SignalDataPoint] = []
+    @Published var lastRoamingEvent: RoamingEvent?
+    @Published var roamingEvents: [RoamingEvent] = []
 
     private let scannerService: WiFiScannerService
     private let persistenceService: PersistenceService
     private var scanTimer: Timer?
     private let maxHistoryPoints = 30 // Last 60 seconds of data (at 2-second intervals)
+    private var previousBSSID: String?
+    private var previousRSSI: Int?
+    private let maxRoamingEvents = 10
     
     var recentLocations: [String] {
         let measurements = persistenceService.load()
@@ -77,6 +82,32 @@ class WiFiScannerViewModel: ObservableObject {
                 }.value
 
                 await MainActor.run {
+                    // Detect roaming event (BSSID changed but same SSID)
+                    if let prevBSSID = self.previousBSSID,
+                       prevBSSID != network.bssid,
+                       self.currentNetwork?.ssid == network.ssid {
+                        let roamEvent = RoamingEvent(
+                            fromBSSID: prevBSSID,
+                            toBSSID: network.bssid,
+                            fromVendor: self.currentNetwork?.vendor,
+                            toVendor: network.vendor,
+                            signalBefore: self.previousRSSI ?? 0,
+                            signalAfter: network.rssi,
+                            ssid: network.ssid
+                        )
+                        self.lastRoamingEvent = roamEvent
+                        self.roamingEvents.insert(roamEvent, at: 0)
+
+                        // Keep only recent roaming events
+                        if self.roamingEvents.count > self.maxRoamingEvents {
+                            self.roamingEvents = Array(self.roamingEvents.prefix(self.maxRoamingEvents))
+                        }
+                    }
+
+                    // Update tracking state
+                    self.previousBSSID = network.bssid
+                    self.previousRSSI = network.rssi
+
                     self.currentNetwork = network
                     self.errorMessage = nil
 
@@ -96,6 +127,11 @@ class WiFiScannerViewModel: ObservableObject {
                 }
             }
         }
+    }
+
+    /// Dismiss the current roaming event notification
+    func dismissRoamingEvent() {
+        lastRoamingEvent = nil
     }
 
     func markLocation(at locationName: String) {

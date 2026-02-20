@@ -24,6 +24,11 @@ class NearbyNetworksViewModel: ObservableObject {
     @Published var selectedBandFilter: BandFilter = .all
     @Published var sortOrder: SortOrder = .signalStrength
     @Published var expandedSSIDs: Set<String> = []
+    @Published var connectedBSSID: String?
+    @Published var distanceTrends: [String: DistanceTrend] = [:]
+
+    /// Previous distance readings per BSSID for trend calculation
+    private var previousDistances: [String: Double] = [:]
 
     private let scannerService: WiFiScannerService
     private var scanTimer: Timer?
@@ -145,9 +150,30 @@ class NearbyNetworksViewModel: ObservableObject {
                     try scannerService.scanForNearbyNetworks()
                 }.value
 
+                // Also fetch connected network BSSID
+                let currentBSSID = try? await Task.detached(priority: .userInitiated) { [scannerService] in
+                    try? scannerService.getCurrentNetwork().bssid
+                }.value
+
                 await MainActor.run {
                     self.nearbyNetworks = networks
+                    self.connectedBSSID = currentBSSID
                     self.errorMessage = nil
+
+                    // Update distance trends for each AP
+                    for network in networks {
+                        let bssid = network.bssid
+                        let currentDistance = network.estimatedDistanceMeters
+                        let previousDistance = self.previousDistances[bssid]
+
+                        let trend = DistanceTrend.compute(previous: previousDistance, current: currentDistance)
+                        self.distanceTrends[bssid] = trend
+
+                        // Store current distance for next comparison
+                        if let dist = currentDistance {
+                            self.previousDistances[bssid] = dist
+                        }
+                    }
 
                     // Track signal history per SSID using the best RSSI from all APs
                     let grouped = Dictionary(grouping: networks, by: { $0.ssid })

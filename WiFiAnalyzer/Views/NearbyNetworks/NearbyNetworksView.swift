@@ -101,6 +101,12 @@ struct NearbyNetworksView: View {
                         .foregroundColor(.blue)
                     Text("Discovered Networks")
                         .font(.headline)
+
+                    Image(systemName: "info.circle")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                        .help("Signal values from beacon scans may differ slightly from active connection readings")
+
                     Spacer()
                 }
                 .padding(.bottom, 8)
@@ -147,12 +153,12 @@ struct NearbyNetworksView: View {
             HStack(spacing: 0) {
                 Text("Network")
                     .frame(maxWidth: .infinity, alignment: .leading)
-                Text("Ch")
-                    .frame(width: 70, alignment: .center)
+                Text("Channel")
+                    .frame(width: 100, alignment: .center)
                 Text("Band")
                     .frame(width: 80, alignment: .center)
                 Text("Signal")
-                    .frame(width: 80, alignment: .trailing)
+                    .frame(width: 100, alignment: .trailing)
                 Text("SNR")
                     .frame(width: 60, alignment: .trailing)
                 Text("Security")
@@ -174,6 +180,8 @@ struct NearbyNetworksView: View {
                         in: viewModel.uniqueNetworkNames
                     ),
                     isExpanded: viewModel.isExpanded(group.ssid),
+                    connectedBSSID: viewModel.connectedBSSID,
+                    distanceTrends: viewModel.distanceTrends,
                     onToggle: { viewModel.toggleExpanded(group.ssid) }
                 )
                 Divider()
