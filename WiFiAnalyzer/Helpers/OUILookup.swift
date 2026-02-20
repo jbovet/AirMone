@@ -78,9 +78,23 @@ enum OUILookup {
 
     // MARK: - Name Simplification
 
+    /// Cache for already-simplified organization names to avoid repeated string processing.
+    private static var simplifyCache = [String: String]()
+
     /// Simplifies verbose IEEE organization names to shorter, recognizable vendor names.
     /// Falls through to the original name if no rule matches.
+    /// Results are cached so each unique organization name is processed only once.
     private static func simplify(_ name: String) -> String {
+        if let cached = simplifyCache[name] {
+            return cached
+        }
+        let result = _simplify(name)
+        simplifyCache[name] = result
+        return result
+    }
+
+    /// Core simplification logic, called once per unique organization name.
+    private static func _simplify(_ name: String) -> String {
         let lowered = name.lowercased()
 
         // Exact prefix matches (order matters: more specific first)
