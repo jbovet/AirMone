@@ -269,17 +269,16 @@ struct SignalQualityBar: View {
     let color: Color
 
     var body: some View {
-        GeometryReader { geometry in
-            ZStack(alignment: .leading) {
-                RoundedRectangle(cornerRadius: 2)
-                    .fill(Color.primary.opacity(0.08))
-                    .frame(height: 4)
+    var body: some View {
+        ZStack(alignment: .leading) {
+            RoundedRectangle(cornerRadius: 2)
+                .fill(Color.primary.opacity(0.08))
+                .frame(height: 4)
 
-                RoundedRectangle(cornerRadius: 2)
-                    .fill(color)
-                    .frame(width: geometry.size.width * CGFloat(percent) / 100.0, height: 4)
-            }
+            RoundedRectangle(cornerRadius: 2)
+                .fill(color)
+                .frame(width: 30 * CGFloat(percent) / 100.0, height: 4)
         }
-        .frame(height: 4)
+        .frame(width: 30, height: 4)
     }
 }
