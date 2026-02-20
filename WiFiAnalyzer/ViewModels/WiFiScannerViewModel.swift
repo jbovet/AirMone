@@ -134,12 +134,30 @@ class WiFiScannerViewModel: ObservableObject {
         lastRoamingEvent = nil
     }
 
+    /// Maximum allowed length for location names.
+    static let maxLocationNameLength = 50
+
+    /// Characters disallowed in location names (file-path unsafe).
+    private static let disallowedCharacters = CharacterSet(charactersIn: "/\\:*?\"<>|")
+
     func markLocation(at locationName: String) {
         guard let network = currentNetwork else { return }
-        
+
         let trimmedName = locationName.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmedName.isEmpty else { return }
-        
+
+        // Reject names exceeding max length
+        guard trimmedName.count <= Self.maxLocationNameLength else {
+            errorMessage = "Location name is too long (max \(Self.maxLocationNameLength) characters)."
+            return
+        }
+
+        // Reject names containing disallowed characters
+        if trimmedName.unicodeScalars.contains(where: { Self.disallowedCharacters.contains($0) }) {
+            errorMessage = "Location name contains invalid characters."
+            return
+        }
+
         let measurement = MeasurementPoint(locationName: trimmedName, network: network)
         do {
             try persistenceService.append(measurement)
