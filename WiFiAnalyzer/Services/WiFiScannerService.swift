@@ -11,6 +11,7 @@ import Foundation
 import CoreWLAN
 import CoreLocation
 import SystemConfiguration
+import os
 
 /// Errors that can occur when accessing the WiFi interface.
 enum WiFiError: LocalizedError {
@@ -54,20 +55,20 @@ class WiFiScannerService: NSObject, CLLocationManagerDelegate {
         case .notDetermined:
             // Request location authorization - this should trigger the system dialog
             locationManager.requestAlwaysAuthorization()
-            print("Requesting location authorization...")
+            AppLogger.location.info("Requesting location authorization...")
         case .denied, .restricted:
-            print("Location access denied or restricted - WiFi scanning may not work")
+            AppLogger.location.warning("Location access denied or restricted - WiFi scanning may not work")
         case .authorizedAlways:
-            print("Location access authorized - WiFi scanning enabled")
+            AppLogger.location.info("Location access authorized - WiFi scanning enabled")
         @unknown default:
-            print("Unknown authorization status")
+            AppLogger.location.warning("Unknown authorization status")
             break
         }
     }
 
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         let status = manager.authorizationStatus
-        print("Location authorization status changed: \(status.rawValue)")
+        AppLogger.location.debug("Location authorization status changed: \(status.rawValue, privacy: .public)")
     }
 
     func getCurrentNetwork() throws -> WiFiNetwork {

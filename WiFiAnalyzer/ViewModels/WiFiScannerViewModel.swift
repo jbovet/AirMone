@@ -9,6 +9,7 @@
 
 import Foundation
 import Combine
+import os
 
 /// ViewModel that drives the Signal Monitor (Dashboard) tab.
 ///
@@ -122,6 +123,7 @@ class WiFiScannerViewModel: ObservableObject {
                 }
             } catch {
                 await MainActor.run {
+                    AppLogger.network.error("Failed to fetch current network: \(error.localizedDescription, privacy: .public)")
                     self.currentNetwork = nil
                     self.errorMessage = error.localizedDescription
                 }
@@ -144,6 +146,7 @@ class WiFiScannerViewModel: ObservableObject {
         do {
             try persistenceService.append(measurement)
         } catch {
+            AppLogger.persistence.error("Failed to save measurement: \(error.localizedDescription, privacy: .public)")
             errorMessage = error.localizedDescription
         }
     }

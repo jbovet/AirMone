@@ -10,6 +10,7 @@
 import Foundation
 import Combine
 import AppKit
+import os
 
 /// ViewModel for the Heat Map tab.
 ///
@@ -119,6 +120,7 @@ class HeatMapViewModel: ObservableObject {
                 }
             } catch {
                 await MainActor.run {
+                    AppLogger.heatMap.error("Failed to generate heat map: \(error.localizedDescription, privacy: .public)")
                     self.errorMessage = "Failed to generate heat map: \(error.localizedDescription)"
                     self.isGenerating = false
                 }
