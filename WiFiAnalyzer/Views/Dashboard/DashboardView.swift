@@ -20,6 +20,16 @@ struct DashboardView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
+                // Roaming Event Notification
+                if let roamEvent = viewModel.lastRoamingEvent {
+                    RoamingEventBadge(
+                        event: roamEvent,
+                        onDismiss: { viewModel.dismissRoamingEvent() }
+                    )
+                    .padding(.horizontal)
+                    .animation(.easeInOut(duration: 0.3), value: viewModel.lastRoamingEvent?.id)
+                }
+
                 if let network = viewModel.currentNetwork {
                     // Signal Monitor Panel - Combines Gauge and History
                     VStack(alignment: .leading, spacing: 0) {

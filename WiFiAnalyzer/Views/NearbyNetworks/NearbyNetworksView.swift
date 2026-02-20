@@ -174,6 +174,8 @@ struct NearbyNetworksView: View {
                         in: viewModel.uniqueNetworkNames
                     ),
                     isExpanded: viewModel.isExpanded(group.ssid),
+                    connectedBSSID: viewModel.connectedBSSID,
+                    distanceTrends: viewModel.distanceTrends,
                     onToggle: { viewModel.toggleExpanded(group.ssid) }
                 )
                 Divider()

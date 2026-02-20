@@ -63,6 +63,7 @@ struct SignalHistoryChartView: View {
         GroupBox {
             VStack(alignment: .leading, spacing: 8) {
                 headerView
+                    .zIndex(1)
                 if history.isEmpty {
                     emptyStateView
                 } else {
@@ -175,6 +176,9 @@ struct SignalHistoryChartView: View {
             }
             .chartYScale(domain: -100...(-30))
             .chartLegend(.hidden)
+            .chartPlotStyle { plotArea in
+                plotArea.clipped()
+            }
             .frame(height: 200)
 
             // SSID legend

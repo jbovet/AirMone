@@ -16,7 +16,15 @@ struct NetworkGroupRowView: View {
     let group: NetworkGroup
     let color: Color
     let isExpanded: Bool
+    let connectedBSSID: String?
+    let distanceTrends: [String: DistanceTrend]
     let onToggle: () -> Void
+
+    /// Check if any AP in this group is the connected AP
+    private var hasConnectedAP: Bool {
+        guard let connected = connectedBSSID else { return false }
+        return group.accessPoints.contains { $0.bssid == connected }
+    }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -30,15 +38,35 @@ struct NetworkGroupRowView: View {
                             .foregroundColor(.secondary)
                             .frame(width: 12)
 
-                        Circle()
-                            .fill(color)
-                            .frame(width: 10, height: 10)
+                        // Connected indicator or color dot
+                        if hasConnectedAP {
+                            Image(systemName: "wifi.circle.fill")
+                                .font(.system(size: 12))
+                                .foregroundColor(.green)
+                        } else {
+                            Circle()
+                                .fill(color)
+                                .frame(width: 10, height: 10)
+                        }
 
                         VStack(alignment: .leading, spacing: 2) {
-                            Text(group.ssid)
-                                .font(.subheadline)
-                                .fontWeight(.medium)
-                                .lineLimit(1)
+                            HStack(spacing: 4) {
+                                Text(group.ssid)
+                                    .font(.subheadline)
+                                    .fontWeight(.medium)
+                                    .lineLimit(1)
+
+                                if hasConnectedAP {
+                                    Text("Connected")
+                                        .font(.system(size: 9, weight: .semibold))
+                                        .foregroundColor(.green)
+                                        .padding(.horizontal, 5)
+                                        .padding(.vertical, 1)
+                                        .background(Color.green.opacity(0.15))
+                                        .cornerRadius(3)
+                                        .help("Your device is currently connected to an AP in this network. Expand to see which one.")
+                                }
+                            }
 
                             HStack(spacing: 4) {
                                 Text("\(group.apCount) AP\(group.apCount == 1 ? "" : "s")")
@@ -131,7 +159,12 @@ struct NetworkGroupRowView: View {
             // Expanded AP rows
             if isExpanded {
                 ForEach(group.accessPoints.sorted(by: { $0.rssi > $1.rssi })) { ap in
-                    AccessPointRowView(network: ap, color: color)
+                    AccessPointRowView(
+                        network: ap,
+                        color: color,
+                        isConnected: ap.bssid == connectedBSSID,
+                        distanceTrend: distanceTrends[ap.bssid] ?? .unknown
+                    )
                     if ap.id != group.accessPoints.sorted(by: { $0.rssi > $1.rssi }).last?.id {
                         Divider().padding(.leading, 40)
                     }
@@ -147,6 +180,8 @@ struct NetworkGroupRowView: View {
 struct AccessPointRowView: View {
     let network: NearbyNetwork
     let color: Color
+    let isConnected: Bool
+    let distanceTrend: DistanceTrend
 
     var body: some View {
         VStack(spacing: 0) {
@@ -156,15 +191,35 @@ struct AccessPointRowView: View {
                 HStack(spacing: 6) {
                     Color.clear.frame(width: 12)  // Align with chevron space
 
-                    Circle()
-                        .strokeBorder(color.opacity(0.5), lineWidth: 1.5)
-                        .frame(width: 10, height: 10)
+                    // Connected indicator or color circle
+                    if isConnected {
+                        Image(systemName: "checkmark.circle.fill")
+                            .font(.system(size: 10))
+                            .foregroundColor(.green)
+                    } else {
+                        Circle()
+                            .strokeBorder(color.opacity(0.5), lineWidth: 1.5)
+                            .frame(width: 10, height: 10)
+                    }
 
                     VStack(alignment: .leading, spacing: 1) {
-                        Text(network.bssid)
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                            .lineLimit(1)
+                        HStack(spacing: 4) {
+                            Text(network.bssid)
+                                .font(.caption)
+                                .foregroundColor(isConnected ? .primary : .secondary)
+                                .lineLimit(1)
+
+                            if isConnected {
+                                Text("Connected")
+                                    .font(.system(size: 8, weight: .semibold))
+                                    .foregroundColor(.green)
+                                    .padding(.horizontal, 4)
+                                    .padding(.vertical, 1)
+                                    .background(Color.green.opacity(0.15))
+                                    .cornerRadius(2)
+                                    .help("This is the access point your device is currently connected to")
+                            }
+                        }
 
                         if let vendor = network.vendor {
                             Text(vendor)
@@ -215,8 +270,9 @@ struct AccessPointRowView: View {
             HStack(spacing: 6) {
                 Color.clear.frame(width: 28)  // Align with BSSID indent
 
+                // Distance with trend indicator
                 if let distance = network.estimatedDistanceFormatted {
-                    APDetailChip(icon: "location.fill", text: distance)
+                    DistanceChipWithTrend(distance: distance, trend: distanceTrend)
                 }
 
                 if let countryCode = network.countryCode, !countryCode.isEmpty {
@@ -239,7 +295,7 @@ struct AccessPointRowView: View {
         }
         .padding(.vertical, 4)
         .padding(.horizontal, 4)
-        .background(Color.primary.opacity(0.02))
+        .background(isConnected ? Color.green.opacity(0.05) : Color.primary.opacity(0.02))
     }
 }
 
@@ -260,6 +316,60 @@ struct APDetailChip: View {
         .padding(.vertical, 2)
         .background(Color.primary.opacity(0.05))
         .cornerRadius(4)
+    }
+}
+
+/// Distance chip with trend arrow indicator showing if AP is getting closer or farther.
+struct DistanceChipWithTrend: View {
+    let distance: String
+    let trend: DistanceTrend
+
+    var body: some View {
+        HStack(spacing: 3) {
+            Image(systemName: "location.fill")
+                .font(.system(size: 8))
+            Text(distance)
+                .font(.system(size: 10))
+
+            // Trend arrow (only show if not unknown)
+            if trend != .unknown {
+                Image(systemName: trend.iconName)
+                    .font(.system(size: 8, weight: .bold))
+                    .foregroundColor(trend.color)
+            }
+        }
+        .foregroundColor(.secondary)
+        .padding(.horizontal, 6)
+        .padding(.vertical, 2)
+        .background(trendBackground)
+        .cornerRadius(4)
+        .help(tooltipText)
+        .accessibilityLabel("\(distance), \(trend.accessibilityLabel)")
+    }
+
+    private var trendBackground: Color {
+        switch trend {
+        case .gettingCloser:
+            return Color.green.opacity(0.1)
+        case .gettingFarther:
+            return Color.red.opacity(0.1)
+        default:
+            return Color.primary.opacity(0.05)
+        }
+    }
+
+    private var tooltipText: String {
+        let base = "Estimated distance: \(distance)"
+        switch trend {
+        case .gettingCloser:
+            return "\(base)\n↘ Getting closer - signal improving"
+        case .gettingFarther:
+            return "\(base)\n↗ Getting farther - signal degrading"
+        case .stable:
+            return "\(base)\n→ Distance stable"
+        case .unknown:
+            return "\(base)\nWaiting for trend data..."
+        }
     }
 }
 
