@@ -20,6 +20,11 @@ struct DropPinView: View {
 
     @FocusState private var isTextFieldFocused: Bool
 
+    // MARK: - Validation Constants
+
+    private static let maxLocationNameLength = 50
+    private static let disallowedCharacters = CharacterSet(charactersIn: "/\\:*?\"<>|")
+
     var body: some View {
         VStack(spacing: 20) {
             Text("Mark Location")
@@ -34,11 +39,35 @@ struct DropPinView: View {
                 TextField("e.g., Kitchen, Living Room", text: $locationName)
                     .textFieldStyle(.roundedBorder)
                     .focused($isTextFieldFocused)
+                    .onChange(of: locationName) { _, newValue in
+                        // Enforce max length
+                        if newValue.count > Self.maxLocationNameLength {
+                            locationName = String(newValue.prefix(Self.maxLocationNameLength))
+                        }
+                    }
                     .onSubmit {
                         if canSave {
                             saveAndDismiss()
                         }
                     }
+
+                // Validation feedback
+                HStack {
+                    if let error = validationError {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .foregroundColor(.orange)
+                            .font(.caption2)
+                        Text(error)
+                            .font(.caption)
+                            .foregroundColor(.orange)
+                    }
+
+                    Spacer()
+
+                    Text("\(locationName.count)/\(Self.maxLocationNameLength)")
+                        .font(.caption2)
+                        .foregroundColor(locationName.count >= Self.maxLocationNameLength ? .orange : .secondary)
+                }
 
                 if !recentLocations.isEmpty {
                     ScrollView(.horizontal, showsIndicators: false) {
@@ -110,7 +139,26 @@ struct DropPinView: View {
     }
 
     private var canSave: Bool {
-        !locationName.trimmingCharacters(in: .whitespaces).isEmpty
+        validationError == nil && !locationName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+
+    /// Returns a user-facing validation error, or `nil` if the input is valid.
+    private var validationError: String? {
+        let trimmed = locationName.trimmingCharacters(in: .whitespacesAndNewlines)
+
+        if !locationName.isEmpty && trimmed.isEmpty {
+            return "Name cannot be only whitespace."
+        }
+
+        if trimmed.unicodeScalars.contains(where: { Self.disallowedCharacters.contains($0) }) {
+            return "Name cannot contain / \\ : * ? \" < > | characters."
+        }
+
+        if locationName.count >= Self.maxLocationNameLength {
+            return "Maximum \(Self.maxLocationNameLength) characters reached."
+        }
+
+        return nil
     }
 
     private func saveAndDismiss() {
