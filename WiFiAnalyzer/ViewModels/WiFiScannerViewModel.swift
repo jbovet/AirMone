@@ -55,6 +55,10 @@ class WiFiScannerViewModel: ObservableObject {
         isScanning = true
         errorMessage = nil
 
+        // Invalidate any leftover timer before creating a new one
+        scanTimer?.invalidate()
+        scanTimer = nil
+
         scanNow()
 
         scanTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { [weak self] _ in
@@ -172,7 +176,7 @@ class WiFiScannerViewModel: ObservableObject {
         return persistenceService.load().filter { $0.locationName == trimmedName }.count
     }
 
-    deinit {
+    nonisolated deinit {
         scanTimer?.invalidate()
     }
 }

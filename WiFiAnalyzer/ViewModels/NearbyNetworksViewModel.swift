@@ -122,6 +122,11 @@ class NearbyNetworksViewModel: ObservableObject {
         guard !isScanning else { return }
         isScanning = true
         errorMessage = nil
+
+        // Invalidate any leftover timer before creating a new one
+        scanTimer?.invalidate()
+        scanTimer = nil
+
         scanNow()
         scanTimer = Timer.scheduledTimer(withTimeInterval: scanInterval, repeats: true) { [weak self] _ in
             Task { @MainActor [weak self] in
@@ -203,7 +208,7 @@ class NearbyNetworksViewModel: ObservableObject {
         }
     }
 
-    deinit {
+    nonisolated deinit {
         scanTimer?.invalidate()
     }
 }
