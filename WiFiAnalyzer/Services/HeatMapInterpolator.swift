@@ -12,8 +12,7 @@ import Foundation
 /// Performs spatial interpolation of RSSI values using Inverse Distance Weighting (IDW).
 ///
 /// Used by ``HeatMapViewModel`` to generate a continuous signal-strength grid
-/// from discrete ``HeatMapDataPoint`` measurements. Also provides optional
-/// Gaussian smoothing for visual refinement of the heat map.
+/// from discrete ``HeatMapDataPoint`` measurements.
 class HeatMapInterpolator {
 
     // MARK: - Inverse Distance Weighting (IDW) Interpolation
@@ -65,30 +64,6 @@ class HeatMapInterpolator {
         return Int(round(weightedSum / totalWeight))
     }
 
-    /// Interpolate RSSI with confidence level
-    func interpolateWithConfidence(
-        at point: LocationCoordinate,
-        from measurements: [HeatMapDataPoint],
-        power: Double = 2.0
-    ) -> (rssi: Int, confidence: Double) {
-        guard !measurements.isEmpty else { return (-90, 0.0) }
-
-        // Find nearest measurements
-        let sorted = measurements.sorted {
-            point.distance(to: $0.coordinate) < point.distance(to: $1.coordinate)
-        }
-
-        let nearest = sorted.prefix(5)
-        let maxDist = nearest.map { point.distance(to: $0.coordinate) }.max() ?? 1.0
-
-        // Confidence decreases with distance
-        let confidence = 1.0 / (1.0 + maxDist)
-
-        let rssi = interpolateRSSI(at: point, from: Array(nearest), power: power, maxDistance: maxDist * 2)
-
-        return (rssi, confidence)
-    }
-
     // MARK: - Grid Generation
 
     /// Generate a complete heat map grid
@@ -126,57 +101,5 @@ class HeatMapInterpolator {
         }
 
         return grid
-    }
-
-    // MARK: - Smoothing
-
-    /// Apply Gaussian smoothing to heat map grid
-    func applyGaussianSmoothing(to grid: [[Int]], kernelSize: Int = 3) -> [[Int]] {
-        guard !grid.isEmpty, kernelSize > 0 else { return grid }
-
-        let height = grid.count
-        let width = grid[0].count
-        var smoothed = grid
-
-        let sigma = Double(kernelSize) / 3.0
-        let kernel = generateGaussianKernel(size: kernelSize, sigma: sigma)
-
-        for row in 0..<height {
-            for col in 0..<width {
-                var sum = 0.0
-                var weightSum = 0.0
-
-                for kr in 0..<kernelSize {
-                    for kc in 0..<kernelSize {
-                        let r = row + kr - kernelSize / 2
-                        let c = col + kc - kernelSize / 2
-
-                        if r >= 0 && r < height && c >= 0 && c < width {
-                            sum += Double(grid[r][c]) * kernel[kr][kc]
-                            weightSum += kernel[kr][kc]
-                        }
-                    }
-                }
-
-                smoothed[row][col] = Int(round(sum / weightSum))
-            }
-        }
-
-        return smoothed
-    }
-
-    private func generateGaussianKernel(size: Int, sigma: Double) -> [[Double]] {
-        var kernel: [[Double]] = Array(repeating: Array(repeating: 0.0, count: size), count: size)
-        let center = size / 2
-
-        for i in 0..<size {
-            for j in 0..<size {
-                let x = Double(i - center)
-                let y = Double(j - center)
-                kernel[i][j] = exp(-(x * x + y * y) / (2.0 * sigma * sigma))
-            }
-        }
-
-        return kernel
     }
 }

@@ -24,8 +24,9 @@ struct DashboardView: View {
                 if let roamEvent = viewModel.lastRoamingEvent {
                     RoamingEventBadge(
                         event: roamEvent,
-                        onDismiss: { viewModel.dismissRoamingEvent() }
+                        onDismiss: { viewModel.dismissRoamingEvent(id: roamEvent.id) }
                     )
+                    .id(roamEvent.id)
                     .padding(.horizontal)
                     .animation(.easeInOut(duration: 0.3), value: viewModel.lastRoamingEvent?.id)
                 }

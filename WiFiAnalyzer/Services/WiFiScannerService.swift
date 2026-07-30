@@ -37,6 +37,15 @@ enum WiFiError: LocalizedError {
 /// and to scan for nearby access points (``scanForNearbyNetworks()``).
 /// Requires Location Services authorization on macOS for WiFi scanning capabilities.
 class WiFiScannerService: NSObject, CLLocationManagerDelegate {
+    /// Shared instance used across the app.
+    ///
+    /// The service owns a `CLLocationManager` and requests Location Services
+    /// authorization in `init`, so a single shared instance avoids spinning up
+    /// a separate location manager (and a duplicate authorization request) for
+    /// every scanning ViewModel. ViewModels still accept an injected service for
+    /// testing.
+    static let shared = WiFiScannerService()
+
     private let wifiClient: CWWiFiClient
     private let locationManager: CLLocationManager
 
@@ -125,13 +134,18 @@ class WiFiScannerService: NSObject, CLLocationManagerDelegate {
         let allNetworks = networks.compactMap { cwNetwork -> NearbyNetwork? in
             // Skip hidden networks (no SSID)
             guard let ssid = cwNetwork.ssid, !ssid.isEmpty else { return nil }
-            let bssid = cwNetwork.bssid ?? "unknown"
             let channel = cwNetwork.wlanChannel?.channelNumber ?? 0
             let band = getBand(for: channel)
             let channelWidth: Int? = cwNetwork.wlanChannel.map { getChannelWidthValue($0.channelWidth) }
 
+            // CoreWLAN can report a nil BSSID (e.g. without location permission).
+            // Give each such network a unique id so distinct APs sharing an SSID
+            // aren't collapsed into a single "SSID_unknown" entry during dedup.
+            let bssid = cwNetwork.bssid ?? "unknown"
+            let id = cwNetwork.bssid.map { "\(ssid)_\($0)" } ?? "\(ssid)_unknown_\(UUID().uuidString)"
+
             return NearbyNetwork(
-                id: "\(ssid)_\(bssid)",
+                id: id,
                 ssid: ssid,
                 bssid: bssid,
                 rssi: cwNetwork.rssiValue,
@@ -263,21 +277,22 @@ class WiFiScannerService: NSObject, CLLocationManagerDelegate {
         defer { freeifaddrs(ifaddr) }
 
         var ptr = ifaddr
-        while ptr != nil {
-            defer { ptr = ptr?.pointee.ifa_next }
+        while let currentPtr = ptr {
+            defer { ptr = currentPtr.pointee.ifa_next }
 
-            let interface = ptr?.pointee
-            let addrFamily = interface?.ifa_addr.pointee.sa_family
+            let interface = currentPtr.pointee
+            let addrFamily = interface.ifa_addr?.pointee.sa_family
 
             // Check for WiFi interface (en0 or en1 typically)
-            if let name = interface?.ifa_name,
+            if let name = interface.ifa_name,
                String(cString: name).starts(with: "en"),
-               addrFamily == UInt8(AF_INET) {
+               addrFamily == UInt8(AF_INET),
+               let ifaAddr = interface.ifa_addr {
 
-                var addr = interface?.ifa_addr.pointee
+                var addr = ifaAddr.pointee
                 var hostname = [CChar](repeating: 0, count: Int(NI_MAXHOST))
 
-                if getnameinfo(&addr!, socklen_t(interface!.ifa_addr.pointee.sa_len),
+                if getnameinfo(&addr, socklen_t(ifaAddr.pointee.sa_len),
                               &hostname, socklen_t(hostname.count),
                               nil, 0, NI_NUMERICHOST) == 0 {
                     let address = String(cString: hostname)
@@ -350,9 +365,5 @@ class WiFiScannerService: NSObject, CLLocationManagerDelegate {
             return "Open"
         }
         return "Unknown"
-    }
-
-    func isWiFiAvailable() -> Bool {
-        return wifiClient.interface() != nil
     }
 }

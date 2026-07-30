@@ -13,6 +13,7 @@ import SwiftUI
 enum NavigationItem: String, CaseIterable {
     case signalMonitor = "Signal Monitor"
     case nearbyNetworks = "Nearby Networks"
+    case channelAnalyzer = "Channel Analyzer"
     case markedLocations = "Marked Locations"
     case statistics = "Statistics"
     case heatMap = "Heat Map"
@@ -24,6 +25,8 @@ enum NavigationItem: String, CaseIterable {
             return "wifi"
         case .nearbyNetworks:
             return "antenna.radiowaves.left.and.right"
+        case .channelAnalyzer:
+            return "chart.bar.xaxis"
         case .markedLocations:
             return "mappin.and.ellipse"
         case .statistics:
@@ -56,6 +59,8 @@ struct ContentView: View {
                     DashboardView()
                 case .nearbyNetworks:
                     NearbyNetworksView()
+                case .channelAnalyzer:
+                    ChannelAnalyzerView()
                 case .markedLocations:
                     MeasurementsListView()
                 case .statistics:

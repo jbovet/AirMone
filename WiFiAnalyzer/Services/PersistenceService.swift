@@ -37,6 +37,16 @@ class PersistenceService {
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
 
+    /// Serializes access to ``cache`` so `load()`/`save()` are safe across threads.
+    private let lock = NSLock()
+
+    /// In-memory copy of the persisted measurements, lazily populated on first
+    /// `load()` and kept in sync on every mutation. `load()` is reachable from
+    /// SwiftUI `body` (e.g. via computed ViewModel properties), so this avoids
+    /// decoding the full UserDefaults blob on every view update. All writes go
+    /// through this service, so the cache never goes stale.
+    private var cache: [MeasurementPoint]?
+
     /// Publishes whenever measurements data changes (save, delete, append)
     let dataChanged = PassthroughSubject<Void, Never>()
 
@@ -51,14 +61,28 @@ class PersistenceService {
             throw PersistenceError.encodingFailed
         }
         userDefaults.set(data, forKey: measurementsKey)
+        lock.lock()
+        cache = measurements
+        lock.unlock()
         dataChanged.send()
     }
 
     func load() -> [MeasurementPoint] {
-        guard let data = userDefaults.data(forKey: measurementsKey),
-              let measurements = try? decoder.decode([MeasurementPoint].self, from: data) else {
-            return []
+        lock.lock()
+        defer { lock.unlock() }
+
+        if let cache {
+            return cache
         }
+
+        let measurements: [MeasurementPoint]
+        if let data = userDefaults.data(forKey: measurementsKey),
+           let decoded = try? decoder.decode([MeasurementPoint].self, from: data) {
+            measurements = decoded
+        } else {
+            measurements = []
+        }
+        cache = measurements
         return measurements
     }
 

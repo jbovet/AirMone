@@ -60,11 +60,12 @@ class ExportService {
             let date = dateFormatter.string(from: measurement.timestamp)
             let time = timeFormatter.string(from: measurement.timestamp)
 
-            // Escape fields that might contain commas
+            // Escape fields that might contain commas, quotes, or spreadsheet formulas
             let location = escapeCSVField(measurement.locationName)
             let ssid = escapeCSVField(measurement.ssid)
+            let bssid = escapeCSVField(measurement.bssid)
 
-            csvString += "\(location),\(ssid),\(measurement.bssid),\(measurement.rssi),\(signalQuality),\(date),\(time)\n"
+            csvString += "\(location),\(ssid),\(bssid),\(measurement.rssi),\(signalQuality),\(date),\(time)\n"
         }
 
         return csvString
@@ -106,7 +107,21 @@ class ExportService {
 
     // MARK: - Helper Methods
 
+    /// Characters that spreadsheet applications (Excel, Numbers, Google Sheets) interpret
+    /// as the start of a formula when found at the beginning of a cell.
+    private static let formulaTriggerCharacters: Set<Character> = ["=", "+", "-", "@", "\t", "\r"]
+
     func escapeCSVField(_ field: String) -> String {
+        var field = field
+
+        // Neutralize potential formula injection (CSV/formula injection, CWE-1236).
+        // Fields may originate from untrusted sources (e.g. a nearby network's SSID),
+        // so a leading formula-trigger character is prefixed with a single quote,
+        // matching the standard mitigation used by spreadsheet applications.
+        if let first = field.first, Self.formulaTriggerCharacters.contains(first) {
+            field = "'" + field
+        }
+
         if field.contains(",") || field.contains("\"") || field.contains("\n") {
             let escaped = field.replacingOccurrences(of: "\"", with: "\"\"")
             return "\"\(escaped)\""

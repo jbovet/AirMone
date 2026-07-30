@@ -50,7 +50,7 @@ class NearbyNetworksViewModel: ObservableObject {
         case channel = "Channel"
     }
 
-    init(scannerService: WiFiScannerService = WiFiScannerService()) {
+    init(scannerService: WiFiScannerService = .shared) {
         self.scannerService = scannerService
     }
 
@@ -165,6 +165,15 @@ class NearbyNetworksViewModel: ObservableObject {
                     self.nearbyNetworks = networks
                     self.connectedBSSID = currentBSSID
                     self.errorMessage = nil
+
+                    // Prune tracking state for networks no longer seen in this scan,
+                    // so signalHistory/previousDistances/distanceTrends don't grow unbounded
+                    // over a long session in a dense WiFi area.
+                    let currentBSSIDs = Set(networks.map { $0.bssid })
+                    let currentSSIDs = Set(networks.map { $0.ssid })
+                    self.previousDistances = self.previousDistances.filter { currentBSSIDs.contains($0.key) }
+                    self.distanceTrends = self.distanceTrends.filter { currentBSSIDs.contains($0.key) }
+                    self.signalHistory = self.signalHistory.filter { currentSSIDs.contains($0.key) }
 
                     // Update distance trends for each AP
                     for network in networks {

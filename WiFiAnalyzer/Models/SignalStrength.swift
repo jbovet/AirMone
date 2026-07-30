@@ -26,7 +26,7 @@ enum SignalStrength: String, CaseIterable {
     /// - Returns: The corresponding signal strength category.
     static func from(rssi: Int) -> SignalStrength {
         switch rssi {
-        case -50...0:
+        case let rssi where rssi >= -50:
             return .excellent
         case -60 ..< -50:
             return .good

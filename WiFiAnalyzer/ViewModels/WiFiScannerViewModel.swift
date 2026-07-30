@@ -45,7 +45,7 @@ class WiFiScannerViewModel: ObservableObject {
         return Array(uniqueNames.reversed().prefix(5))
     }
 
-    init(scannerService: WiFiScannerService = WiFiScannerService(),
+    init(scannerService: WiFiScannerService = .shared,
          persistenceService: PersistenceService = .shared) {
         self.scannerService = scannerService
         self.persistenceService = persistenceService
@@ -135,9 +135,13 @@ class WiFiScannerViewModel: ObservableObject {
         }
     }
 
-    /// Dismiss the current roaming event notification
-    func dismissRoamingEvent() {
-        lastRoamingEvent = nil
+    /// Dismiss the roaming event notification with the given id.
+    /// No-ops if a newer event has already replaced it, so a stale
+    /// auto-dismiss timer can't clear a more recent notification.
+    func dismissRoamingEvent(id: UUID) {
+        if lastRoamingEvent?.id == id {
+            lastRoamingEvent = nil
+        }
     }
 
     /// Maximum allowed length for location names.

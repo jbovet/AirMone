@@ -13,6 +13,12 @@ final class SignalStrengthTests: XCTestCase {
         XCTAssertEqual(SignalStrength.from(rssi: -50), .excellent)
     }
 
+    func testExcellentSignalPositiveRSSI() {
+        // Some drivers/hardware can report positive RSSI values; these should
+        // still be classified as excellent rather than falling through to unusable.
+        XCTAssertEqual(SignalStrength.from(rssi: 5), .excellent)
+    }
+
     func testGoodSignalUpperBound() {
         XCTAssertEqual(SignalStrength.from(rssi: -51), .good)
     }

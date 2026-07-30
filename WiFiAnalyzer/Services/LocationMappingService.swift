@@ -13,8 +13,7 @@ import os
 /// Singleton service that manages the mapping between location names and spatial coordinates.
 ///
 /// Persists coordinate assignments to `UserDefaults` so that heat map pin positions
-/// survive app restarts. Supports automatic grid layout generation for unmapped locations
-/// and import/export of coordinate mappings.
+/// survive app restarts. Supports automatic grid layout generation for unmapped locations.
 class LocationMappingService {
     static let shared = LocationMappingService()
 
@@ -121,17 +120,5 @@ class LocationMappingService {
         } catch {
             AppLogger.persistence.error("Failed to save coordinate mapping: \(error.localizedDescription, privacy: .public)")
         }
-    }
-
-    // MARK: - Import/Export
-
-    func exportMapping() -> Data? {
-        try? JSONEncoder().encode(coordinateMapping)
-    }
-
-    func importMapping(from data: Data) throws {
-        let mapping = try JSONDecoder().decode([String: LocationCoordinate].self, from: data)
-        coordinateMapping = mapping
-        saveMapping()
     }
 }

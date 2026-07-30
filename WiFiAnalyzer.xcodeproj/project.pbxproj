@@ -59,6 +59,10 @@
 		D1STANC3TR3ND12345678901 /* DistanceTrend.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1STANC3TR3ND12345678902 /* DistanceTrend.swift */; };
 		R0AM1NG3V3NT12345678901 /* RoamingEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = R0AM1NG3V3NT12345678902 /* RoamingEvent.swift */; };
 		R0AM1NGBADG312345678901 /* RoamingEventBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = R0AM1NGBADG312345678902 /* RoamingEventBadge.swift */; };
+		C8ANN01SEC0DE12345678901 /* ChannelCongestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8ANN01SEC0DE12345678902 /* ChannelCongestion.swift */; };
+		N01SESVM00C0DE123456701 /* ChannelAnalyzerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = N01SESVM00C0DE123456702 /* ChannelAnalyzerViewModel.swift */; };
+		N01SESV1EW00C0DE1234701 /* ChannelAnalyzerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = N01SESV1EW00C0DE1234702 /* ChannelAnalyzerView.swift */; };
+		N01SESVMT3ST00C0DE34701 /* ChannelAnalyzerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = N01SESVMT3ST00C0DE34702 /* ChannelAnalyzerViewModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -128,6 +132,10 @@
 		D1STANC3TR3ND12345678902 /* DistanceTrend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceTrend.swift; sourceTree = "<group>"; };
 		R0AM1NG3V3NT12345678902 /* RoamingEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoamingEvent.swift; sourceTree = "<group>"; };
 		R0AM1NGBADG312345678902 /* RoamingEventBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoamingEventBadge.swift; sourceTree = "<group>"; };
+		C8ANN01SEC0DE12345678902 /* ChannelCongestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelCongestion.swift; sourceTree = "<group>"; };
+		N01SESVM00C0DE123456702 /* ChannelAnalyzerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelAnalyzerViewModel.swift; sourceTree = "<group>"; };
+		N01SESV1EW00C0DE1234702 /* ChannelAnalyzerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelAnalyzerView.swift; sourceTree = "<group>"; };
+		N01SESVMT3ST00C0DE34702 /* ChannelAnalyzerViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelAnalyzerViewModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -236,6 +244,7 @@
 				1AA876AC4ECB6CC3D11C8E58 /* StatisticsViewModel.swift */,
 				98F95ADF5794288257CF9154 /* HeatMapViewModel.swift */,
 				AB12345678901BCD12345612 /* NearbyNetworksViewModel.swift */,
+				N01SESVM00C0DE123456702 /* ChannelAnalyzerViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -252,6 +261,7 @@
 				AB12345678901BCD12345611 /* NearbyNetwork.swift */,
 				D1STANC3TR3ND12345678902 /* DistanceTrend.swift */,
 				R0AM1NG3V3NT12345678902 /* RoamingEvent.swift */,
+				C8ANN01SEC0DE12345678902 /* ChannelCongestion.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -263,6 +273,14 @@
 				AB12345678901BCD12345614 /* NearbyNetworkRowView.swift */,
 			);
 			path = NearbyNetworks;
+			sourceTree = "<group>";
+		};
+		N01SESIGNALSGR0UP1234567 /* ChannelAnalyzer */ = {
+			isa = PBXGroup;
+			children = (
+				N01SESV1EW00C0DE1234702 /* ChannelAnalyzerView.swift */,
+			);
+			path = ChannelAnalyzer;
 			sourceTree = "<group>";
 		};
 		B4ABE09E4719477B875C17E8 /* Products */ = {
@@ -301,6 +319,7 @@
 				D37A5B9E3A874E918DD77DDD /* SupportView.swift */,
 				4BCCD5AF88CF4E38A5C2B952 /* Dashboard */,
 				AB12345678901BCD12345620 /* NearbyNetworks */,
+				N01SESIGNALSGR0UP1234567 /* ChannelAnalyzer */,
 				6DAAC45B968D4487A25084FD /* Measurements */,
 				1E0A1A17CA2ECFB99025A41E /* Statistics */,
 				BA7DE4F89A3C28D52408FB11 /* HeatMap */,
@@ -319,6 +338,7 @@
 				F670718293A4B5C6D7E8F910 /* StatisticsViewModelTests.swift */,
 				B870718293A4B5C6D7E8F912 /* LocationMappingServiceTests.swift */,
 				AB12345678901BCD12345691 /* NearbyNetworksTests.swift */,
+				N01SESVMT3ST00C0DE34702 /* ChannelAnalyzerViewModelTests.swift */,
 			);
 			path = WiFiAnalyzerTests;
 			sourceTree = "<group>";
@@ -456,6 +476,9 @@
 				D1STANC3TR3ND12345678901 /* DistanceTrend.swift in Sources */,
 				R0AM1NG3V3NT12345678901 /* RoamingEvent.swift in Sources */,
 				R0AM1NGBADG312345678901 /* RoamingEventBadge.swift in Sources */,
+				C8ANN01SEC0DE12345678901 /* ChannelCongestion.swift in Sources */,
+				N01SESVM00C0DE123456701 /* ChannelAnalyzerViewModel.swift in Sources */,
+				N01SESV1EW00C0DE1234701 /* ChannelAnalyzerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -471,6 +494,7 @@
 				E570718293A4B5C6D7E8F90F /* StatisticsViewModelTests.swift in Sources */,
 				A770718293A4B5C6D7E8F911 /* LocationMappingServiceTests.swift in Sources */,
 				AB12345678901BCD12345690 /* NearbyNetworksTests.swift in Sources */,
+				N01SESVMT3ST00C0DE34701 /* ChannelAnalyzerViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

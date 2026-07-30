@@ -108,4 +108,39 @@ final class ExportServiceTests: XCTestCase {
     func testEscapeFieldWithNewline() {
         XCTAssertEqual(sut.escapeCSVField("Room\nFloor"), "\"Room\nFloor\"")
     }
+
+    // MARK: - CSV Formula Injection Tests
+
+    func testEscapeFieldNeutralizesLeadingEquals() {
+        XCTAssertEqual(sut.escapeCSVField("=HYPERLINK(\"http://evil.com\")"), "\"'=HYPERLINK(\"\"http://evil.com\"\")\"")
+    }
+
+    func testEscapeFieldNeutralizesLeadingPlus() {
+        XCTAssertEqual(sut.escapeCSVField("+1+1"), "'+1+1")
+    }
+
+    func testEscapeFieldNeutralizesLeadingMinus() {
+        XCTAssertEqual(sut.escapeCSVField("-2+3"), "'-2+3")
+    }
+
+    func testEscapeFieldNeutralizesLeadingAt() {
+        XCTAssertEqual(sut.escapeCSVField("@SUM(A1:A2)"), "'@SUM(A1:A2)")
+    }
+
+    func testEscapeFieldNeutralizesLeadingTab() {
+        XCTAssertEqual(sut.escapeCSVField("\t=cmd"), "'\t=cmd")
+    }
+
+    func testEscapeFieldDoesNotAlterBenignLeadingCharacters() {
+        XCTAssertEqual(sut.escapeCSVField("Kitchen"), "Kitchen")
+        XCTAssertEqual(sut.escapeCSVField("3rd Floor"), "3rd Floor")
+    }
+
+    func testCSVContentNeutralizesFormulaInSSID() throws {
+        let csv = try sut.generateCSVContent([makeMeasurement(ssid: "=2+5+cmd|' /C calc'!A0")])
+        let lines = csv.components(separatedBy: "\n").filter { !$0.isEmpty }
+        let fields = lines[1].components(separatedBy: ",")
+        // SSID is the second field and must not start with a formula-trigger character
+        XCTAssertTrue(fields[1].hasPrefix("\"'=") || fields[1].hasPrefix("'="))
+    }
 }
