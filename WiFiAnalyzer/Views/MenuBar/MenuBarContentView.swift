@@ -23,6 +23,7 @@ struct MenuBarContentView: View {
     static let mainWindowID = "main"
 
     @Environment(\.openWindow) private var openWindow
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -125,5 +126,7 @@ struct MenuBarContentView: View {
     private func openMainWindow() {
         openWindow(id: Self.mainWindowID)
         NSApplication.shared.activate(ignoringOtherApps: true)
+        // Close the menu bar popover so it isn't left showing alongside the window.
+        dismiss()
     }
 }
