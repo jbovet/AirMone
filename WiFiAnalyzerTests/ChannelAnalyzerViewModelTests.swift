@@ -186,6 +186,50 @@ final class ChannelAnalyzerViewModelTests: XCTestCase {
         XCTAssertNotEqual(sut.recommendationsByBand["5 GHz"]?.channel, 36) // avoids the busy channel
     }
 
+    // MARK: - Sort order
+
+    func testSortDefaultsToMostCongested() {
+        XCTAssertEqual(sut.channelSortOrder, .congestion)
+    }
+
+    func testSortByCongestionPutsBusiestFirst() {
+        sut.nearbyNetworks = [
+            // Channel 1: two strong APs -> higher score
+            makeNetwork(bssid: "AA:AA:AA:AA:AA:01", rssi: -50, channel: 1, band: "2.4 GHz"),
+            makeNetwork(bssid: "AA:AA:AA:AA:AA:02", rssi: -50, channel: 1, band: "2.4 GHz"),
+            // Channel 11: one weak AP -> lower score
+            makeNetwork(bssid: "AA:AA:AA:AA:AA:03", rssi: -85, channel: 11, band: "2.4 GHz")
+        ]
+
+        sut.channelSortOrder = .congestion
+        let ordered = sut.sortedChannelCongestion
+        XCTAssertEqual(ordered.first?.channel, 1)   // busiest first
+        XCTAssertEqual(ordered.last?.channel, 11)
+    }
+
+    func testSortByChannelKeepsChannelOrder() {
+        sut.nearbyNetworks = [
+            makeNetwork(bssid: "AA:AA:AA:AA:AA:01", rssi: -85, channel: 1, band: "2.4 GHz"),
+            makeNetwork(bssid: "AA:AA:AA:AA:AA:02", rssi: -50, channel: 11, band: "2.4 GHz")
+        ]
+
+        sut.channelSortOrder = .channel
+        XCTAssertEqual(sut.sortedChannelCongestion.map { $0.channel }, [1, 11])
+    }
+
+    func testSortByAPCountPutsMostAPsFirst() {
+        sut.nearbyNetworks = [
+            makeNetwork(bssid: "AA:AA:AA:AA:AA:01", channel: 6, band: "2.4 GHz"),
+            makeNetwork(bssid: "AA:AA:AA:AA:AA:02", channel: 6, band: "2.4 GHz"),
+            makeNetwork(bssid: "AA:AA:AA:AA:AA:03", channel: 6, band: "2.4 GHz"),
+            makeNetwork(bssid: "AA:AA:AA:AA:AA:04", channel: 1, band: "2.4 GHz")
+        ]
+
+        sut.channelSortOrder = .apCount
+        XCTAssertEqual(sut.sortedChannelCongestion.first?.channel, 6) // 3 APs
+        XCTAssertEqual(sut.sortedChannelCongestion.first?.apCount, 3)
+    }
+
     // MARK: - Band Filter
 
     func testBandFilterRestrictsCongestion() {

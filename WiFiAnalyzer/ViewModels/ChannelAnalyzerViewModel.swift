@@ -26,6 +26,14 @@ class ChannelAnalyzerViewModel: ObservableObject {
     @Published var errorMessage: String?
     @Published var isScanning: Bool = false
     @Published var selectedBandFilter: NearbyNetworksViewModel.BandFilter = .all
+    @Published var channelSortOrder: ChannelSortOrder = .congestion
+
+    /// Ordering options for the channel details table.
+    enum ChannelSortOrder: String, CaseIterable {
+        case congestion = "Most Congested"
+        case channel = "Channel"
+        case apCount = "AP Count"
+    }
 
     private let scannerService: WiFiScannerService
     private var scanTimer: Timer?
@@ -75,7 +83,9 @@ class ChannelAnalyzerViewModel: ObservableObject {
 
     // MARK: - Derived State
 
-    private var filteredNetworks: [NearbyNetwork] {
+    /// Access points restricted to the selected band (all bands when `.all`).
+    /// Also drives the spectrum overlap chart.
+    var filteredNetworks: [NearbyNetwork] {
         selectedBandFilter == .all
             ? nearbyNetworks
             : nearbyNetworks.filter { $0.band == selectedBandFilter.rawValue }
@@ -112,6 +122,26 @@ class ChannelAnalyzerViewModel: ObservableObject {
         }
         .sorted {
             $0.band == $1.band ? $0.channel < $1.channel : $0.band < $1.band
+        }
+    }
+
+    /// ``channelCongestion`` ordered for the details table per ``channelSortOrder``.
+    /// The bar chart keeps the channel-number order above; only the table reorders.
+    var sortedChannelCongestion: [ChannelCongestion] {
+        let levels = channelCongestion
+        switch channelSortOrder {
+        case .congestion:
+            return levels.sorted {
+                $0.score != $1.score
+                    ? $0.score > $1.score
+                    : ($0.band == $1.band ? $0.channel < $1.channel : $0.band < $1.band)
+            }
+        case .channel:
+            return levels  // already band-then-channel
+        case .apCount:
+            return levels.sorted {
+                $0.apCount != $1.apCount ? $0.apCount > $1.apCount : $0.score > $1.score
+            }
         }
     }
 

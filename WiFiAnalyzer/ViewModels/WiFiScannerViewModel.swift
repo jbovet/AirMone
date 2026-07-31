@@ -28,6 +28,7 @@ class WiFiScannerViewModel: ObservableObject {
     private let scannerService: WiFiScannerService
     private let persistenceService: PersistenceService
     private var scanTimer: Timer?
+    private let scanInterval: TimeInterval
     private let maxHistoryPoints = 30 // Last 60 seconds of data (at 2-second intervals)
     private var previousBSSID: String?
     private var previousRSSI: Int?
@@ -46,9 +47,11 @@ class WiFiScannerViewModel: ObservableObject {
     }
 
     init(scannerService: WiFiScannerService = .shared,
-         persistenceService: PersistenceService = .shared) {
+         persistenceService: PersistenceService = .shared,
+         scanInterval: TimeInterval = 2.0) {
         self.scannerService = scannerService
         self.persistenceService = persistenceService
+        self.scanInterval = scanInterval
     }
 
     func startLiveScanning() {
@@ -62,7 +65,7 @@ class WiFiScannerViewModel: ObservableObject {
 
         scanNow()
 
-        scanTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { [weak self] _ in
+        scanTimer = Timer.scheduledTimer(withTimeInterval: scanInterval, repeats: true) { [weak self] _ in
             Task { @MainActor [weak self] in
                 self?.scanNow()
             }
