@@ -63,6 +63,11 @@
 		N01SESVM00C0DE123456701 /* ChannelAnalyzerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = N01SESVM00C0DE123456702 /* ChannelAnalyzerViewModel.swift */; };
 		N01SESV1EW00C0DE1234701 /* ChannelAnalyzerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = N01SESV1EW00C0DE1234702 /* ChannelAnalyzerView.swift */; };
 		N01SESVMT3ST00C0DE34701 /* ChannelAnalyzerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = N01SESVMT3ST00C0DE34702 /* ChannelAnalyzerViewModelTests.swift */; };
+		BF010000000000000000AA01 /* MenuBarContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF010000000000000000AA02 /* MenuBarContentView.swift */; };
+		BF060000000000000000AA01 /* MenuBarSignalIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF060000000000000000AA02 /* MenuBarSignalIcon.swift */; };
+		BF020000000000000000AA01 /* WiFiFrequency.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF020000000000000000AA02 /* WiFiFrequency.swift */; };
+		BF030000000000000000AA01 /* ChannelOverlapChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF030000000000000000AA02 /* ChannelOverlapChartView.swift */; };
+		BF040000000000000000AA01 /* WiFiFrequencyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF040000000000000000AA02 /* WiFiFrequencyTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -136,6 +141,11 @@
 		N01SESVM00C0DE123456702 /* ChannelAnalyzerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelAnalyzerViewModel.swift; sourceTree = "<group>"; };
 		N01SESV1EW00C0DE1234702 /* ChannelAnalyzerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelAnalyzerView.swift; sourceTree = "<group>"; };
 		N01SESVMT3ST00C0DE34702 /* ChannelAnalyzerViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelAnalyzerViewModelTests.swift; sourceTree = "<group>"; };
+		BF010000000000000000AA02 /* MenuBarContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarContentView.swift; sourceTree = "<group>"; };
+		BF060000000000000000AA02 /* MenuBarSignalIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarSignalIcon.swift; sourceTree = "<group>"; };
+		BF020000000000000000AA02 /* WiFiFrequency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WiFiFrequency.swift; sourceTree = "<group>"; };
+		BF030000000000000000AA02 /* ChannelOverlapChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelOverlapChartView.swift; sourceTree = "<group>"; };
+		BF040000000000000000AA02 /* WiFiFrequencyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WiFiFrequencyTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -279,8 +289,18 @@
 			isa = PBXGroup;
 			children = (
 				N01SESV1EW00C0DE1234702 /* ChannelAnalyzerView.swift */,
+				BF030000000000000000AA02 /* ChannelOverlapChartView.swift */,
 			);
 			path = ChannelAnalyzer;
+			sourceTree = "<group>";
+		};
+		BF050000000000000000AA00 /* MenuBar */ = {
+			isa = PBXGroup;
+			children = (
+				BF010000000000000000AA02 /* MenuBarContentView.swift */,
+				BF060000000000000000AA02 /* MenuBarSignalIcon.swift */,
+			);
+			path = MenuBar;
 			sourceTree = "<group>";
 		};
 		B4ABE09E4719477B875C17E8 /* Products */ = {
@@ -308,6 +328,7 @@
 				A1B2C3D4E5F6A708192A3B4D /* SSIDColorPalette.swift */,
 				B2C3D4E5F6A7B809102B3C4E /* OUILookup.swift */,
 				A0B1C2D3E4F5A6B7C8D9E0F2 /* AppLogger.swift */,
+				BF020000000000000000AA02 /* WiFiFrequency.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -320,6 +341,7 @@
 				4BCCD5AF88CF4E38A5C2B952 /* Dashboard */,
 				AB12345678901BCD12345620 /* NearbyNetworks */,
 				N01SESIGNALSGR0UP1234567 /* ChannelAnalyzer */,
+				BF050000000000000000AA00 /* MenuBar */,
 				6DAAC45B968D4487A25084FD /* Measurements */,
 				1E0A1A17CA2ECFB99025A41E /* Statistics */,
 				BA7DE4F89A3C28D52408FB11 /* HeatMap */,
@@ -339,6 +361,7 @@
 				B870718293A4B5C6D7E8F912 /* LocationMappingServiceTests.swift */,
 				AB12345678901BCD12345691 /* NearbyNetworksTests.swift */,
 				N01SESVMT3ST00C0DE34702 /* ChannelAnalyzerViewModelTests.swift */,
+				BF040000000000000000AA02 /* WiFiFrequencyTests.swift */,
 			);
 			path = WiFiAnalyzerTests;
 			sourceTree = "<group>";
@@ -479,6 +502,10 @@
 				C8ANN01SEC0DE12345678901 /* ChannelCongestion.swift in Sources */,
 				N01SESVM00C0DE123456701 /* ChannelAnalyzerViewModel.swift in Sources */,
 				N01SESV1EW00C0DE1234701 /* ChannelAnalyzerView.swift in Sources */,
+				BF010000000000000000AA01 /* MenuBarContentView.swift in Sources */,
+				BF060000000000000000AA01 /* MenuBarSignalIcon.swift in Sources */,
+				BF020000000000000000AA01 /* WiFiFrequency.swift in Sources */,
+				BF030000000000000000AA01 /* ChannelOverlapChartView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -495,6 +522,7 @@
 				A770718293A4B5C6D7E8F911 /* LocationMappingServiceTests.swift in Sources */,
 				AB12345678901BCD12345690 /* NearbyNetworksTests.swift in Sources */,
 				N01SESVMT3ST00C0DE34701 /* ChannelAnalyzerViewModelTests.swift in Sources */,
+				BF040000000000000000AA01 /* WiFiFrequencyTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

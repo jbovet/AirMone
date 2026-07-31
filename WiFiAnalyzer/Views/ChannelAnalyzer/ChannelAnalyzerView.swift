@@ -21,6 +21,7 @@ struct ChannelAnalyzerView: View {
             VStack(spacing: 16) {
                 toolbarSection
                 recommendationSection
+                ChannelOverlapChartView(networks: viewModel.filteredNetworks)
                 chartSection
                 channelListSection
             }
@@ -224,6 +225,18 @@ struct ChannelAnalyzerView: View {
                     Text("Channel Details")
                         .font(.headline)
                     Spacer()
+
+                    if !viewModel.channelCongestion.isEmpty {
+                        Picker("Sort", selection: $viewModel.channelSortOrder) {
+                            ForEach(ChannelAnalyzerViewModel.ChannelSortOrder.allCases, id: \.self) { order in
+                                Text(order.rawValue).tag(order)
+                            }
+                        }
+                        .pickerStyle(.menu)
+                        .labelsHidden()
+                        .fixedSize()
+                        .help("Sort the channel list")
+                    }
                 }
                 .padding(.bottom, 8)
 
@@ -260,7 +273,7 @@ struct ChannelAnalyzerView: View {
 
             Divider()
 
-            ForEach(viewModel.channelCongestion) { level in
+            ForEach(viewModel.sortedChannelCongestion) { level in
                 channelRow(level)
                 Divider()
             }
