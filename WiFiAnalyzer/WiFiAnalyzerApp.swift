@@ -19,7 +19,10 @@ struct WiFiAnalyzerApp: App {
     @StateObject private var menuBarViewModel = WiFiScannerViewModel(scanInterval: 5.0)
 
     var body: some Scene {
-        WindowGroup(id: MenuBarContentView.mainWindowID) {
+        // A single-instance `Window` (not `WindowGroup`) so "Open WiFi Analyzer"
+        // from the menu bar fronts the existing window instead of spawning a
+        // duplicate.
+        Window("WiFi Analyzer", id: MenuBarContentView.mainWindowID) {
             ContentView()
         }
         .windowStyle(.hiddenTitleBar)

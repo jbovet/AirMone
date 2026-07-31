@@ -14,6 +14,7 @@ enum NavigationItem: String, CaseIterable {
     case signalMonitor = "Signal Monitor"
     case nearbyNetworks = "Nearby Networks"
     case channelAnalyzer = "Channel Analyzer"
+    case securityAudit = "Security Audit"
     case markedLocations = "Marked Locations"
     case statistics = "Statistics"
     case heatMap = "Heat Map"
@@ -27,6 +28,8 @@ enum NavigationItem: String, CaseIterable {
             return "antenna.radiowaves.left.and.right"
         case .channelAnalyzer:
             return "chart.bar.xaxis"
+        case .securityAudit:
+            return "checkmark.shield"
         case .markedLocations:
             return "mappin.and.ellipse"
         case .statistics:
@@ -61,6 +64,8 @@ struct ContentView: View {
                     NearbyNetworksView()
                 case .channelAnalyzer:
                     ChannelAnalyzerView()
+                case .securityAudit:
+                    SecurityAuditView()
                 case .markedLocations:
                     MeasurementsListView()
                 case .statistics:

@@ -68,6 +68,11 @@
 		BF020000000000000000AA01 /* WiFiFrequency.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF020000000000000000AA02 /* WiFiFrequency.swift */; };
 		BF030000000000000000AA01 /* ChannelOverlapChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF030000000000000000AA02 /* ChannelOverlapChartView.swift */; };
 		BF040000000000000000AA01 /* WiFiFrequencyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF040000000000000000AA02 /* WiFiFrequencyTests.swift */; };
+		BF070000000000000000AA01 /* SecurityRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF070000000000000000AA02 /* SecurityRating.swift */; };
+		BF080000000000000000AA01 /* SecurityAuditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF080000000000000000AA02 /* SecurityAuditViewModel.swift */; };
+		BF090000000000000000AA01 /* SecurityAuditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF090000000000000000AA02 /* SecurityAuditView.swift */; };
+		BF0A0000000000000000AA01 /* SecurityRatingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0A0000000000000000AA02 /* SecurityRatingTests.swift */; };
+		BF0C0000000000000000AA01 /* SecurityAuditViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C0000000000000000AA02 /* SecurityAuditViewModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -146,6 +151,11 @@
 		BF020000000000000000AA02 /* WiFiFrequency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WiFiFrequency.swift; sourceTree = "<group>"; };
 		BF030000000000000000AA02 /* ChannelOverlapChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelOverlapChartView.swift; sourceTree = "<group>"; };
 		BF040000000000000000AA02 /* WiFiFrequencyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WiFiFrequencyTests.swift; sourceTree = "<group>"; };
+		BF070000000000000000AA02 /* SecurityRating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityRating.swift; sourceTree = "<group>"; };
+		BF080000000000000000AA02 /* SecurityAuditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityAuditViewModel.swift; sourceTree = "<group>"; };
+		BF090000000000000000AA02 /* SecurityAuditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityAuditView.swift; sourceTree = "<group>"; };
+		BF0A0000000000000000AA02 /* SecurityRatingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityRatingTests.swift; sourceTree = "<group>"; };
+		BF0C0000000000000000AA02 /* SecurityAuditViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityAuditViewModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -255,6 +265,7 @@
 				98F95ADF5794288257CF9154 /* HeatMapViewModel.swift */,
 				AB12345678901BCD12345612 /* NearbyNetworksViewModel.swift */,
 				N01SESVM00C0DE123456702 /* ChannelAnalyzerViewModel.swift */,
+				BF080000000000000000AA02 /* SecurityAuditViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -272,6 +283,7 @@
 				D1STANC3TR3ND12345678902 /* DistanceTrend.swift */,
 				R0AM1NG3V3NT12345678902 /* RoamingEvent.swift */,
 				C8ANN01SEC0DE12345678902 /* ChannelCongestion.swift */,
+				BF070000000000000000AA02 /* SecurityRating.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -301,6 +313,14 @@
 				BF060000000000000000AA02 /* MenuBarSignalIcon.swift */,
 			);
 			path = MenuBar;
+			sourceTree = "<group>";
+		};
+		BF0B0000000000000000AA00 /* Security */ = {
+			isa = PBXGroup;
+			children = (
+				BF090000000000000000AA02 /* SecurityAuditView.swift */,
+			);
+			path = Security;
 			sourceTree = "<group>";
 		};
 		B4ABE09E4719477B875C17E8 /* Products */ = {
@@ -342,6 +362,7 @@
 				AB12345678901BCD12345620 /* NearbyNetworks */,
 				N01SESIGNALSGR0UP1234567 /* ChannelAnalyzer */,
 				BF050000000000000000AA00 /* MenuBar */,
+				BF0B0000000000000000AA00 /* Security */,
 				6DAAC45B968D4487A25084FD /* Measurements */,
 				1E0A1A17CA2ECFB99025A41E /* Statistics */,
 				BA7DE4F89A3C28D52408FB11 /* HeatMap */,
@@ -362,6 +383,8 @@
 				AB12345678901BCD12345691 /* NearbyNetworksTests.swift */,
 				N01SESVMT3ST00C0DE34702 /* ChannelAnalyzerViewModelTests.swift */,
 				BF040000000000000000AA02 /* WiFiFrequencyTests.swift */,
+				BF0A0000000000000000AA02 /* SecurityRatingTests.swift */,
+				BF0C0000000000000000AA02 /* SecurityAuditViewModelTests.swift */,
 			);
 			path = WiFiAnalyzerTests;
 			sourceTree = "<group>";
@@ -506,6 +529,9 @@
 				BF060000000000000000AA01 /* MenuBarSignalIcon.swift in Sources */,
 				BF020000000000000000AA01 /* WiFiFrequency.swift in Sources */,
 				BF030000000000000000AA01 /* ChannelOverlapChartView.swift in Sources */,
+				BF070000000000000000AA01 /* SecurityRating.swift in Sources */,
+				BF080000000000000000AA01 /* SecurityAuditViewModel.swift in Sources */,
+				BF090000000000000000AA01 /* SecurityAuditView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -523,6 +549,8 @@
 				AB12345678901BCD12345690 /* NearbyNetworksTests.swift in Sources */,
 				N01SESVMT3ST00C0DE34701 /* ChannelAnalyzerViewModelTests.swift in Sources */,
 				BF040000000000000000AA01 /* WiFiFrequencyTests.swift in Sources */,
+				BF0A0000000000000000AA01 /* SecurityRatingTests.swift in Sources */,
+				BF0C0000000000000000AA01 /* SecurityAuditViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
